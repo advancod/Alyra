@@ -1,4 +1,5 @@
-texteCesar = 'abc';
+
+texteCesar = prompt("texte à chiffrer");
 cleCesar = 1;
 
 arrayTexteCesar = Array.from(texteCesar);
