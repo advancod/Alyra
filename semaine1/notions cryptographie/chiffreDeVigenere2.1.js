@@ -1,4 +1,4 @@
-texteVigenere = prompt("texte à chiffrer");
+exteVigenere = prompt("texte à chiffrer");
 cleVegenere = prompt("clé à appliquer (doit contenir le même nombre de caractères que le texte)");
 
 arrayTexteVigenere = Array.from(texteVigenere.trim());
