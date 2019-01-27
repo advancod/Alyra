@@ -1,0 +1,269 @@
+<html>
+<head>
+  <title>Bitcoin blockchain analyzer</title>
+  <script src="./main.js" type="text/javascript"></script>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+</head>
+<body class="container">
+  <h3>Bitcoin blockchain analyzer</h3>
+      <body>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>CONVERSIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+        <tr>
+          <td>Binary to decimal :<input type="text" value="0" id="decimal" /></td>
+          <td><span id="value1"></span></td>
+          <td><button type="text" id="convert1">convertir</button></td>
+          <script>
+              document.getElementById("convert1").addEventListener("click", function(){
+              decimal = document.getElementById('decimal').value;
+              result = convertBinayToDecimal(decimal);
+              document.getElementById('value1').innerHTML = result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <td>Binary to hexadecimal :<input type="text" value="0" id="hexa" /></td>
+          <td>  <span type="text" id="value2"></span></td>
+          <td>  <button type="text" id="convert2">Convertir</button></td>
+          <script>
+              document.getElementById("convert2").addEventListener("click", function(){
+              hexa = document.getElementById('hexa').value;
+              result = convertBinaryToHexa(hexa);
+              document.getElementById('value2').innerHTML = "0x" + result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <td>decimal to binary :<input type="text" value="0" id="binary" /></td>
+          <td>  <span type="text" id="value3"></span></td>
+          <td>  <button type="text" id="convert3">Convertir</button></td>
+          <script>
+              document.getElementById("convert3").addEventListener("click", function(){
+              binary = document.getElementById('binary').value;
+              result = convertDecimalToBinary(binary);
+              document.getElementById('value3').innerHTML = result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <td>hexadecimal to binary :<input type="text" value="0" id="binary2" /></td>
+          <td>  <span type="text" id="value4"></span></td>
+          <td>  <button type="text" id="convert4">Convertir</button></td>
+          <script>
+              document.getElementById("convert4").addEventListener("click", function(){
+              binary2 = document.getElementById('decimal').value;
+              result = convertHexadecimalToBinary(binary2);
+              document.getElementById('value4').innerHTML = result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <td>hexadecimal to decimal :<input type="text" value="0" id="decimal2" /></td>
+          <td>  <span type="text" id="value5"></span></td>
+          <td>  <button type="text" id="convert5">Convertir</button></td>
+          <script>
+              document.getElementById("convert5").addEventListener("click", function(){
+              decimal2 = document.getElementById('decimal2').value;
+              result = convertHexaToDecimal(decimal2);
+              document.getElementById('value5').innerHTML = result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <td>decimal to hexadecimal :<input type="text" value="0" id="hexa2" /></td>
+          <td>  <span type="text" id="value6"></span></td>
+          <td>  <button type="text" id="convert6">Convertir</button></td>
+          <script>
+              document.getElementById("convert6").addEventListener("click", function(){
+              hexa2 = document.getElementById('hexa2').value;
+              result = convertDecimalToHexa(hexa2);
+              document.getElementById('value6').innerHTML = "0x" + result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <td>littleEndian to hexa :<input type="text" value="0" id="hexa3" /></td>
+          <td>  <span type="text" id="value7"></span></td>
+          <td>  <button type="text" id="convert7">Convertir</button></td>
+          <script>
+              document.getElementById("convert7").addEventListener("click", function(){
+              hexa3 = document.getElementById('hexa3').value;
+              result = LittleEndianToHex(hexa3);
+              document.getElementById('value7').innerHTML = "0x" + result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <td>add varInt to hexa :<input type="text" value="0" id="hexa4" /></td>
+          <td>  <span type="text" id="value8"></span></td>
+          <td>  <button type="text" id="convert8">Convertir</button></td>
+          <script>
+              document.getElementById("convert8").addEventListener("click", function(){
+              hexa4 = document.getElementById('hexa4').value;
+              result = addVarIntToHexa(hexa4);
+              document.getElementById('value8').innerHTML = "0x" + result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <th>CARACTERISTIQUES BLOCKCHAIN</th>
+        </tr>
+        <tr>
+          <td>difficulte (specifier cible):<input type="text" value="0" id="difficulte" /></td>
+          <td>  <span type="text" id="value9"></span></td>
+          <td>  <button type="text" id="convert9">Convertir</button></td>
+          <script>
+              document.getElementById("convert9").addEventListener("click", function(){
+              difficulte = document.getElementById('difficulte').value;
+              result = calculerDifficulte(difficulte);
+              document.getElementById('value9').innerHTML = result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <td>Recompense (specifier numero du bloc):<input type="text" value="0" id="recompense" /></td>
+          <td>  <span type="text" id="value10"></span></td>
+          <td>  <button type="text" id="convert10">Convertir</button></td>
+          <script>
+              document.getElementById("convert10").addEventListener("click", function(){
+              recompense = document.getElementById('recompense').value;
+              result = getRecompense(recompense);
+              document.getElementById('value10').innerHTML = result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <td>total bitcoins (specifier numero du bloc):<input type="text" value="0" id="total" /></td>
+          <td>  <span type="text" id="value11"></span></td>
+          <td>  <button type="text" id="convert11">Convertir</button></td>
+          <script>
+              document.getElementById("convert11").addEventListener("click", function(){
+              total = document.getElementById('total').value;
+              result = totalBitcoins(total);
+              document.getElementById('value11').innerHTML = result;
+            });
+        </script>
+        </tr>
+        <tr>
+          <th>ANALYSE DE BLOC</th>
+        </tr>
+        <tr>
+        <td>  <a href="block.html" title="exempleblock">exemple block</a></td>
+        </tr>
+        <tr>
+          <td>block version (saisir raw bloc):<input type="text" value="0" id="block" /></td>
+          <td>  <span type="text" id="value12"></span></td>
+          <td>  <button type="text" id="convert12">Decoder</button></td>
+          <script>
+              document.getElementById("convert12").addEventListener("click", function(){
+              block = document.getElementById('block').value;
+              result = getBlockVersion(block);
+              document.getElementById('value12').innerHTML = result;
+            });
+        </script>
+      </tr>
+      <tr>
+        <td>hash du block pecedent (saisir raw bloc):<input type="text" value="0" id="block1" /></td>
+        <td>  <span type="text" id="value13"></span></td>
+        <td>  <button type="text" id="convert13">Decoder</button></td>
+        <script>
+            document.getElementById("convert13").addEventListener("click", function(){
+            block = document.getElementById('block1').value;
+            result = getPreviousBlockHash(block);
+            document.getElementById('value13').innerHTML = result;
+          });
+      </script>
+      </tr>
+      <tr>
+        <td>merkel root hash (saisir raw bloc):<input type="text" value="0" id="block2" /></td>
+        <td>  <span type="text" id="value14"></span></td>
+        <td>  <button type="text" id="convert14">Decoder</button></td>
+        <script>
+            document.getElementById("convert14").addEventListener("click", function(){
+            block = document.getElementById('block2').value;
+            result = getMerkleRootHash(block);
+            document.getElementById('value14').innerHTML = result;
+          });
+      </script>
+      </tr>
+      <tr>
+        <td>nonce (saisir raw bloc):<input type="text" value="0" id="block3" /></td>
+        <td>  <span type="text" id="value15"></span></td>
+        <td>  <button type="text" id="convert15">Decoder</button></td>
+        <script>
+            document.getElementById("convert15").addEventListener("click", function(){
+            block = document.getElementById('block3').value;
+            result = getBlockNonce(block);
+            document.getElementById('value15').innerHTML = result;
+          });
+      </script>
+      </tr>
+      <tr>
+        <td>transactions (saisir raw bloc):<input type="text" value="0" id="block4" /></td>
+        <td>  <span type="text" id="value17"></span></td>
+        <td>  <button type="text" id="convert17">Decoder</button></td>
+        <script>
+            document.getElementById("convert17").addEventListener("click", function(){
+            block = document.getElementById('block4').value;
+            result = getBlocTransactions(block);
+            document.getElementById('value17').innerHTML = result;
+          });
+      </script>
+      </tr>
+      <tr>
+        <th>ANALYSE DE TRANSACTION</th>
+      </tr>
+          <tr>
+          <td>
+            <a href="transaction.html" title="exempletransaction">exemple transaction</a></td>
+          </tr>
+          <tr>
+          <td>transaction version (saisir raw transaction):<input type="text" value="0" id="transaction" /></td>
+          <td>  <span type="text" id="value16"></span></td>
+          <td>  <button type="text" id="convert16">Decoder</button></td>
+          <script>
+              document.getElementById("convert16").addEventListener("click", function(){
+              transaction = document.getElementById('transaction').value;
+              result = getTranscationVersion(transaction);
+              document.getElementById('value16').innerHTML = result;
+            });
+        </script>
+        </tr>
+        <tr>
+        <td>transaction inputs (saisir raw transaction):<input type="text" value="0" id="transaction1" /></td>
+        <td>  <span type="text" id="value18"></span></td>
+        <td>  <button type="text" id="convert18">Decoder</button></td>
+        <script>
+            document.getElementById("convert18").addEventListener("click", function(){
+            transaction = document.getElementById('transaction1').value;
+            result = getTranscationIns(transaction);
+            document.getElementById('value18').innerHTML = result;
+          });
+      </script>
+      </tr>
+      <tr>
+      <td>transaction outputs (saisir raw transaction):<input type="text" value="0" id="transaction2" /></td>
+      <td>  <span type="text" id="value19"></span></td>
+      <td>  <button type="text" id="convert19">Decoder</button></td>
+      <script>
+          document.getElementById("convert19").addEventListener("click", function(){
+          transaction = document.getElementById('transaction2').value;
+          result = getTranscationOuts(transaction);
+          document.getElementById('value19').innerHTML = result;
+        });
+    </script>
+    </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
