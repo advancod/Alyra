@@ -1,3 +1,82 @@
+const abiCred = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "dev",
+				"type": "bytes32"
+			}
+		],
+		"name": "remettre",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "cred",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "dd",
+				"type": "string"
+			}
+		],
+		"name": "produireHash",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "destinataire",
+				"type": "address"
+			},
+			{
+				"name": "valeur",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+];
+
+
 async function enableMetaMask() {
 if (ethereum) {
   try {
@@ -22,6 +101,17 @@ try {
   const gasPriceString = gasPrice.toString();
   console.log(gasPriceString);
   document.getElementById('gas').innerHTML = gasPriceString;
+
+  let contractWrite = new ethers.Contract("0x451875bdd0e524882550ec1ce52bcc4d0ff90eae", abiCred, provider.getSigner());
+
+  let hash = await contractWrite.produireHash("https://github.com/advancod/Alyra/blob/master/semaine4/devoirs/exercice4.2.1/index.js");
+  console.log(hash);
+  let devoir = await contractWrite.remettre(hash);
+  console.log(devoir);
+  let credits = await contractWrite.cred("0xcfe40ea57389d79b7679eda66059ecb30167e31c");
+  console.log(credits);
+
+  document.getElementById('MyCredits').innerHTML = credits;
 } catch(err) {
 
   console.error(err);
