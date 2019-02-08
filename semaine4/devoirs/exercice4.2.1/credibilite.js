@@ -79,4 +79,5 @@ const abiCred = [
 const addresses = await ethereum.enable();
 const provider = new ethers.providers.Web3Provider(ethereum);
 let contractWrite = new ethers.Contract("0x451875bdd0e524882550ec1ce52bcc4d0ff90eae", abiCred, provider.getSigner());
+
 }
