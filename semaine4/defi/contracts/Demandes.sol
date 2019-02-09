@@ -1,4 +1,3 @@
-//Write your own contracts here. Currently compiles using solc v0.4.15+commit.bbb8e64f.
 pragma solidity ^0.5.3;
 pragma experimental ABIEncoderV2;
 
@@ -17,9 +16,9 @@ event challengeAnnule(address addresseIllustrateur, address addressedemandeur);
 using SafeMath for uint256;
 
 Illustrateur internal unIllustrateur;
-uint offreNumber;
+uint private offreNumber;
 
-  enum SomeData {ENATTENTE,OUVERTE,ENCOURS,FERMEE}
+enum SomeData {ENATTENTE,OUVERTE,ENCOURS,FERMEE}
 
 constructor() public {
  offreNumber = 0;
@@ -34,13 +33,15 @@ constructor() public {
    SomeData status;
  }
 
- mapping (uint => address) public affectations; // liste des projets en cours
- mapping (uint => address) public demandeur; // mapping des projets avec les addresses des demandeurs
- mapping (uint => bytes32) public contractualisation; // projets en attente de validation
- mapping (bytes32 => address) public proposition; // mapping des dessins avec leutrs illustrateurs
- mapping (uint => address) public candidat; // liste des illustrateurs en attente d'acceptation
- mapping (uint => demande) public appelOffres; // liste des projets proposés
- mapping (uint => bool) public locked; // candidatures bloquées en attente d'une réponse à un illustrateur déja candidat
+ uint[] listeDemandes;
+
+ mapping (uint => address) private affectations; // liste des projets en cours
+ mapping (uint => address) private demandeur; // mapping des projets avec les addresses des demandeurs
+ mapping (uint => bytes32) private contractualisation; // projets en attente de validation
+ mapping (bytes32 => address) private proposition; // mapping des dessins avec leurs illustrateurs
+ mapping (uint => address) private candidat; // liste des illustrateurs en attente d'acceptation
+ mapping (uint => demande) private appelOffres; // liste des projets proposés
+ mapping (uint => bool) private locked; // candidatures bloquées en attente d'une réponse à un illustrateur déja candidat
 
  function ajouterDemande(uint _remuneration, uint _delai, string memory _description, uint _reputationMinimum) public returns (uint){
     appelOffres[offreNumber].remuneration = _remuneration;
@@ -52,6 +53,7 @@ constructor() public {
     demandeur[offreNumber] = msg.sender;
     offreNumber += 1;
     locked[offreNumber]==false;
+    listeDemandes.push(listeDemandes);
     return offreNumber-1;
   }
 
@@ -74,8 +76,6 @@ constructor() public {
     require(demandeur[_IDdemande] == msg.sender,"vous n avez pas acces a ce projet");
     appelOffres[_IDdemande].status = SomeData.ENCOURS;
     affectations[_IDdemande] = _postulant;
-    delete candidat[_IDdemande];
-    delete demandeur[_IDdemande];
     delete locked[_IDdemande];
     emit challengeAccepte(affectations[_IDdemande], demandeur[_IDdemande]);
   }
@@ -89,6 +89,8 @@ constructor() public {
    require(appelOffres[_IDdemande].status == SomeData.ENCOURS,"projet non demarre");
     proposition[_hash]=msg.sender;
     contractualisation[_IDdemande]=_hash;
+    delete candidat[_IDdemande];
+    delete demandeur[_IDdemande];
     emit dessinLivre(affectations[_IDdemande], demandeur[_IDdemande]);
   }
 
@@ -109,16 +111,20 @@ constructor() public {
     require(appelOffres[_IDdemande].delai < now,"delai non respecte");
     require(appelOffres[_IDdemande].status == SomeData.OUVERTE,"aucun fonds deposes");
     require(appelOffres[_IDdemande].emetteur == msg.sender,"vous netes pas proprietaire de ce projet");
-    msg.sender.transfer(appelOffres[_IDdemande].remuneration.add((appelOffres[_IDdemande].remuneration.mul(20)).div(100)));
+    msg.sender.transfer(appelOffres[_IDdemande].remuneration.add((appelOffres[_IDdemande].remuneration.mul(2)).div(100)));
     appelOffres[_IDdemande].status = SomeData.FERMEE;
     emit challengeAnnule(affectations[_IDdemande], demandeur[_IDdemande]);
     }
 
   function paymentIllustrateur (uint _IDdemande) public{
-      require(appelOffres[_IDdemande].status == SomeData.FERMEE,"ce projet n est pas ferme"));
+      require(appelOffres[_IDdemande].status == SomeData.FERMEE,"ce projet n est pas ferme");
       require(affectations[_IDdemande] == msg.sender,"vous n avez pas contribue a ce projet");
       msg.sender.transfer(appelOffres[_IDdemande].remuneration);
       delete affectations[_IDdemande];
   }
+
+  function getListeDemandes() public view returns (uint[] memory){
+     return listeDemandes;
+   }
 
 }
