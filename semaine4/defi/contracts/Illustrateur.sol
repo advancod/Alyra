@@ -12,7 +12,7 @@ event bannishement(address addressBanished);
   mapping (address => reputation) public reputations;
 
   modifier enable() {
-    require(addressesBannies[msg.sender] == false);
+    require(addressesBannies[msg.sender] == false,"cet illustrateur est banni");
     _;
   }
 
@@ -28,7 +28,7 @@ event bannishement(address addressBanished);
   }
 
   function bannissement(address _addresse) onlyOwner public {
-   require(addressesBannies[_addresse] == false);
+   require(addressesBannies[_addresse] == false,"déja banni");
    addressesBannies[_addresse] == true;
    reputations[msg.sender].reputation = 0;
    emit bannishement(_addresse);
