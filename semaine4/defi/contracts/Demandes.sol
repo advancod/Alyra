@@ -7,11 +7,11 @@ import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/Saf
 
 contract Demandes is Illustrateur {
 
-event challengeAccepte(address addresseIllustrateur, address addressedemandeur);
-event dessinLivre(address addresseIllustrateur, address addressedemandeur);
-event dessinValide(address addresseIllustrateur, address addressedemandeur, uint reputationActuelle);
-event dessinRejete(address addresseIllustrateur, address addressedemandeur, uint reputationActuelle);
-event challengeAnnule(address addresseIllustrateur, address addressedemandeur);
+event challengeAccepte(address addresseIllustrateur, address addressedemandeur, uint projet);
+event dessinLivre(address addresseIllustrateur, address addressedemandeur, uint projet);
+event dessinValide(bool status, address addressedemandeur, uint projet);
+event challengeAnnule(address addresseIllustrateur, address addressedemandeur,  uint projet);
+event solicitation(uint _IDdemande, address addresseIllustrateur);
 
 using SafeMath for uint256;
 
@@ -77,7 +77,7 @@ constructor() public {
     appelOffres[_IDdemande].status = SomeData.ENCOURS;
     affectations[_IDdemande] = _postulant;
     delete locked[_IDdemande];
-    emit challengeAccepte(affectations[_IDdemande], demandeur[_IDdemande]);
+    emit challengeAccepte(affectations[_IDdemande], demandeur[_IDdemande], _IDdemande);
   }
 
   function afficherDemande(uint _IDdemande) enable public view returns (demande memory){
@@ -91,7 +91,7 @@ constructor() public {
     contractualisation[_IDdemande]=_hash;
     delete candidat[_IDdemande];
     delete demandeur[_IDdemande];
-    emit dessinLivre(affectations[_IDdemande], demandeur[_IDdemande]);
+    emit dessinLivre(affectations[_IDdemande], demandeur[_IDdemande], _IDdemande);
   }
 
   function validation (uint _IDdemande, bytes32 _hash) public{
@@ -100,23 +100,23 @@ constructor() public {
      if (appelOffres[_IDdemande].delai > now){
         appelOffres[_IDdemande].status = SomeData.FERMEE;
         unIllustrateur.getReputation(affectations[_IDdemande]).reputation += 1;
-        emit dessinValide(affectations[_IDdemande], demandeur[_IDdemande], unIllustrateur.getReputation(affectations[_IDdemande]).reputation);
+        emit dessinValide(true, demandeur[_IDdemande], _IDdemande);
      }
      else appelOffres[_IDdemande].status = SomeData.OUVERTE;
      delete contractualisation[_IDdemande];
-     emit dessinRejete(affectations[_IDdemande], demandeur[_IDdemande], unIllustrateur.getReputation(affectations[_IDdemande]).reputation);
+     emit dessinValide(false, demandeur[_IDdemande], _IDdemande);
   }
 
-    function debloquerFonds (uint _IDdemande) public{
+    function recupererFonds (uint _IDdemande) public{
     require(appelOffres[_IDdemande].delai < now,"delai non respecte");
     require(appelOffres[_IDdemande].status == SomeData.OUVERTE,"aucun fonds deposes");
     require(appelOffres[_IDdemande].emetteur == msg.sender,"vous netes pas proprietaire de ce projet");
     msg.sender.transfer(appelOffres[_IDdemande].remuneration.add((appelOffres[_IDdemande].remuneration.mul(2)).div(100)));
     appelOffres[_IDdemande].status = SomeData.FERMEE;
-    emit challengeAnnule(affectations[_IDdemande], demandeur[_IDdemande]);
+    emit challengeAnnule(affectations[_IDdemande], demandeur[_IDdemande], _IDdemande);
     }
 
-  function paymentIllustrateur (uint _IDdemande) public{
+  function payerIllustrateur (uint _IDdemande) public{
       require(appelOffres[_IDdemande].status == SomeData.FERMEE,"ce projet n est pas ferme");
       require(affectations[_IDdemande] == msg.sender,"vous n avez pas contribue a ce projet");
       msg.sender.transfer(appelOffres[_IDdemande].remuneration);
@@ -125,6 +125,13 @@ constructor() public {
 
   function getListeDemandes() public view returns (uint[] memory){
      return listeDemandes;
+   }
+
+   function soliciterIllustrateur(uint _IDdemande, address _addresse) view public{
+     require(appelOffres[_IDdemande].emetteur == msg.sender,"vous netes pas proprietaire de ce projet");
+     require(locked[_IDdemande]==false,"il y a deja un illustrateur en attente d une reponse");
+     require(appelOffres[_IDdemande].status == SomeData.OUVERTE,"ce projet n est pas encore ouvert");
+     emit solicitation(_IDdemande, _addresse);
    }
 
 }

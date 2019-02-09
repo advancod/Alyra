@@ -8,23 +8,23 @@ contract Illustrateur is Ownable {
 event bannishement(address addressBanished);
 
   mapping (address => bool) public addressesBannies;
-  mapping (address => reputation) public reputations;
+  mapping (address => infoIllustrateur) public reputations;
 
   modifier enable() {
     require(addressesBannies[msg.sender] == false,"cet illustrateur est banni");
     _;
   }
 
-  struct reputation {
-   string nom;
+  struct infoIllustrateur {
+   string cryptopseudo;
    uint256 reputation;
    string services;
  }
 
  address[] listeAddressIllustrateurs;
 
-  function inscription(string memory _nom, string memory _services) public {
-    reputations[msg.sender].nom = _nom;
+  function inscription(string memory _cryptopseudo, string memory _services) public {
+    reputations[msg.sender].cryptopseudo = _cryptopseudo;
     reputations[msg.sender].reputation = 1;
     reputations[msg.sender].services = _services;
     addressesBannies[msg.sender] = false;
@@ -49,4 +49,5 @@ event bannishement(address addressBanished);
   function produireHash(string memory _url) public pure returns (bytes32){
       return keccak256(abi.encode(_url));
   }
+
 }
