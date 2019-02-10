@@ -8,7 +8,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/Saf
 contract Demandes is Illustrateur {
 
 event challengeAccepte(address addresseIllustrateur, address addressedemandeur, uint projet);
-event dessinLivre(address addresseIllustrateur, address addressedemandeur, uint projet);
+event dessinLivre(address addresseIllustrateur, address addressedemandeur, uint projet, bytes32 dessin);
 event dessinValide(bool status, address addressedemandeur, uint projet);
 event challengeAnnule(address addresseIllustrateur, address addressedemandeur,  uint projet);
 event solicitation(uint _IDdemande, address addresseIllustrateur);
@@ -53,7 +53,7 @@ constructor() public {
     demandeur[offreNumber] = msg.sender;
     offreNumber += 1;
     locked[offreNumber]==false;
-    listeDemandes.push(listeDemandes);
+    listeDemandes.push(offreNumber);
     return offreNumber-1;
   }
 
@@ -80,10 +80,6 @@ constructor() public {
     emit challengeAccepte(affectations[_IDdemande], demandeur[_IDdemande], _IDdemande);
   }
 
-  function afficherDemande(uint _IDdemande) enable public view returns (demande memory){
-    return appelOffres[_IDdemande];
-  }
-
   function livraison (bytes32 _hash, uint _IDdemande) enable public{
    require(affectations[_IDdemande] == msg.sender,"vous n avez pas acces a ce projet");
    require(appelOffres[_IDdemande].status == SomeData.ENCOURS,"projet non demarre");
@@ -91,7 +87,7 @@ constructor() public {
     contractualisation[_IDdemande]=_hash;
     delete candidat[_IDdemande];
     delete demandeur[_IDdemande];
-    emit dessinLivre(affectations[_IDdemande], demandeur[_IDdemande], _IDdemande);
+emit dessinLivre(affectations[_IDdemande], demandeur[_IDdemande], _IDdemande, _hash);
   }
 
   function validation (uint _IDdemande, bytes32 _hash) public{
@@ -127,7 +123,11 @@ constructor() public {
      return listeDemandes;
    }
 
-   function soliciterIllustrateur(uint _IDdemande, address _addresse) view public{
+    function getDemande(uint ID) enable public view returns (demande memory){
+      return appelOffres[ID];
+    }
+
+   function soliciterIllustrateur(uint _IDdemande, address _addresse) public{
      require(appelOffres[_IDdemande].emetteur == msg.sender,"vous netes pas proprietaire de ce projet");
      require(locked[_IDdemande]==false,"il y a deja un illustrateur en attente d une reponse");
      require(appelOffres[_IDdemande].status == SomeData.OUVERTE,"ce projet n est pas encore ouvert");

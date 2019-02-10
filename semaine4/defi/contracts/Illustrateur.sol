@@ -24,12 +24,25 @@ event bannishement(address addressBanished);
  address[] listeAddressIllustrateurs;
 
   function inscription(string memory _cryptopseudo, string memory _services) public {
+      bool alreadyExists = false;
+      for (uint i=0;i<listeAddressIllustrateurs.length;i++){
+          if (listeAddressIllustrateurs[i] == msg.sender)
+          {
+             alreadyExists = true;
+             break;
+          }
+      }
+    require(alreadyExists == false,"déja inscrit");
     reputations[msg.sender].cryptopseudo = _cryptopseudo;
     reputations[msg.sender].reputation = 1;
     reputations[msg.sender].services = _services;
     addressesBannies[msg.sender] = false;
     listeAddressIllustrateurs.push(msg.sender);
   }
+
+    function majServices(string memory _services) public {
+      reputations[msg.sender].services = _services;
+    }
 
   function bannissement(address _addresse) onlyOwner public {
    require(addressesBannies[_addresse] == false,"déja banni");
@@ -38,11 +51,11 @@ event bannishement(address addressBanished);
    emit bannishement(_addresse);
   }
 
-   function getReputation(address _addresse) public view returns (reputation memory){
+   function getReputation(address _addresse) public view returns (infoIllustrateur memory){
       return reputations[_addresse];
     }
 
-    function getListeIllustrateurs() public view returns (address[] memory){
+   function getListeIllustrateurs() public view returns (address[] memory){
        return listeAddressIllustrateurs;
      }
 
