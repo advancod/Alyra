@@ -1,0 +1,34 @@
+=============== Feb 11, 2019 (CET) ===============
+11:36:09.051003 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+11:36:09.052543 db@open opening
+11:36:09.055716 version@stat F·[] S·0B[] Sc·[]
+11:36:09.056068 db@janitor F·2 G·0
+11:36:09.056123 db@open done T·3.537355ms
+=============== Feb 11, 2019 (CET) ===============
+12:17:15.764833 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+12:17:15.765824 version@stat F·[] S·0B[] Sc·[]
+12:17:15.765855 db@open opening
+12:17:15.765939 journal@recovery F·1
+12:17:15.769558 journal@recovery recovering @1
+12:17:15.771923 memdb@flush created L0@2 N·621 S·50KiB "\x02d\xfc..\x19Ba,v429":"\xfe\x88\xcf..H\xef\xcc,v362"
+12:17:15.774281 version@stat F·[1] S·50KiB[50KiB] Sc·[0.25]
+12:17:15.776337 db@janitor F·3 G·0
+12:17:15.776369 db@open done T·10.50085ms
+12:17:15.856055 db@close closing
+12:17:15.856336 db@close done T·278.013µs
+=============== Feb 11, 2019 (CET) ===============
+12:19:33.860421 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+12:19:33.861619 version@stat F·[1] S·50KiB[50KiB] Sc·[0.25]
+12:19:33.861645 db@open opening
+12:19:33.861720 journal@recovery F·1
+12:19:33.863927 journal@recovery recovering @3
+12:19:33.864719 memdb@flush created L0@5 N·3 S·545B "Dat..ion,v623":"cli..\xf4~S,v625"
+12:19:33.867944 version@stat F·[2] S·50KiB[50KiB] Sc·[0.50]
+12:19:33.869701 db@janitor F·4 G·0
+12:19:33.869733 db@open done T·8.073204ms
+12:30:21.001714 table@compaction L0·2 -> L1·0 S·50KiB Q·1420
+12:30:21.004900 table@build created L1@8 N·623 S·50KiB "\x02d\xfc..\x19Ba,v429":"\xfe\x88\xcf..H\xef\xcc,v362"
+12:30:21.004964 version@stat F·[0 1] S·50KiB[0B 50KiB] Sc·[0.00 0.00]
+12:30:21.005239 table@compaction committed F-1 S+126B Ke·0 D·1 T·2.887185ms
+12:30:21.005363 table@remove removed @5
+12:30:21.005453 table@remove removed @2

@@ -1,0 +1,25 @@
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>cartes a collectionner</title>
+</head>
+    <body>
+      <tr>
+      <td>liste des images de la collection :</td>
+      <td><span id="getListeImages"></span></td>
+      </tr>
+      <tr>
+      <td>ajouter une image (url) :<input type="text" value="" id="ajouterImage" /></td>
+      <td><button onclick="_ajouterImage()">Convertir</button></td>
+      </tr>
+      <tr>
+      <td>afficher une image de la collection :<input type="text" value="" id="getImage" /></td>
+      <td><span id="result"></span></td>
+      <td><button onclick="_getImage()">Convertir</button></td>
+      </tr>
+    <script src="https://unpkg.com/ipfs/dist/index.min.js" charset="utf-8" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js" charset="utf-8" type="text/javascript"></script>
+    <script src="index.js" charset="utf-8" type="text/javascript"></script>
+    <script charset="utf-8" type="text/javascript">_getListeImages()</script>
+</body>
+</html>

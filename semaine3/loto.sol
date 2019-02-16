@@ -6,7 +6,7 @@ contract Loto {
    struct ticketStruct {
     uint8 NumberChoiced;
     address playerAddress;
-    uint256 date;
+    uint256 date
   }
 
   uint256 ticketPrice;
