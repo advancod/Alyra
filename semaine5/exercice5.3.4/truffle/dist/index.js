@@ -1,63 +1,59 @@
-// ABI contract
 const abi = [
-  {
-    "inputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "s",
-        "type": "string"
-      }
-    ],
-    "name": "ajouterCarte",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "ID",
-        "type": "uint256"
-      }
-    ],
-    "name": "recupererCarte",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "listCartes",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256[]"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  }
-],
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "s",
+				"type": "string"
+			}
+		],
+		"name": "ajouterCarte",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "ind",
+				"type": "uint256"
+			}
+		],
+		"name": "recuperer",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "toutRecuperer",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
 
-let contractAddress = "0xaf2451c3ce6fc6bef72ba5140ba3559744f377d3";
 const provider = new ethers.providers.Web3Provider(ethereum);
-let contractWrite = new ethers.Contract(contractAddress, abi, provider.getSigner());
+const addresses =  ethereum.enable();
+const address = addresses[0]
+const dapp = { address, provider };
+const collectionCard = new ethers.Contract("0x1b6e533f7f127526b119a38b8640d7d5a3946f44", abi, dapp.provider.getSigner());
+console.log(dapp);
 
 const node = new Ipfs({ repo: 'ipfs-' + Math.random() });
 node.once('ready', () => {
@@ -69,37 +65,30 @@ node.once('ready', () => {
 	});
 })
 
-async function _getListeImages() {
-try {
-document.getElementById('getListeImages').innerHTML = await contractWrite.listCartes();
-} catch(err) {
-  console.error(err);
+// Ajouter une image
+function addImg() {
+	let image = document.getElementById("fichierImage").files[0];
+	const reader = new FileReader();
+	reader.readAsArrayBuffer(image);
+	reader.onloadend = function() {
+		node.add(new node.types.Buffer.from(reader.result)).then(r =>{
+			let rs = collectionCard.ajouterCarte(r[0].hash);
+			console.log(rs);
+		})
+	}
 }
 
-async function _getImage() {
-try {
-  let image = document.getElementById("getImage").value;
-  let resultat = await contractWrite.recupererCarte(image);
-  node.cat(resultat, function (err,file) {
-      if (err) {
-        throw err;
-      }
-      document.getElementById("result").src = "data:image/jpg;base64," + file.toString('base64');
-  });
-  }
-} catch(err) {
-  console.error(err);
+// Afficher une image grace à son index
+async function recupImg(index) {
+	index = document.getElementById("index").value;
+	console.log(index);
+	let resultat = await collectionCard.recuperer(index);
+	console.log(resultat,"resultat");
+	node.cat(resultat, function (err,file) {
+  		if (err) {
+    		throw err;
+  		}
+  		console.log(file.toString('utf8'));
+  		document.getElementById("imageRecup").src = "data:image/jpg;base64," + file.toString('base64');
+	});
 }
-
-async function _ajouterImage() {
-try {
-  await ethereum.enable();
-  let carte = document.getElementById("ajouterImage").files[0];
-  const reader = new FileReader();
-  reader.readAsArrayBuffer(carte);
-  reader.onloadend = function() {
-    node.add(new node.types.Buffer.from(reader.result)).then(r =>{
-      contractWrite.ajouterCarte(r[0].hash);
-    })
-  }
-  }

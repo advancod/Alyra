@@ -1,9 +1,9 @@
-pragma solidity ^0.5.3;
+pragma solidity ^0.5.4;
 pragma experimental ABIEncoderV2;
 
 import "./Illustrateur.sol";
 
-import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "./SafeMath.sol";
 
 contract Demandes is Illustrateur {
 
@@ -40,7 +40,7 @@ constructor() public {
  mapping (uint => bytes32) private contractualisation; // projets en attente de validation
  mapping (bytes32 => address) private proposition; // mapping des dessins avec leurs illustrateurs
  mapping (uint => address) private candidat; // liste des illustrateurs en attente d'acceptation
- mapping (uint => demande) private appelOffres; // liste des projets proposés
+ mapping (uint => demande) public appelOffres; // liste des projets proposés
  mapping (uint => bool) private locked; // candidatures bloquées en attente d'une réponse à un illustrateur déja candidat
 
  function ajouterDemande(uint _remuneration, uint _delai, string memory _description, uint _reputationMinimum) public returns (uint){
@@ -59,7 +59,7 @@ constructor() public {
 
   function payerDemande(uint _IDdemande) public payable {
     require(demandeur[_IDdemande] == msg.sender,"vous n etes pas proprietaire de ce projet");
-    require(msg.value >= appelOffres[_IDdemande].remuneration.add((appelOffres[_IDdemande].remuneration.mul(20)).div(100)),"payment pas assez eleve");
+    require(msg.value >= appelOffres[_IDdemande].remuneration.add((appelOffres[_IDdemande].remuneration.mul(2)).div(100)),"payment pas assez eleve");
     appelOffres[_IDdemande].status = SomeData.OUVERTE;
   }
 
@@ -68,7 +68,7 @@ constructor() public {
     require(unIllustrateur.getReputation(msg.sender).reputation >= appelOffres[_IDdemande].reputationMinimum,"vous n etes pas assez repute");
     require(appelOffres[_IDdemande].status == SomeData.OUVERTE,"ce projet n est pas encore ouvert");
     candidat[_IDdemande] = msg.sender;
-    locked[_IDdemande]==true;
+    locked[_IDdemande]=true;
   }
 
   function accepterOffre(uint _IDdemande, address _postulant) public{
@@ -87,7 +87,7 @@ constructor() public {
     contractualisation[_IDdemande]=_hash;
     delete candidat[_IDdemande];
     delete demandeur[_IDdemande];
-emit dessinLivre(affectations[_IDdemande], demandeur[_IDdemande], _IDdemande, _hash);
+    emit dessinLivre(affectations[_IDdemande], demandeur[_IDdemande], _IDdemande, _hash);
   }
 
   function validation (uint _IDdemande, bytes32 _hash) public{
@@ -122,10 +122,6 @@ emit dessinLivre(affectations[_IDdemande], demandeur[_IDdemande], _IDdemande, _h
   function getListeDemandes() public view returns (uint[] memory){
      return listeDemandes;
    }
-
-    function getDemande(uint ID) enable public view returns (demande memory){
-      return appelOffres[ID];
-    }
 
    function soliciterIllustrateur(uint _IDdemande, address _addresse) public{
      require(appelOffres[_IDdemande].emetteur == msg.sender,"vous netes pas proprietaire de ce projet");

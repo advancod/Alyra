@@ -1,25 +1,17 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
-contract jeuCarte {
+contract Cartes {
    string[] cartes;
-   uint i;
-   uint[] IDs;
 
-   constructor() public {
-    i = 0;
-    }
    function ajouterCarte(string memory s) public {
        cartes.push(s);
-       IDs[i]=i;
-       i += 1;
    }
 
-   function recupererCarte(uint ID) view public returns (string memory) {
-       return cartes[ID];
+   function recuperer(uint ind) view public returns (string memory) {
+       return cartes[ind];
    }
 
-   function listCartes() public view returns (uint[] memory) {
-       return IDs;
+   function toutRecuperer() public view returns (string[] memory) {
+       return cartes;
    }
-
 }

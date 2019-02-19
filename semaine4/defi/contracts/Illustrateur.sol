@@ -1,7 +1,7 @@
-pragma solidity ^0.5.3;
+pragma solidity ^0.5.4;
 pragma experimental ABIEncoderV2;
 
-import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "./Ownable.sol";
 
 contract Illustrateur is Ownable {
 

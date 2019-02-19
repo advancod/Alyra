@@ -1,25 +1,36 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
- <meta charset="utf-8">
- <title>cartes a collectionner</title>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>Jeu de cartes à collectionner décentralisé</title>
 </head>
-    <body>
-      <tr>
-      <td>liste des images de la collection :</td>
-      <td><span id="getListeImages"></span></td>
-      </tr>
-      <tr>
-      <td>ajouter une image (url) :<input type="text" value="" id="ajouterImage" /></td>
-      <td><button onclick="_ajouterImage()">Convertir</button></td>
-      </tr>
-      <tr>
-      <td>afficher une image de la collection :<input type="text" value="" id="getImage" /></td>
-      <td><span id="result"></span></td>
-      <td><button onclick="_getImage()">Convertir</button></td>
-      </tr>
-    <script src="https://unpkg.com/ipfs/dist/index.min.js" charset="utf-8" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js" charset="utf-8" type="text/javascript"></script>
-    <script src="index.js" charset="utf-8" type="text/javascript"></script>
-    <script charset="utf-8" type="text/javascript">_getListeImages()</script>
-</body>
+<body>
+	<h1 style="text-align: center">Exercice 5.3.4</h1>
+	<p>Créer un jeu de cartes à collectionner décentralisé</p>
+	<input type="file" name="fichierImage" id="fichierImage">
+	<button onclick="addImg()">Add img</button>
+
+	<label>Entrez index de l'image à récupérer</label>
+	<input type="text" name="index" id="index">
+	<button onclick="recupImg()">Envoyer index</button>
+	<img id="imageRecup">
+	<br />
+	<button onclick="recupAllImg()">Récuperer 10 images</button>
+	<span id="list"></span>
+
+	<a href="http://localhost:8080/ipfs/QmU7AxARE2uY1VWPhgDEE3SqjFMgjvoF2wUe1Gjo94gfHa/">Lien</a>
+
+ 	<script src="https://cdn.ethers.io/scripts/ethers-v4.min.js"
+
+    	charset="utf-8"
+
+        type="text/javascript">
+ 	</script>
+ 	<script src="https://unpkg.com/ipfs/dist/index.min.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+
+
+ </body>
 </html>
