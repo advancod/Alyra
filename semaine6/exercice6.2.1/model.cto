@@ -1,0 +1,20 @@
+/**
+ * My commodity trading network
+ */
+namespace org.example.mynetwork
+
+asset Colis identified by numeroDeColis {
+  o String numeroDeColis
+  o String localisation
+  --> Personne destinataire
+  --> Personne emetteur
+}
+
+participant Personne identified by personneID {
+    o String personneID
+    o String adresse
+}
+
+transaction Trade {
+    --> Colis newColis
+}
