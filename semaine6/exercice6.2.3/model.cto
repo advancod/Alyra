@@ -1,0 +1,34 @@
+/**
+ * My colis
+ */
+namespace org.example.mynetwork
+
+participant Client extends Personne {}
+participant CentreTri extends Personne {}
+participant Facteur extends Personne {}
+
+transaction Transport extends Mouvement {}
+transaction Livraison extends Mouvement {}
+
+asset Colis identified by numeroDeColis {
+ o String numeroDeColis
+ o String localisation
+ o Etat etatActuel
+ --> Personne destinataire
+ --> Personne emetteur
+}
+
+enum Etat {
+   o BON
+   o DETRUIT
+   o ABIME
+}
+
+participant Personne identified by personneID {
+   o String personneID
+   o String adresse
+}
+
+transaction Mouvement {
+    --> Colis newColis
+}
