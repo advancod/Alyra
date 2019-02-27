@@ -1,0 +1,28 @@
+ curl  'https://www.bitmex.com/api/v1/orderBook/L2?symbol=XBT&depth=5'
+
+[{"symbol":"XBTUSD","id":8799620100,"side":"Sell","size":161008,"price":3799},
+{"symbol":"XBTUSD","id":8799620150,"side":"Sell","size":32361,"price":3798.5},
+{"symbol":"XBTUSD","id":8799620200,"side":"Sell","size":104122,"price":3798},
+{"symbol":"XBTUSD","id":8799620250,"side":"Sell","size":55504,"price":3797.5},
+{"symbol":"XBTUSD","id":8799620300,"side":"Sell","size":212336,"price":3797},
+{"symbol":"XBTUSD","id":8799620350,"side":"Buy","size":2664026,"price":3796.5},
+{"symbol":"XBTUSD","id":8799620400,"side":"Buy","size":490085,"price":3796},
+{"symbol":"XBTUSD","id":8799620450,"side":"Buy","size":273398,"price":3795.5},
+{"symbol":"XBTUSD","id":8799620500,"side":"Buy","size":254448,"price":3795},
+{"symbol":"XBTUSD","id":8799620550,"side":"Buy","size":78298,"price":3794.5}]
+
+
+curl 'https://api.bitfinex.com/v1/book/btcusd?limit_bids=5&limit_asks=5'
+
+{"price":"3907.1","amount":"0.44918565","timestamp":"1551292260.0"},
+{"price":"3906.7","amount":"0.04089178","timestamp":"1551292260.0"},
+{"price":"3906.2","amount":"2.178789","timestamp":"1551292260.0"},
+{"price":"3905.1","amount":"3","timestamp":"1551292260.0"},
+{"price":"3904.4","amount":"0.006","timestamp":"1551292260.0"}],
+"price":"3907.2","amount":"12.71269532","timestamp":"1551292260.0"},
+{"price":"3907.4","amount":"1.53","timestamp":"1551292260.0"},
+{"price":"3907.5","amount":"0.88145735","timestamp":"1551292260.0"},
+{"price":"3907.7","amount":"1","timestamp":"1551292260.0"},
+{"price":"3908","amount":"0.1","timestamp":"1551292260.0"}]
+
+Il semble plus interressant d'acheter les bitcoins sur bitmex
