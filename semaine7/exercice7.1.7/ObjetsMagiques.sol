@@ -29,8 +29,6 @@ string private _symbol;
     uint numero;
  }
 
-string[] listeRarete;
-
 constructor(string memory name, string memory symbol) public {
  _name = name;
  _symbol = symbol;

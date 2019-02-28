@@ -23,8 +23,6 @@ address MainOwner;
     uint numero;
  }
 
-string[] listeRarete;
-
 constructor() public {
  sequence = 1;
  name = 'MAGICTOKENJEDI';

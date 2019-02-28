@@ -20,8 +20,6 @@ string public symbol;
     uint numero;
  }
 
-string[] listeRarete;
-
 constructor() public {
  name = 'MAGICTOKENJEDI';
  symbol = 'MTJ';
