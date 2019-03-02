@@ -51,7 +51,7 @@ function createToken(uint256 _rarete, uint256 _objet, uint256 _model) public ret
   _tokenShape[IDToken].rarete=_rarete;
   _tokenShape[IDToken].objet=_objet;
   _tokenShape[IDToken].model=_model;
-  _addTokenTo(msg.sender,IDToken);
+  _mint(msg.sender,IDToken);
   return IDToken;
 }
 
