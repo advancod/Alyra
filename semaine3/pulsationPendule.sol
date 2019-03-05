@@ -28,7 +28,7 @@ contract Pendule is Pulsation("dong") {
 
 constructor() public {
     tac = new Pulsation("tac");
-    tic = new Pulsation("ic");
+    tic = new Pulsation("tic");
   }
 
    function mouvementsBalancier(uint k) public {

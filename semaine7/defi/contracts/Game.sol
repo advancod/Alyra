@@ -88,7 +88,7 @@ function remboursement(uint256 tokenId) public {
       }
 }
 
-  function levelUp(uint _level, uint tokenID) external payable returns (uint){
+  function cheatLevelUp(uint _level, uint tokenID) external payable returns (uint){
     require(msg.value == levelUpFee * _level);
     return _level + 1;
   }
