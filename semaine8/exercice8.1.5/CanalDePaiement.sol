@@ -22,6 +22,12 @@ event eventValiderFermeture(bytes32 message);
   bool readyA;
   bool readyB;
 
+	function add_channel(address counterpart) external payable returns(address channel)
+	{
+		_channels.push((new Channel).value(msg.value)(msg.sender, counterpart));
+		return address(_channels[_channels.length-1]);
+	}
+
 constructor(uint _montant, address _partieA, address _partieB) public {
   partieA = _partieA;
   partieB = _partieB;
@@ -126,5 +132,8 @@ constructor(uint _montant, address _partieA, address _partieB) public {
      equilibreB = 0;
    }
  }
+
+
+
 
 }
