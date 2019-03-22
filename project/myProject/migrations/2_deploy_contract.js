@@ -1,5 +1,5 @@
-const Cagnottes  = artifacts.require("Cagnottes");
+const Cagnottes  = artifacts.require("./Cagnottes.sol");
 
-module.exports = function(deployer) {
-  deployer.deploy(Cagnottes);
+module.exports = async function(deployer, network, accounts) {
+  await deployer.deploy(Cagnottes,10,10,10,10)
 };

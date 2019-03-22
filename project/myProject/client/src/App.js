@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Cagnottes from "./Cagnottes";
 class App extends Component {
   state = { loading: true, drizzleState: null };
 componentDidMount() {
@@ -19,8 +20,13 @@ compomentWillUnmount() {
     this.unsubscribe();
   }
 render() {
-    if (this.state.loading) return "Loading Drizzle...";
-    return <div className="App">Drizzle is ready</div>;
+    if (this.state.loading) return "Loading La bruine est prête...";
+    return (<div className="App">
+      <Cagnottes
+        drizzle={this.props.drizzle}
+        drizzleState={this.state.drizzleState}
+      />
+    </div>);
   }
 }
 export default App;

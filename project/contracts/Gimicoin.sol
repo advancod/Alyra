@@ -220,10 +220,6 @@ contract MintableToken is StandardToken, Ownable {
 
   event Mint(address indexed to, uint256 amount);
 
-  event MintFinished();
-
-  bool public mintingFinished = false;
-
   address public saleAgent;
 
   function setSaleAgent(address newSaleAgnet) public {
@@ -232,26 +228,22 @@ contract MintableToken is StandardToken, Ownable {
   }
 
   function mint(address _to, uint256 _amount) public returns (bool) {
-    require(msg.sender == saleAgent && !mintingFinished);
+    require(msg.sender == saleAgent);
     totalSupply = totalSupply.add(_amount);
     balances[_to] = balances[_to].add(_amount);
     emit Mint(_to, _amount);
     return true;
   }
 
-  /**
-   * @dev Function to stop minting new tokens.
-   * @return True if the operation was successful.
-   */
-  function finishMinting() public returns (bool) {
-    require((msg.sender == saleAgent || msg.sender == owner) && !mintingFinished);
-    mintingFinished = true;
-    emit MintFinished();
-    return true;
+  function burn(address account, uint256 value) internal {
+    require(account != address(0));
+    require(value <= balances[account]);
+    totalSupply = totalSupply.sub(value);
+    balances[account] = balances[account].sub(value);
+    emit Transfer(account, address(0), value);
   }
-
-
 }
+
 
 contract Gimicoin is MintableToken{
 
