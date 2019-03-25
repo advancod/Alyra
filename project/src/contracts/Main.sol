@@ -1,8 +1,9 @@
 pragma solidity ^0.5.0;
 
 import "./Cagnottes.sol";
+import "./InterfaceCagnottes.sol";
 
-contract GettersSetters is Cagnottes {
+contract Main is Cagnottes, InterfaceCagnottes{
 
 function modifierMaxGroups(uint _maxGroups) public onlyOwner
 {

@@ -1,51 +1,7 @@
 pragma solidity ^0.5.0;
 
-/**
- * @title SafeMath
- * @dev Math operations with safety checks that throw on error
- */
-library SafeMath {
-  function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    uint256 c = a * b;
-    assert(a == 0 || c / a == b);
-    return c;
-  }
-
-  function div(uint256 a, uint256 b) internal pure returns (uint256) {
-    // assert(b > 0); // Solidity automatically throws when dividing by 0
-    uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-    return c;
-  }
-
-  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-    assert(b <= a);
-    return a - b;
-  }
-
-  function add(uint256 a, uint256 b) internal pure returns (uint256) {
-    uint256 c = a + b; assert(c >= a);
-    return c;
-  }
-}
-
-interface IERC20 {
-    function transfer(address to, uint256 value) external returns (bool);
-
-    function approve(address spender, uint256 value) external returns (bool);
-
-    function transferFrom(address from, address to, uint256 value) external returns (bool);
-
-    function totalSupply() external view returns (uint256);
-
-    function balanceOf(address who) external view returns (uint256);
-
-    function allowance(address owner, address spender) external view returns (uint256);
-
-    event Transfer(address indexed from, address indexed to, uint256 value);
-
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-}
+import "./IERC20.sol";
+import "./SafeMath.sol";
 
 contract Gimicoin is IERC20{
 
@@ -220,7 +176,7 @@ contract Gimicoin is IERC20{
       * @param account The account whose tokens will be burnt.
       * @param value The amount that will be burnt.
       */
-     function _burnFrom(address account, uint256 value) public {
+     function _burnFrom(address account, uint256 value) internal {
          _burn(account, value);
          _approve(account, msg.sender, _allowed[account][msg.sender].sub(value));
      }
