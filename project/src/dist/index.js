@@ -1,192 +1,141 @@
-const abiIllustrations =
-[{"constant":false,"inputs":[{"name":"_IDdemande","type":"uint256"}],"name":"recupererFonds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"reputations","outputs":[{"name":"cryptopseudo","type":"string"},{"name":"reputation","type":"uint256"},{"name":"services","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getListeDemandes","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"addressesBannies","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_IDdemande","type":"uint256"}],"name":"payerIllustrateur","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_url","type":"string"}],"name":"produireHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"name":"_IDdemande","type":"uint256"}],"name":"postuler","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_addresse","type":"address"}],"name":"bannissement","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_hash","type":"bytes32"},{"name":"_IDdemande","type":"uint256"}],"name":"livraison","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getListeIllustrateurs","outputs":[{"name":"","type":"address[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_services","type":"string"}],"name":"majServices","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_IDdemande","type":"uint256"},{"name":"_hash","type":"bytes32"}],"name":"validation","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_IDdemande","type":"uint256"}],"name":"payerDemande","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"_addresse","type":"address"}],"name":"getReputation","outputs":[{"components":[{"name":"cryptopseudo","type":"string"},{"name":"reputation","type":"uint256"},{"name":"services","type":"string"}],"name":"","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"appelOffres","outputs":[{"name":"emetteur","type":"address"},{"name":"remuneration","type":"uint256"},{"name":"delai","type":"uint256"},{"name":"description","type":"string"},{"name":"reputationMinimum","type":"uint256"},{"name":"status","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_IDdemande","type":"uint256"},{"name":"_addresse","type":"address"}],"name":"soliciterIllustrateur","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_remuneration","type":"uint256"},{"name":"_delai","type":"uint256"},{"name":"_description","type":"string"},{"name":"_reputationMinimum","type":"uint256"}],"name":"ajouterDemande","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_IDdemande","type":"uint256"},{"name":"_postulant","type":"address"}],"name":"accepterOffre","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_cryptopseudo","type":"string"},{"name":"_services","type":"string"}],"name":"inscription","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"addresseIllustrateur","type":"address"},{"indexed":false,"name":"addressedemandeur","type":"address"},{"indexed":false,"name":"projet","type":"uint256"}],"name":"challengeAccepte","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"addresseIllustrateur","type":"address"},{"indexed":false,"name":"addressedemandeur","type":"address"},{"indexed":false,"name":"projet","type":"uint256"},{"indexed":false,"name":"dessin","type":"bytes32"}],"name":"dessinLivre","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"status","type":"bool"},{"indexed":false,"name":"addressedemandeur","type":"address"},{"indexed":false,"name":"projet","type":"uint256"}],"name":"dessinValide","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"addresseIllustrateur","type":"address"},{"indexed":false,"name":"addressedemandeur","type":"address"},{"indexed":false,"name":"projet","type":"uint256"}],"name":"challengeAnnule","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_IDdemande","type":"uint256"},{"indexed":false,"name":"addresseIllustrateur","type":"address"}],"name":"solicitation","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"addressBanished","type":"address"}],"name":"bannishement","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"}];
+const abiCagnottes =
+[ { "constant": true, "inputs": [], "name": "name", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "spender", "type": "address" }, { "name": "value", "type": "uint256" } ], "name": "approve", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_membre", "type": "address" }, { "name": "_groupe", "type": "string" } ], "name": "ajouterAdmin", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "_token", "type": "uint256" } ], "name": "consommerTokens", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "from", "type": "address" }, { "name": "to", "type": "address" }, { "name": "value", "type": "uint256" } ], "name": "transferFrom", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "myGimicoin", "outputs": [ { "name": "", "type": "address" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [ { "name": "", "type": "uint32" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "spender", "type": "address" }, { "name": "addedValue", "type": "uint256" } ], "name": "increaseAllowance", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_pseudo", "type": "string" } ], "name": "fermetureCanal", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [ { "name": "owner", "type": "address" } ], "name": "balanceOf", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "_groupe", "type": "string" }, { "name": "_pseudo", "type": "string" }, { "name": "_token", "type": "uint256" } ], "name": "payerCanal", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [ { "name": "", "type": "address" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "_membre", "type": "address" }, { "name": "_groupe", "type": "string" }, { "name": "_pseudo", "type": "string" } ], "name": "ajouterMembre", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "spender", "type": "address" }, { "name": "subtractedValue", "type": "uint256" } ], "name": "decreaseAllowance", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "to", "type": "address" }, { "name": "value", "type": "uint256" } ], "name": "transfer", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [ { "name": "owner", "type": "address" }, { "name": "spender", "type": "address" } ], "name": "allowance", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "newOwner", "type": "address" } ], "name": "transferOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_nom", "type": "string" }, { "name": "_pseudo", "type": "string" } ], "name": "creerGroupe", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_montant", "type": "uint256" }, { "name": "_delai", "type": "uint256" }, { "name": "_pseudo", "type": "string" }, { "name": "_description", "type": "string" } ], "name": "demander", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "anonymous": false, "inputs": [ { "indexed": true, "name": "previousOwner", "type": "address" }, { "indexed": true, "name": "newOwner", "type": "address" } ], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "name": "from", "type": "address" }, { "indexed": true, "name": "to", "type": "address" }, { "indexed": false, "name": "value", "type": "uint256" } ], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "name": "owner", "type": "address" }, { "indexed": true, "name": "spender", "type": "address" }, { "indexed": false, "name": "value", "type": "uint256" } ], "name": "Approval", "type": "event" }, { "constant": false, "inputs": [ { "name": "_maxGroups", "type": "uint256" } ], "name": "modifierMaxGroups", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_maxDelai", "type": "uint256" } ], "name": "modifierDelai", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_maxMembre", "type": "uint256" } ], "name": "modifierMaxMembre", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_maxAmount", "type": "uint256" } ], "name": "modifierMaxAmount", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_minAmount", "type": "uint256" } ], "name": "modifierMinAmount", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_priceChannel", "type": "uint256" } ], "name": "modifierPriceChannel", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "getGroupesPerAddress", "outputs": [ { "name": "", "type": "uint256[]" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "_groupe", "type": "string" } ], "name": "getMembres", "outputs": [ { "name": "", "type": "uint256[]" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "_ID", "type": "uint256" } ], "name": "getNomMembre", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "_ID", "type": "uint256" } ], "name": "getMontant", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "_ID", "type": "uint256" } ], "name": "getBlockFermeture", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "_ID", "type": "uint256" } ], "name": "getEncours", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "_ID", "type": "uint256" } ], "name": "getDonnations", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "_ID", "type": "uint256" } ], "name": "getDescription", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "_ID", "type": "uint256" } ], "name": "getNomGroupe", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" } ];
 
-let contractAddress = "0xB48139F3B1E5B0275CC12ed0A542F9Ea865E4657";
+let contractAddress = "0x49493BF7eBC44bfF5B2Dd877768d3056eA7eA431";
 const provider = new ethers.providers.Web3Provider(ethereum);
-let contractWrite = new ethers.Contract(contractAddress, abiIllustrations, provider.getSigner());
+let contractInstance = new ethers.Contract(contractAddress, abiCagnottes, provider.getSigner());
 
 async function demarrage() {
-_getListeIllustrateurs();
-_getListeDemandes();
+  try {
+    var list = await contractInstance.getGroupesPerAddress();
+    for (var i = 0; i < list.length; i++) {
+      var list2 = await contractInstance.getNomGroupe(list[i]);
+      for (var j = 0; j < list2.length; j++) {
+        document.getElementById(j).innerHTML = await contractInstance.getNomGroupe(list2[j], {gas : 5000000});
+      }
+    }
+  } catch(err) {
+  console.error(err);
+  }
 }
 
-
-
-
-
-
-async function _ajouterDemande() {
+async function _getNomGroupe() {
 try {
-  await ethereum.enable();
-	let remuneration = document.getElementById('remuneration').value;
-	let delai = document.getElementById('delai').value;
-	let description = document.getElementById('description').value;
-	let reputationMin = document.getElementById('reputationMin').value;
-	await contractWrite.ajouterDemande(remuneration,delai,description,reputationMin);
+let ID = document.getElementById('ID').value;
+document.getElementById('getNomGroupe').innerHTML = await contractInstance.getNomGroupe(ID);
 } catch(err) {
   console.error(err);
 }
 }
 
-async function _bannissement() {
+async function _getMembres() {
 try {
-  await ethereum.enable();
-	let addresse = document.getElementById('addresse1').value;
-	await contractWrite.bannissement(addresse);;
+let nomGroupe = document.getElementById('nomGroupe').value;
+document.getElementById('getMembres').innerHTML = await contractInstance.getMembres(nomGroupe);
 } catch(err) {
   console.error(err);
 }
 }
 
-async function _inscription() {
+async function _getNomMembre() {
 try {
-  await ethereum.enable();
-	let cryptopseudo = document.getElementById('cryptopseudo2').value;
-	let services = document.getElementById('services2').value;
-	await contractWrite.inscription(cryptopseudo,services);
+let ID = document.getElementById('ID').value;
+document.getElementById('getNomMembre').innerHTML = await contractInstance.getNomMembre(ID);
 } catch(err) {
   console.error(err);
 }
 }
 
-async function _majServices() {
+async function _getDescription() {
 try {
-  await ethereum.enable();
-	let services = document.getElementById('services23').value;
-	await contractWrite.majServices(services);
+let ID = document.getElementById('ID').value;
+document.getElementById('getDescription').innerHTML = await contractInstance.getDescription(ID);
 } catch(err) {
   console.error(err);
 }
 }
 
-async function _payerDemande() {
+async function _getDonnations() {
 try {
-  await ethereum.enable();
-	let IDDemande = document.getElementById('IDDemande3').value;
-	await contractWrite.payerDemande(IDDemande, {value : 5000});
+let ID = document.getElementById('ID').value;
+document.getElementById('getDonnations').innerHTML = await contractInstance.getDonnations(ID);
 } catch(err) {
   console.error(err);
 }
 }
 
-async function _payerIllustrateur() {
+async function _getMontant() {
 try {
-  await ethereum.enable();
-	let IDDemande = document.getElementById('IDDemande4').value;
-	await contractWrite.payerIllustrateur(IDDemande);
+let ID = document.getElementById('ID').value;
+document.getElementById('getMontant').innerHTML = await contractInstance.getMontant(ID);
 } catch(err) {
   console.error(err);
 }
 }
 
-async function _postuler() {
+async function _getEncours() {
 try {
-  await ethereum.enable();
-	let IDDemande = document.getElementById('IDDemande5').value;
-	await contractWrite.postuler(IDDemande);
+let ID = document.getElementById('ID').value;
+document.getElementById('getEncours').innerHTML = await contractInstance.getEncours(ID);
 } catch(err) {
   console.error(err);
 }
 }
 
-async function _recupererFonds() {
-try {
-  await ethereum.enable();
-	let IDDemande = document.getElementById('IDDemande6').value;
-	await contractWrite.recupererFonds(IDDemande);
-} catch(err) {
+async function _creerGroupe() {
+  try {
+    await ethereum.enable();
+  	let nom = document.getElementById('nom').value;
+  	let pseudo = document.getElementById('pseudo').value;
+  	await contractInstance.creerGroupe(nom,pseudo);
+  } catch(err) {
   console.error(err);
 }
 }
 
-async function demarrage() {
-_getListeIllustrateurs();
-_getListeDemandes();
-}
-
-async function _getListeDemandes() {
-try {
-document.getElementById('getListeDemandes').innerHTML = await contractWrite.getListeDemandes();
-} catch(err) {
+async function _ajouterMembre() {
+  try {
+    await ethereum.enable();
+  	let membre = document.getElementById('membre').value;
+  	let groupe = document.getElementById('groupe').value;
+  	let pseudo = document.getElementById('pseudo').value;
+  	await contractInstance.ajouterMembre(membre,groupe,pseudo);
+  } catch(err) {
   console.error(err);
 }
 }
 
-async function _getListeIllustrateurs() {
-try {
-document.getElementById('getListeIllustrateurs').innerHTML = await contractWrite.getListeIllustrateurs();
-} catch(err) {
+async function _demander() {
+  try {
+    await ethereum.enable();
+  	let montant = document.getElementById('montant').value;
+  	let delai = document.getElementById('delai').value;
+  	let pseudo = document.getElementById('pseudo').value;
+    let description = document.getElementById('description').value;
+  	await contractInstance.demander(montant,delai,pseudo,description);
+  } catch(err) {
   console.error(err);
 }
 }
 
-async function _soliciterIllustrateur() {
-try {
-await ethereum.enable();
-let IDDemande = document.getElementById('ID').value;
-let addresse = document.getElementById('addresse').value;
-await contractWrite.soliciterIllustrateur(IDDemande,addresse);
-} catch(err) {
+async function _payerCanal() {
+  try {
+    await ethereum.enable();
+  	let groupe = document.getElementById('groupe').value;
+  	let pseudo = document.getElementById('pseudo').value;
+  	let token = document.getElementById('token').value;
+  	await contractInstance.demander(groupe,pseudo,token);
+  } catch(err) {
   console.error(err);
 }
 }
 
-async function _getReputation() {
-try {
-let addresse = document.getElementById('addresse9').value;
-document.getElementById('getReputation').innerHTML = await contractWrite.getReputation(addresse);
-} catch(err) {
-  console.error(err);
-}
-}
-
-async function _accepterOffre() {
-try {
-await ethereum.enable();
-let addresse = document.getElementById('addresse10').value;
-let IDDemande = document.getElementById('IDDemande12').value;
-await contractWrite.accepterOffre(IDDemande,addresse);
-} catch(err) {
-  console.error(err);
-}
-}
-
-async function _validation() {
-try {
-await ethereum.enable();
-let IDDemande = document.getElementById('IDDemande10').value;
-let hash = document.getElementById('hash2').value;
-await contractWrite.validation(IDDemande, hash);
-} catch(err) {
-  console.error(err);
-}
-}
-
-async function _livraison() {
-try {
-await ethereum.enable();
-let IDDemande = document.getElementById('IDDemande11').value;
-let hash = document.getElementById('hash').value;
-await contractWrite.livraison(hash,IDDemande);
-} catch(err) {
-  console.error(err);
-}
-}
-
-async function _produireHash() {
-try {
-let url = document.getElementById('url').value;
-document.getElementById('produireHash').innerHTML = await contractWrite.produireHash(url);
-} catch(err) {
-  console.error(err);
-}
-}
-
-async function _getDemande() {
-try {
-let ID = document.getElementById('ID20').value;
-document.getElementById('getDemande').innerHTML = await contractWrite.appelOffres(ID);
-} catch(err) {
+async function _fermetureCanal() {
+  try {
+    await ethereum.enable();
+  	let pseudo = document.getElementById('pseudo').value;
+  	await contractInstance.fermetureCanal(pseudo);
+  } catch(err) {
   console.error(err);
 }
 }

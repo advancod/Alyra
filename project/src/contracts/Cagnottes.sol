@@ -14,7 +14,6 @@ mapping (uint => string) internal mappIDGroupe;
 
 mapping (string => uint) private mappNomGroupe;
 mapping (string => address[]) private mappGroupe;
-mapping (string => address[]) private mappGroupeAdmin;
 mapping (string => address) private mappPseudo;
 
 uint MAX_MEMBRE;
@@ -46,16 +45,16 @@ constructor() public
   PRICE_RATIO = 100;
 }
 
-function creerGroupe(string memory _nom, string memory _pseudo) public payable
+function creerGroupe(string memory _nom, string memory _pseudo) public
 {
   require(mappNomGroupe[_nom] == 0);
   require(mappGroupesForAddress[msg.sender].length < MAX_GROUPS);
   require(mappPseudo[_pseudo] == address(0));
+  mappPseudo[_pseudo] = msg.sender;
   uint IDGroupe = uint(keccak256(bytes(_nom)));
   mappNomGroupe[_nom] = IDGroupe;
   mappIDGroupe[IDGroupe] = _nom;
   mappGroupe[_nom].push(msg.sender);
-  mappGroupeAdmin[_nom].push(msg.sender);
   mappGroupesForAddress[msg.sender].push(IDGroupe);
   creerCanal(_pseudo, _nom);
 }
@@ -64,36 +63,11 @@ function ajouterMembre(address _membre, string memory _groupe, string memory _ps
 {
   require(mappGroupe[_groupe].length < MAX_MEMBRE);
   require(mappPseudo[_pseudo] == address(0));
-  for (uint i = 0;i < mappGroupeAdmin[_groupe].length;i++)
-  {
-      if (mappGroupeAdmin[_groupe][i] == msg.sender)
-      {
-        uint IDGroupe = uint(keccak256(bytes(_groupe)));
-        mappGroupesForAddress[_membre].push(IDGroupe);
-        mappGroupe[_groupe].push(_membre);
-        creerCanal(_pseudo, _groupe);
-        break;
-      }
-  }
-}
-
-function ajouterAdmin(address _membre, string memory _groupe) public
-{
-  for (uint j = 0;j < mappGroupeAdmin[_groupe].length;j++)
-  {
-      if (mappGroupeAdmin[_groupe][j] == msg.sender)
-      {
-        for (uint i = 0;i < mappGroupe[_groupe].length;i++)
-        {
-            if (mappGroupe[_groupe][i] == _membre)
-            {
-              mappGroupeAdmin[_groupe].push(_membre);
-              break;
-            }
-        }
-        break;
-      }
-  }
+  mappPseudo[_pseudo] = msg.sender;
+  uint IDGroupe = uint(keccak256(bytes(_groupe)));
+  mappGroupesForAddress[_membre].push(IDGroupe);
+  mappGroupe[_groupe].push(_membre);
+  creerCanal(_pseudo, _groupe);
 }
 
 function creerCanal(string memory _pseudo, string memory _groupe) private
@@ -133,21 +107,21 @@ function payerCanal(string memory _groupe, string memory _pseudo, uint _token) p
       if (mappGroupe[_groupe][i] == msg.sender)
       {
         uint fees = uint(msg.value / PRICE_RATIO);
-        _mint(msg.sender,msg.value - fees);
+        _mint(msg.sender,msg.value.sub(fees));
         uint addValue = msg.value;
         if (_token > 0)
         {
           require(balanceOf(msg.sender) >= _token);
           if (_token + mappChannel[_channelID].enCours > mappChannel[_channelID].montant)
           {
-            _token = mappChannel[_channelID].montant - mappChannel[_channelID].enCours;
+            _token = mappChannel[_channelID].montant.sub(mappChannel[_channelID].enCours);
           }
           addValue += _token;
           _burnFrom(msg.sender,_token);
         }
         mappChannel[uint(keccak256(bytes(_pseudo)))].donnations += addValue;
         addValue -= fees;
-        mappChannel[_channelID].enCours+=addValue;
+        mappChannel[_channelID].enCours += addValue;
       }
   }
 }
