@@ -86,9 +86,23 @@ function getDescription(uint _ID) public view returns (string memory)
   return mappChannel[_ID].description;
 }
 
+function getTime(uint _ID) public view returns (uint)
+{
+  if (mappChannel[_ID].blocFermeture <= block.number)
+  {
+    return 0;
+  }
+  else return mappChannel[_ID].blocFermeture - block.number;
+}
+
 function getNomGroupe(uint _ID) public view returns (string memory)
 {
   return mappIDGroupe[_ID];
+}
+
+function getOwnedGroupe() public view returns (uint[] memory)
+{
+  return mappOwnedGroup[msg.sender];
 }
 
 function getOwnPseudo(string memory groupe) public view returns (string memory)

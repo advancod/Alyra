@@ -22,4 +22,6 @@ function getNomGroupe(uint _ID) external view returns (string memory);
 
 function getContratCible(uint _ID) external view returns (address);
 
+function getTime(uint _ID) public view returns (uint);
+
 }

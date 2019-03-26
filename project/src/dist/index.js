@@ -6,50 +6,66 @@ const provider = new ethers.providers.Web3Provider(ethereum)
 let contractInstance = new ethers.Contract(contractAddress, EtherUnion, provider.getSigner())
 
 async function demarrage() {
-_getGroupesPerAddress()
+  _getGroupesPerAddress()
+  _getOwnedGroupesPerAddress()
 }
 
 async function _getGroupesPerAddress() {
-try {
-let copy = []
-let list = await contractInstance.getGroupesPerAddress()
-for (i=0; i<list.length; i++){
-let group = await contractInstance.getNomGroupe(list[i])
-copy.push(group)
+  try {
+    let copy = []
+    let list = await contractInstance.getGroupesPerAddress()
+    for (i=0; i<list.length; i++){
+      let group = await contractInstance.getNomGroupe(list[i])
+      copy.push(group)
+    }
+    document.getElementById('getGroupesPerAddress').innerHTML = copy
+  } catch(err) {
+    console.error(err)
+  }
 }
-document.getElementById('getGroupesPerAddress').innerHTML = copy
-} catch(err) {
-  console.error(err)
-}
+
+async function _getOwnedGroupesPerAddress() {
+  try {
+    let copy = []
+    let list = await contractInstance.getOwnedGroupe()
+    for (i=0; i<list.length; i++){
+      let group = await contractInstance.getNomGroupe(list[i])
+      copy.push(group)
+    }
+    document.getElementById('getAdminGroups').innerHTML = copy
+  } catch(err) {
+    console.error(err)
+  }
 }
 
 async function _getMembresGroupe() {
-try {
-let nomGroupe = document.getElementById('nomGroupe').value
-let copy = []
-let list = await contractInstance.getMembres(nomGroupe)
-for (i=0; i<list.length; i++){
-let group = await contractInstance.getNomMembre(list[i])
-copy.push(group)
-}
-document.getElementById('getMembres').innerHTML = copy
-document.getElementById('getMonPseudo').innerHTML = getOwnPseudo(nomGroupe)
-} catch(err) {
-  console.error(err)
-}
+  try {
+    let nomGroupe = document.getElementById('nomGroupe').value
+    let copy = []
+    let list = await contractInstance.getMembres(nomGroupe)
+    for (i=0; i<list.length; i++){
+      let group = await contractInstance.getNomMembre(list[i])
+      copy.push(group)
+    }
+  document.getElementById('getMembres').innerHTML = copy
+  document.getElementById('getMonPseudo').innerHTML = getOwnPseudo(nomGroupe)
+  } catch(err) {
+    console.error(err)
+  }
 }
 
 async function _membreInfo() {
-try {
-let ID = document.getElementById('ID').value
-document.getElementById('getDescription').innerHTML = await contractInstance.getDescription(ID)
-document.getElementById('getDonnations').innerHTML = await contractInstance.getDonnations(ID)
-document.getElementById('getMontant').innerHTML = await contractInstance.getMontant(ID)
-document.getElementById('getEncours').innerHTML = await contractInstance.getEncours(ID)
-document.getElementById('getContrat').innerHTML = await contractInstance.getContratCible(ID)
-} catch(err) {
-  console.error(err)
-}
+  try {
+    let ID = document.getElementById('ID').value
+    document.getElementById('getDescription').innerHTML = await contractInstance.getDescription(ID)
+    document.getElementById('getDonnations').innerHTML = await contractInstance.getDonnations(ID)
+    document.getElementById('getMontant').innerHTML = await contractInstance.getMontant(ID)
+    document.getElementById('getEncours').innerHTML = await contractInstance.getEncours(ID)
+    document.getElementById('getContrat').innerHTML = await contractInstance.getContratCible(ID)
+    document.getElementById('getTime').innerHTML = await contractInstance.getTime(ID)
+  } catch(err) {
+    console.error(err)
+  }
 }
 
 async function _creerGroupe() {
@@ -59,8 +75,8 @@ async function _creerGroupe() {
   	let pseudo = document.getElementById('pseudo').value
   	await contractInstance.creerGroupe(nom,pseudo)
   } catch(err) {
-  console.error(err)
-}
+    console.error(err)
+  }
 }
 
 async function _ajouterMembre() {
@@ -71,8 +87,8 @@ async function _ajouterMembre() {
   	let pseudo = document.getElementById('pseudo1').value
   	await contractInstance.ajouterMembre(membre,groupe,pseudo)
   } catch(err) {
-  console.error(err)
-}
+    console.error(err)
+  }
 }
 
 async function _demander() {
@@ -84,8 +100,8 @@ async function _demander() {
     let description = document.getElementById('description').value
   	await contractInstance.demander(montant,delai,pseudo,description, {value : 'avance'})
   } catch(err) {
-  console.error(err)
-}
+    console.error(err)
+  }
 }
 
 async function _payerCanal() {
@@ -95,8 +111,8 @@ async function _payerCanal() {
   	let token = document.getElementById('token').value
   	await contractInstance.demander(pseudo,token, {value : 'proposition'})
   } catch(err) {
-  console.error(err)
-}
+    console.error(err)
+  }
 }
 
 async function _fermetureCanal() {
@@ -105,6 +121,6 @@ async function _fermetureCanal() {
   	let pseudo = document.getElementById('pseudo4').value
   	await contractInstance.fermetureCanal(pseudo)
   } catch(err) {
-  console.error(err)
-}
+    console.error(err)
+  }
 }

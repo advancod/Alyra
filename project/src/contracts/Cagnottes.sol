@@ -9,6 +9,7 @@ mapping (uint => channel) internal mappChannel;
 mapping (address => uint[]) internal mappGroupesForAddress;
 mapping (string => uint[]) internal mappGroupeAndChannels;
 mapping (uint => string) internal mappIDGroupe;
+mapping (address => uint[]) internal mappOwnedGroup;
 
 mapping (string => address) private mappGroupeOwner;
 mapping (string => uint) private mappNomGroupe;

@@ -18,8 +18,12 @@
             </thead>
               <tbody>
         <tr>
-          <td>Liste des groupes auxquels vous etes affilies</td>
+          <td>Liste des groupes dont vous etes membre</td>
           <td><span id="getGroupesPerAddress"></span></td>
+        </tr>
+        <tr>
+          <td>Liste des groupes dont vous etes administrateur</td>
+          <td><span id="getAdminGroups"></span></td>
         </tr>
         <tr>
           <td>Choisir un groupe</td>
@@ -62,6 +66,10 @@
           <td>contrat cible</td>
           <td><span id="getContrat"></span></td>
         </tr>
+        <tr>
+          <td>temps restant</td>
+          <td><span id="getTime"></span></td>
+        </tr>
       </tbody>
     </div>
 
@@ -90,7 +98,7 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>AJOUTER MEMBRE</th>
+          <th>AJOUTER MEMBRE (administrateur)</th>
         </tr>
       </thead>
         <tbody>
@@ -157,7 +165,7 @@
           <td><input type="text" value="" id="pseudo3" /></td>
         </tr>
         <tr>
-          <td>montant</td>
+          <td>montant propose</td>
           <td><input type="text" value="" id="proposition" /></td>
         </tr>
         <tr>
