@@ -2,8 +2,8 @@ pragma solidity ^0.5.0;
 
 import "./Cagnottes.sol";
 
-interface InterfaceCagnottes{
-
+interface InterfaceCagnottes
+{
 function getGroupesPerAddress() external view returns (uint[] memory);
 
 function getNomMembre(uint _ID) external view returns (string memory);

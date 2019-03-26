@@ -3,7 +3,7 @@ pragma solidity ^0.5.0;
 import "./Cagnottes.sol";
 import "./InterfaceCagnottes.sol";
 
-contract Main is Cagnottes, InterfaceCagnottes{
+contract EtherUnion is Cagnottes, InterfaceCagnottes{
 
 function modifierMaxGroups(uint _maxGroups) public onlyOwner
 {
@@ -25,7 +25,7 @@ function modifierMaxMembre(uint _maxMembre) public onlyOwner
 
 function modifierMaxAmount(uint _maxAmount) public onlyOwner
 {
-  require(_maxAmount >= 10000000 && _maxAmount <= 10000000000000);
+  require(_maxAmount >= 10000000 && _maxAmount <= 100000000000000);
   MAX_AMOUNT = _maxAmount;
 }
 
@@ -37,7 +37,7 @@ function modifierMinAmount(uint _minAmount) public onlyOwner
 
 function modifierPriceChannel(uint _priceChannel) public onlyOwner
 {
-  require(_priceChannel > 1);
+  require(_priceChannel >= 100);
   PRICE_RATIO = _priceChannel;
 }
 

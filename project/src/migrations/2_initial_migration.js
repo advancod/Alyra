@@ -1,5 +1,5 @@
-const Main = artifacts.require("Main");
+const EtherUnion = artifacts.require("EtherUnion");
 
 module.exports = function(deployer) {
-  deployer.deploy(Main, {gas : 5000000});
+  deployer.deploy(EtherUnion, {gas : 5000000});
 };
