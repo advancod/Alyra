@@ -2,8 +2,8 @@ pragma solidity ^0.5.0;
 
 import "./Cagnottes.sol";
 
-interface InterfaceCagnottes
-{
+interface ICagnottes{
+
 function getGroupesPerAddress() external view returns (uint[] memory);
 
 function getNomMembre(uint _ID) external view returns (string memory);
@@ -19,5 +19,7 @@ function getDonnations(uint _ID) external view returns (uint);
 function getDescription(uint _ID) external view returns (string memory);
 
 function getNomGroupe(uint _ID) external view returns (string memory);
+
+function getContratCible(uint _ID) external view returns (address);
 
 }

@@ -32,6 +32,7 @@ struct channel
   uint enCours;
   uint donnations;
   string description;
+  address contratCible;
 }
 
 constructor() public
@@ -81,7 +82,7 @@ function creerCanal(string memory _pseudo, string memory _groupe, address _membr
     mappGroupeAndChannels[_groupe].push(channelID);
 }
 
-function demander(uint _montant, uint _delai, string memory _pseudo, string memory _description) public payable
+function demander(uint _montant, uint _delai, string memory _pseudo, string memory _description, address _contrat) public payable
 {
    require(mappPseudo[_pseudo] != address(0));
    require(mappPseudo[_pseudo] == msg.sender);
@@ -96,6 +97,7 @@ function demander(uint _montant, uint _delai, string memory _pseudo, string memo
    mappChannel[channelID].actif = true;
    mappChannel[channelID].blocFermeture = block.number+_delai;
    mappChannel[channelID].description = _description;
+   mappChannel[channelID].contratCible = _contrat;
 }
 
 function payerCanal(string memory _pseudo, uint _token) public payable
@@ -133,6 +135,7 @@ function fermetureCanal(string memory _pseudo) public
   mappChannel[_channelID].blocFermeture = 0;
   mappChannel[_channelID].actif = false;
   mappChannel[_channelID].description = "";
+  mappChannel[_channelID].contratCible = address(0);
 }
 
 }

@@ -1,9 +1,9 @@
 pragma solidity ^0.5.0;
 
 import "./Cagnottes.sol";
-import "./InterfaceCagnottes.sol";
+import "./ICagnottes.sol";
 
-contract EtherUnion is Cagnottes, InterfaceCagnottes{
+contract EtherUnion is Cagnottes, ICagnottes{
 
 function modifierMaxGroups(uint _maxGroups) public onlyOwner
 {
@@ -56,6 +56,11 @@ function getNomMembre(uint _ID) public view returns (string memory)
   return mappChannel[_ID].pseudo;
 }
 
+function getContratCible(uint _ID) public view returns (address)
+{
+  return mappChannel[_ID].contratCible;
+}
+
 function getMontant(uint _ID) public view returns (uint)
 {
   return mappChannel[_ID].montant;
@@ -84,6 +89,17 @@ function getDescription(uint _ID) public view returns (string memory)
 function getNomGroupe(uint _ID) public view returns (string memory)
 {
   return mappIDGroupe[_ID];
+}
+
+function getOwnPseudo(string memory groupe) public view returns (string memory)
+{
+  for (uint i = 0 ; i < mappGroupeAndChannels[groupe].length; i ++)
+  {
+    if (mappChannel[mappGroupeAndChannels[groupe][i]].demandeur == msg.sender)
+    {
+      return mappChannel[mappGroupeAndChannels[groupe][i]].pseudo;
+    }
+  }
 }
 
 }
