@@ -141,7 +141,7 @@ function tokenToEther() public
   require(block.number % TIME_TOKEN_WITHDRAW  >= 0 && block.number % TIME_TOKEN_WITHDRAW <= LAPS_TIME_TOKEN_WITHDRAW);
   uint monBonus = uint(balanceOf(msg.sender).div(DESERVERVE_BONUS));
   monBonus.mul(TOKEN_BONUS);
-  transfer(msg.sender,balanceOf(msg.sender).add(monBonus));
+  msg.sender.transfer(balanceOf(msg.sender).add(monBonus));
   _burnFrom(msg.sender,balanceOf(msg.sender));
 }
 
