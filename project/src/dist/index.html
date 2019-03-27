@@ -31,8 +31,10 @@
         </tr>
         <tr class="w3-theme-l1">
           <td>Choisir un groupe</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="nomGroupe" /></td>
-          <td><button class="w3-button w3-black" onclick="_getMembresGroupe()">choisir</button></td>
+          <td class="w3-theme-l3"><input type="text" value="" id="nomGroupe"  placeholder="groupe"/></td>
+        </tr>
+        <tr class="w3-theme-l1">
+          <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_getMembresGroupe()">choisir</button></td>
         </tr>
         <tr>
           <td class="w3-theme-l3">membres</td>
@@ -43,16 +45,34 @@
           <td class="w3-theme-l4"><span id="getMonPseudo"></span></td>
         </tr>
         <tr class="w3-theme-l1">
-          <td>Choisir un membre</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="remuneration" /></td>
-          <td><button class="w3-button w3-black" onclick="_membreInfo()">choisir</button></td>
+          <td>selectionner un pseudo</td>
+          <td class="w3-theme-l3"><input type="text" value="" id="remuneration" placeholder="remuneration"/></td>
+        </tr>
+        <tr class="w3-theme-l1">
+          <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_membreInfo()">choisir</button></td>
         </tr>
         <tr>
-          <th class="w3-theme-d1">Statistiques</th>
+          <th class="w3-theme-d1">Informations</th>
         </tr>
         <tr>
-          <td class="w3-theme-l3">donnations</td>
+          <td class="w3-theme-l3">groupe</td>
+          <td class="w3-theme-l4"><span id="getGroupe"></span></td>
+        </tr>
+        <tr>
+          <td class="w3-theme-l3">pseudo</td>
+          <td class="w3-theme-l4"><span id="getMembre"></span></td>
+        </tr>
+        <tr>
+          <td class="w3-theme-l3">addresse</td>
+          <td class="w3-theme-l4"><span id="getDemandeur"></span></td>
+        </tr>
+        <tr>
+          <td class="w3-theme-l3">total donnations</td>
           <td class="w3-theme-l4"><span id="getDonnations"></span></td>
+        </tr>
+        <tr>
+          <td class="w3-theme-l3">total receptions</td>
+          <td class="w3-theme-l4"><span id="getReceptions"></span></td>
         </tr>
         <tr>
           <th class="w3-theme-d1">Etat du canal de demande</th>
@@ -94,14 +114,14 @@
           <tbody>
             <tr class="w3-theme-l2">
               <td>nom du groupe</td>
-              <td class="w3-theme-l3"><input type="text" value="" id="nom" /></td>
+              <td class="w3-theme-l3"><input type="text" value="" id="nom"  placeholder="nom"/></td>
             </tr>
             <tr class="w3-theme-l2">
               <td>votre pseudo dans le groupe</td>
-              <td class="w3-theme-l3"><input type="text" value="" id="pseudo" /></td>
+              <td class="w3-theme-l3"><input type="text" value="" id="pseudo"  placeholder="pseudo"/></td>
             </tr>
             <tr>
-              <td class="w3-theme-l2"><button class="w3-button w3-black" onclick="_creerGroupe()">creer</button></td>
+              <td class="w3-theme-l2"><button class="w3-button w3-black btn btn-primary btn-smbtn btn-primary btn-block" onclick="_creerGroupe()">creer</button></td>
             </tr>
   </tbody>
 </table>
@@ -119,18 +139,18 @@
         <tbody>
           <tr class="w3-theme-l2">
             <td>addresse</td>
-            <td class="w3-theme-l3"><input type="text" value="" id="membre" /></td>
+            <td class="w3-theme-l3"><input type="text" value="" id="membre" placeholder="membre"/></td>
           </tr>
           <tr class="w3-theme-l2">
             <td>pseudo</td>
-            <td class="w3-theme-l3"><input type="text" value="" id="pseudo1" /></td>
+            <td class="w3-theme-l3"><input type="text" value="" id="pseudo1" placeholder="pseudo"/></td>
           </tr>
           <tr class="w3-theme-l2">
             <td>groupe</td>
-            <td class="w3-theme-l3"><input type="text" value="" id="groupe" /></td>
+            <td class="w3-theme-l3"><input type="text" value="" id="groupe" placeholder="groupe"/></td>
           </tr>
           <tr class="w3-theme-l2">
-            <td><button class="w3-button w3-black" onclick="_ajouterMembre()">ajouter</button></td>
+            <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_ajouterMembre()">ajouter</button></td>
           </tr>
 </tbody>
 </table>
@@ -151,54 +171,54 @@
         </tr>
         <tr class="w3-theme-l2">
           <td>pseudo</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="pseudo2" /></td>
+          <td class="w3-theme-l3"><input type="text" value="" id="pseudo2" placeholder="pseudo" /></td>
         </tr>
         <tr class="w3-theme-l2">
           <td>delai</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="delai" /></td>
+          <td class="w3-theme-l3"><input type="text" value="" id="delai" placeholder="delai"/></td>
         </tr>
         <tr class="w3-theme-l2">
           <td>montant</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="montant" /></td>
+          <td class="w3-theme-l3"><input type="text" value="" id="montant" placeholder="montant"/></td>
         </tr>
         <tr class="w3-theme-l2">
           <td>description</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="description" /></td>
+          <td class="w3-theme-l3"><input type="text" value="" id="description" placeholder="description" /></td>
         </tr>
         <tr class="w3-theme-l2">
           <td>smart contrat cible</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="remuneration" /></td>
+          <td class="w3-theme-l3"><input type="text" value="" id="remuneration" placeholder="remuneration"/></td>
         </tr>
         <tr class="w3-theme-l2">
-          <td class="w3-theme-l3"><button  class="w3-button w3-black" onclick="_demander()">emettre</button></td>
+          <td class="w3-theme-l3"><button  class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_demander()">emettre</button></td>
         </tr>
         <tr class="w3-theme-d1">
           <th>Payer une demande</th>
         </tr>
         <tr class="w3-theme-l2">
+          <td>adresse du demandeur</td>
+          <td class="w3-theme-l3"><input type="text" value="" id="address2" placeholder="adresse"/></td>
+        </tr>
+        <tr class="w3-theme-l2">
           <td>pseudo du demandeur</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="pseudo3" /></td>
+          <td class="w3-theme-l3"><input type="text" value="" id="pseudo3" placeholder="nomGroupe"/></td>
         </tr>
         <tr class="w3-theme-l2">
           <td>montant propose</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="proposition" /></td>
+          <td class="w3-theme-l3"><input type="text" value="" id="proposition" placeholder="nomGroupe"/></td>
         </tr>
         <tr class="w3-theme-l2">
-          <td>tokens additionnels</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="token" /></td>
-        </tr>
-        <tr class="w3-theme-l2">
-          <td><button  class="w3-button w3-black" onclick="_payerCanal()">payer</button></td>
+          <td><button  class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_payerCanal()">payer</button></td>
         </tr>
         <tr class="w3-theme-d1">
           <th>Solder une cagnotte</th>
         </tr>
         <tr class="w3-theme-l2">
           <td>Pseudo</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="pseudo4" /></td>
+          <td class="w3-theme-l3"><input type="text" value="" id="pseudo4" placeholder="pseudo"/></td>
         </tr>
         <tr class="w3-theme-l2">
-          <td><button  class="w3-button w3-black" onclick="_fermetureCanal()">solder</button></td>
+          <td><button  class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_fermetureCanal()">solder</button></td>
         </tr>
 </tbody>
 </table>
@@ -215,7 +235,7 @@
     </thead>
       <tbody>
         <tr class="w3-theme-l2">
-          <td><button class="w3-button w3-black" onclick="_tokenToEther()">bruler</button></td>
+          <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_tokenToEther()">bruler</button></td>
         </tr>
 </tbody>
 </table>

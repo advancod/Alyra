@@ -15,16 +15,19 @@ mapping (string => uint) private mappNomGroupe;
 mapping (string => address[]) private mappGroupe;
 mapping (string => address) private mappPseudo;
 
-uint public MAX_MEMBRE;
+mapping (uint => mapping (address => uint)) private mappPseudoInGroup;
+
 uint public MAX_DELAI;
 uint public MAX_AMOUNT;
 uint public MIN_AMOUNT;
 uint public PRICE_RATIO;
-uint public MAX_GROUPS;
 uint public TIME_TOKEN_WITHDRAW;
 uint public LAPS_TIME_TOKEN_WITHDRAW;
 uint public TOKEN_BONUS;
 uint public DESERVERVE_BONUS;
+uint public PRICE_GROUP;
+uint public PRICE_MEMBRE;
+uint public PRICE_CHANNEL;
 
 struct channel
 {
@@ -35,14 +38,13 @@ struct channel
   bool actif;
   uint enCours;
   uint donnations;
+  uint receptions;
   string description;
   address contratCible;
 }
 
 constructor() public
 {
-  MAX_GROUPS = 50;
-  MAX_MEMBRE = 10;
   MAX_DELAI = 200;
   MAX_AMOUNT = 10000000000000;
   MIN_AMOUNT = 10000;
@@ -51,12 +53,15 @@ constructor() public
   LAPS_TIME_TOKEN_WITHDRAW = 100000;
   TOKEN_BONUS = 0;
   DESERVERVE_BONUS = 1000000;
+  PRICE_GROUP = 100;
+  PRICE_MEMBRE = 10;
+  PRICE_CHANNEL = 1;
 }
 
-function creerGroupe(string memory _nom, string memory _pseudo) public
+function creerGroupe(string memory _nom, string memory _pseudo) payable public
 {
+  require(PRICE_GROUP == msg.value);
   require(mappNomGroupe[_nom] == 0);
-  require(mappGroupesForAddress[msg.sender].length < MAX_GROUPS);
   require(mappPseudo[_pseudo] == address(0));
   mappPseudo[_pseudo] = msg.sender;
   uint IDGroupe = uint(keccak256(bytes(_nom)));
@@ -68,9 +73,9 @@ function creerGroupe(string memory _nom, string memory _pseudo) public
   creerCanal(_pseudo, _nom, msg.sender);
 }
 
-function ajouterMembre(address _membre, string memory _groupe, string memory _pseudo) public
+function ajouterMembre(address _membre, string memory _groupe, string memory _pseudo) payable public
 {
-  require(mappGroupe[_groupe].length < MAX_MEMBRE);
+  require(PRICE_MEMBRE == msg.value);
   require(mappPseudo[_pseudo] == address(0));
   require(mappGroupeOwner[_groupe] == msg.sender);
   mappPseudo[_pseudo] = _membre;
@@ -83,15 +88,18 @@ function ajouterMembre(address _membre, string memory _groupe, string memory _ps
 function creerCanal(string memory _pseudo, string memory _groupe, address _membre) private
 {
   uint channelID = uint(keccak256(bytes(_pseudo)));
+  uint groupeID = uint(keccak256(bytes(_groupe)));
   require(mappPseudo[_pseudo] == _membre);
   mappChannel[channelID].actif = false;
   mappChannel[channelID].pseudo = _pseudo;
   mappChannel[channelID].demandeur = msg.sender;
   mappGroupeAndChannels[_groupe].push(channelID);
+  mappPseudoInGroup[groupeID][msg.sender] = channelID;
 }
 
-function demander(uint _montant, uint _delai, string memory _pseudo, string memory _description, address _contrat) public
+function demander(uint _montant, uint _delai, string memory _pseudo, string memory _description, address _contrat) payable public
 {
+  require(PRICE_CHANNEL == msg.value);
   require(mappPseudo[_pseudo] == msg.sender);
   require(_delai <= MAX_DELAI);
   uint channelID = uint(keccak256(bytes(_pseudo)));
@@ -103,9 +111,10 @@ function demander(uint _montant, uint _delai, string memory _pseudo, string memo
   mappChannel[channelID].contratCible = _contrat;
 }
 
-function payerCanal(string memory _pseudo) public payable
+function payerCanal(string memory _pseudo, address _address) public payable
 {
   uint _channelID = uint(keccak256(bytes(_pseudo)));
+  require(mappChannel[_channelID].demandeur == _address);
   require(mappChannel[_channelID].montant > mappChannel[_channelID].enCours);
   require(mappChannel[_channelID].actif == true);
   require(mappChannel[_channelID].blocFermeture >= block.number);
@@ -114,6 +123,7 @@ function payerCanal(string memory _pseudo) public payable
   uint addValue = msg.value;
   mappChannel[uint(keccak256(bytes(_pseudo)))].donnations.add(addValue);
   addValue.sub(fees);
+  mappChannel[_channelID].receptions.add(addValue);
   mappChannel[_channelID].enCours.add(addValue);
 }
 
@@ -165,40 +175,39 @@ function modifierTimeToWithdraw(uint _TimeToWithdraw) public onlyOwner
   TIME_TOKEN_WITHDRAW = _TimeToWithdraw;
 }
 
-function modifierMaxGroups(uint _maxGroups) public onlyOwner
-{
-  require(_maxGroups >= 10 && _maxGroups <= 1000);
-  MAX_GROUPS = _maxGroups;
-}
-
 function modifierDelai(uint _maxDelai) public onlyOwner
 {
-  require(_maxDelai >= 10 && _maxDelai <= 1000000000);
   MAX_DELAI = _maxDelai;
-}
-
-function modifierMaxMembre(uint _maxMembre) public onlyOwner
-{
-  require(_maxMembre >= 5 && _maxMembre <= 200);
-  MAX_MEMBRE = _maxMembre;
 }
 
 function modifierMaxAmount(uint _maxAmount) public onlyOwner
 {
-  require(_maxAmount >= 10000000 && _maxAmount <= 100000000000000);
   MAX_AMOUNT = _maxAmount;
 }
 
 function modifierMinAmount(uint _minAmount) public onlyOwner
 {
-  require(_minAmount >= 100000 && _minAmount <= 1000000);
   MIN_AMOUNT = _minAmount;
 }
 
-function modifierPriceChannel(uint _priceChannel) public onlyOwner
+function modifierCharges(uint _priceChannel) public onlyOwner
 {
-  require(_priceChannel >= 100);
   PRICE_RATIO = _priceChannel;
+}
+
+function modifierPriceGroup(uint _priceGroup) public onlyOwner
+{
+  PRICE_GROUP = _priceGroup;
+}
+
+function modifierPriceMember(uint _priceMember) public onlyOwner
+{
+  PRICE_MEMBRE = _priceMember;
+}
+
+function modifierPriceDemand(uint _priceDemand) public onlyOwner
+{
+  PRICE_CHANNEL = _priceDemand;
 }
 
 function getGroupesPerAddress() public view returns (uint[] memory)
@@ -241,9 +250,14 @@ function getDonnations(uint _ID) public view returns (uint)
   return mappChannel[_ID].donnations;
 }
 
-function getDescription(uint _ID) public view returns (string memory)
+function getDemandeur(uint _ID) public view returns (address)
 {
-  return mappChannel[_ID].description;
+  return mappChannel[_ID].demandeur;
+}
+
+function getReceptions(uint _ID) public view returns (uint)
+{
+  return mappChannel[_ID].receptions;
 }
 
 function getTime(uint _ID) public view returns (uint)
@@ -265,15 +279,10 @@ function getOwnedGroupe() public view returns (uint[] memory)
   return mappOwnedGroup[msg.sender];
 }
 
-function getOwnPseudo(string memory groupe) public view returns (string memory)
+function getPseudoInGroup(string memory _groupe, address _address) public view returns (string memory)
 {
-  for (uint i = 0 ; i < mappGroupeAndChannels[groupe].length; i ++)
-  {
-    if (mappChannel[mappGroupeAndChannels[groupe][i]].demandeur == msg.sender)
-    {
-      return mappChannel[mappGroupeAndChannels[groupe][i]].pseudo;
-    }
-  }
+  uint IDGroupe = uint(keccak256(bytes(_groupe)));
+  return mappChannel[mappPseudoInGroup[IDGroupe][_address]].pseudo;
 }
 
 }

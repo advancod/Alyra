@@ -7,7 +7,6 @@ let contractInstance = new ethers.Contract(contractAddress, EtherUnion, provider
 async function demarrage() {
   _getGroupesPerAddress()
   _getOwnedGroupesPerAddress()
-  _details()
 }
 
 async function _getGroupesPerAddress() {
@@ -48,7 +47,7 @@ async function _getMembresGroupe() {
       copy.push(group)
     }
   document.getElementById('getMembres').innerHTML = copy
-  document.getElementById('getMonPseudo').innerHTML = getOwnPseudo(nomGroupe)
+  document.getElementById('getMonPseudo').innerHTML = getPseudoInGroup(nomGroupe)
   } catch(err) {
     console.error(err)
   }
@@ -63,6 +62,10 @@ async function _membreInfo() {
     document.getElementById('getEncours').innerHTML = await contractInstance.getEncours(ID)
     document.getElementById('getContrat').innerHTML = await contractInstance.getContratCible(ID)
     document.getElementById('getTime').innerHTML = await contractInstance.getTime(ID)
+    document.getElementById('getDemandeur').innerHTML = await contractInstance.getDemandeur(ID)
+    document.getElementById('getReceptions').innerHTML = await contractInstance.getReceptions(ID)
+    document.getElementById('getGroupe').innerHTML = await contractInstance.getGroupe(ID)
+    document.getElementById('getMembre').innerHTML = await contractInstance.getMembre(ID)
   } catch(err) {
     console.error(err)
   }
@@ -108,8 +111,8 @@ async function _payerCanal() {
   try {
     await ethereum.enable();
   	let pseudo = document.getElementById('pseudo3').value
-  	let token = document.getElementById('token').value
-  	await contractInstance.demander(pseudo,token, {value : 'proposition'})
+    let address = document.getElementById('address2').value
+  	await contractInstance.demander(pseudo, address, {value : 'proposition'})
   } catch(err) {
     console.error(err)
   }
@@ -120,21 +123,6 @@ async function _fermetureCanal() {
     await ethereum.enable()
   	let pseudo = document.getElementById('pseudo4').value
   	await contractInstance.fermetureCanal(pseudo)
-  } catch(err) {
-    console.error(err)
-  }
-}
-
-async function _details() {
-  try {
-    document.getElementById('getMaxMembres').innerHTML = await contractInstance.MAX_MEMBRE
-    document.getElementById('getMaxDelai').innerHTML = await contractInstance.MAX_DELAI()
-    document.getElementById('getMaxMontant').innerHTML = await contractInstance.MAX_AMOUNT()
-    document.getElementById('getMinMontant').innerHTML = await contractInstance.MIN_AMOUNT()
-    document.getElementById('getTaux').innerHTML = await contractInstance.PRICE_RATIO()
-    document.getElementById('getMaxGroupes').innerHTML = await contractInstance.MAX_GROUPS()
-    document.getElementById('burnToken').innerHTML = await contractInstance.TIME_TOKEN_WITHDRAW()
-    document.getElementById('lapsTime').innerHTML = await contractInstance.LAPS_TIME_TOKEN_WITHDRAW()
   } catch(err) {
     console.error(err)
   }
