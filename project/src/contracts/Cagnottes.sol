@@ -5,12 +5,11 @@ import "./Ownable.sol";
 
 contract Cagnottes is Gimicoin, Ownable{
 
-mapping (uint => channel) internal mappChannel;
-mapping (address => uint[]) internal mappGroupesForAddress;
-mapping (string => uint[]) internal mappGroupeAndChannels;
-mapping (uint => string) internal mappIDGroupe;
-mapping (address => uint[]) internal mappOwnedGroup;
-
+mapping (uint => channel) private mappChannel;
+mapping (address => uint[]) private mappGroupesForAddress;
+mapping (string => uint[]) private mappGroupeAndChannels;
+mapping (uint => string) private mappIDGroupe;
+mapping (address => uint[]) private mappOwnedGroup;
 mapping (string => address) private mappGroupeOwner;
 mapping (string => uint) private mappNomGroupe;
 mapping (string => address[]) private mappGroupe;
@@ -24,6 +23,8 @@ uint public PRICE_RATIO;
 uint public MAX_GROUPS;
 uint public TIME_TOKEN_WITHDRAW;
 uint public LAPS_TIME_TOKEN_WITHDRAW;
+uint public TOKEN_BONUS;
+uint public DESERVERVE_BONUS;
 
 struct channel
 {
@@ -48,6 +49,8 @@ constructor() public
   PRICE_RATIO = 100;
   TIME_TOKEN_WITHDRAW = 10000000000;
   LAPS_TIME_TOKEN_WITHDRAW = 100000;
+  TOKEN_BONUS = 0;
+  DESERVERVE_BONUS = 1000000;
 }
 
 function creerGroupe(string memory _nom, string memory _pseudo) public
@@ -133,12 +136,22 @@ function withdrawEther(uint _amount) public onlyOwner
   msg.sender.transfer(_amount);
 }
 
-function tokenToEther(uint _amount) public
+function tokenToEther() public
 {
   require(block.number % TIME_TOKEN_WITHDRAW  >= 0 && block.number % TIME_TOKEN_WITHDRAW <= LAPS_TIME_TOKEN_WITHDRAW);
-  require(balanceOf(msg.sender) >= _amount);
-  transfer(msg.sender,_amount);
-  _burnFrom(msg.sender,_amount);
+  uint monBonus = uint(balanceOf(msg.sender).div(DESERVERVE_BONUS));
+  transfer(msg.sender,balanceOf(msg.sender).add(monBonus));
+  _burnFrom(msg.sender,balanceOf(msg.sender));
+}
+
+function modifierMeriteBonus(uint _seuil) public onlyOwner
+{
+  DESERVERVE_BONUS = _seuil;
+}
+
+function modifierTokenBonus(uint _tokenBonus) public onlyOwner
+{
+  TOKEN_BONUS = _tokenBonus;
 }
 
 function modifierLapsTimeToWithdraw(uint _laspsTime) public onlyOwner
