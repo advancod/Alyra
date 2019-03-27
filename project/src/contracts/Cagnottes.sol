@@ -14,7 +14,6 @@ mapping (string => address) private mappGroupeOwner;
 mapping (string => uint) private mappNomGroupe;
 mapping (string => address[]) private mappGroupe;
 mapping (string => address) private mappPseudo;
-
 mapping (uint => mapping (address => uint)) private mappPseudoInGroup;
 
 uint public MAX_DELAI;
@@ -67,6 +66,7 @@ function creerGroupe(string memory _nom, string memory _pseudo) payable public
   uint IDGroupe = uint(keccak256(bytes(_nom)));
   mappNomGroupe[_nom] = IDGroupe;
   mappGroupeOwner[_nom] = msg.sender;
+  mappOwnedGroup[msg.sender].push(_nom);
   mappIDGroupe[IDGroupe] = _nom;
   mappGroupe[_nom].push(msg.sender);
   mappGroupesForAddress[msg.sender].push(IDGroupe);
@@ -279,10 +279,10 @@ function getOwnedGroupe() public view returns (uint[] memory)
   return mappOwnedGroup[msg.sender];
 }
 
-function getPseudoInGroup(string memory _groupe, address _address) public view returns (string memory)
+function getPseudoInGroup(string memory _groupe) public view returns (string memory)
 {
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
-  return mappChannel[mappPseudoInGroup[IDGroupe][_address]].pseudo;
+  return mappChannel[mappPseudoInGroup[IDGroupe][msg.sender]].pseudo;
 }
 
 }
