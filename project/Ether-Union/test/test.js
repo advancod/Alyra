@@ -1,6 +1,6 @@
 const EtherUnion = artifacts.require("EtherUnion");
 
-contract("Test EtherUnion", async accounts => {
+contract("Test Lottery", async accounts => {
   it("test group name", async () => {
     let instance = await EtherUnion.deployed();
     let groupe = "groupe";

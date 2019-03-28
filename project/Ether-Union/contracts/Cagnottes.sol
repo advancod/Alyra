@@ -23,6 +23,7 @@ uint public PRICE_RATIO;
 uint public PRICE_GROUP;
 uint public PRICE_MEMBRE;
 uint public PRICE_CHANEL;
+uint public LOTTERY_CAGNOTTE;
 
 struct channel
 {
@@ -35,16 +36,17 @@ struct channel
   uint receptions;
   address contratCible;
   string description;
+  uint prediction;
 }
 
 constructor() public
 {
-  MAX_AMOUNT = 100000000000000;
-  MIN_AMOUNT = 10000;
+  MAX_AMOUNT = 10000000000000000000;
+  MIN_AMOUNT = 10000000;
   PRICE_RATIO = 100;
-  PRICE_GROUP = 1000;
-  PRICE_MEMBRE = 100;
-  PRICE_CHANEL = 10;
+  PRICE_GROUP = 100000;
+  PRICE_MEMBRE = 10000;
+  PRICE_CHANEL = 1000;
 }
 
 function creerGroupe(string memory _nom, string memory _pseudo) payable public
@@ -110,6 +112,7 @@ function payerCanal(string memory _pseudo) public payable
   addValue -= fees;
   mappChannel[_channelID].receptions += addValue;
   mappChannel[_channelID].enCours += addValue;
+  LOTTERY_CAGNOTTE += fees;
 }
 
 function fermetureCanal(string memory _pseudo) public
@@ -218,6 +221,11 @@ function getPseudoInGroup(string memory _groupe) public view returns (string mem
 {
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
   return mappChannel[mappPseudoInGroup[IDGroupe][msg.sender]].pseudo;
+}
+
+function withdrawCash(uint _montant) public onlyOwner
+{
+  msg.sender.transfer(_montant);
 }
 
 }
