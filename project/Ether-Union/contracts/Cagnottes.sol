@@ -20,10 +20,6 @@ mapping (uint => mapping (address => uint)) private mappPseudoInGroup;
 uint public MAX_AMOUNT;
 uint public MIN_AMOUNT;
 uint public PRICE_RATIO;
-uint public TIME_TOKEN_WITHDRAW;
-uint public LAPS_TIME_TOKEN_WITHDRAW;
-uint public TOKEN_BONUS;
-uint public DESERVE_BONUS;
 uint public PRICE_GROUP;
 uint public PRICE_MEMBRE;
 uint public PRICE_CHANEL;
@@ -46,10 +42,6 @@ constructor() public
   MAX_AMOUNT = 100000000000000;
   MIN_AMOUNT = 10000;
   PRICE_RATIO = 100;
-  TIME_TOKEN_WITHDRAW = 10000000000;
-  LAPS_TIME_TOKEN_WITHDRAW = 100000;
-  TOKEN_BONUS = 0;
-  DESERVE_BONUS = 1000000;
   PRICE_GROUP = 1000;
   PRICE_MEMBRE = 100;
   PRICE_CHANEL = 10;
@@ -107,10 +99,9 @@ function demander(uint _montant, string memory _pseudo, address _contratCible, s
   mappChannel[channelID].description = _description;
 }
 
-function payerCanal(string memory _pseudo, address _address) public payable
+function payerCanal(string memory _pseudo) public payable
 {
   uint _channelID = uint(keccak256(bytes(_pseudo)));
-  require(mappChannel[_channelID].demandeur == _address);
   require(mappChannel[_channelID].montant > mappChannel[_channelID].enCours);
   uint fees = uint(msg.value / PRICE_RATIO);
   _mint(msg.sender,msg.value + fees);
@@ -133,43 +124,9 @@ function fermetureCanal(string memory _pseudo) public
   mappChannel[_channelID].description = "";
 }
 
-function withdrawEther(uint _amount) public onlyOwner
-{
-  msg.sender.transfer(_amount);
-}
-
-function tokenToEther() public
-{
-  require(block.number % TIME_TOKEN_WITHDRAW  >= 0 && block.number % TIME_TOKEN_WITHDRAW <= LAPS_TIME_TOKEN_WITHDRAW);
-  uint monBonus = uint(balanceOf(msg.sender).div(DESERVE_BONUS));
-  monBonus.mul(TOKEN_BONUS);
-  msg.sender.transfer(balanceOf(msg.sender).add(monBonus));
-  _burnFrom(msg.sender,balanceOf(msg.sender));
-}
-
 function modifierPriceChannel(uint _priceChannel) public onlyOwner
 {
   PRICE_CHANEL = _priceChannel;
-}
-
-function modifierMeriteBonus(uint _seuil) public onlyOwner
-{
-  DESERVE_BONUS = _seuil;
-}
-
-function modifierTokenBonus(uint _tokenBonus) public onlyOwner
-{
-  TOKEN_BONUS = _tokenBonus;
-}
-
-function modifierLapsTimeToWithdraw(uint _laspsTime) public onlyOwner
-{
-  LAPS_TIME_TOKEN_WITHDRAW = _laspsTime;
-}
-
-function modifierTimeToWithdraw(uint _TimeToWithdraw) public onlyOwner
-{
-  TIME_TOKEN_WITHDRAW = _TimeToWithdraw;
 }
 
 function modifierMaxAmount(uint _maxAmount) public onlyOwner
@@ -235,11 +192,6 @@ function getEncours(string memory _pseudo) public view returns (uint)
 function getDonnations(string memory _pseudo) public view returns (uint)
 {
   return mappChannel[mappPseudoToID[_pseudo]].donnations;
-}
-
-function getDemandeur(string memory _pseudo) public view returns (address)
-{
-  return mappChannel[mappPseudoToID[_pseudo]].demandeur;
 }
 
 function getReceptions(string memory _pseudo) public view returns (uint)
