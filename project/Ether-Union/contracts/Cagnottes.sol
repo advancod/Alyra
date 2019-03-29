@@ -70,8 +70,9 @@ function ajouterMembre(address _membre, string memory _groupe, string memory _ps
   require(PRICE_MEMBRE == msg.value);
   require(mappPseudo[_pseudo] == address(0));
   require(mappGroupeOwner[_groupe] == msg.sender);
-  mappPseudo[_pseudo] = _membre;
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
+  require(mappPseudoInGroup[IDGroupe][msg.sender] == 0);
+  mappPseudo[_pseudo] = _membre;
   mappGroupesForAddress[_membre].push(IDGroupe);
   mappGroupe[_groupe].push(_membre);
   creerCanal(_pseudo, _groupe, _membre);
@@ -92,9 +93,11 @@ function creerCanal(string memory _pseudo, string memory _groupe, address _membr
 
 function demander(uint _montant, string memory _pseudo, address _contratCible, string memory _description) payable public
 {
+  require(msg.value == PRICE_CHANEL);
+  require(_montant > MIN_AMOUNT);
+  require(_montant < MAX_AMOUNT);
   require(mappPseudo[_pseudo] == msg.sender);
   uint channelID = uint(keccak256(bytes(_pseudo)));
-  require(msg.value == PRICE_CHANEL);
   require(mappChannel[channelID].montant == 0);
   mappChannel[channelID].montant = _montant;
   mappChannel[channelID].contratCible = _contratCible;
@@ -103,11 +106,17 @@ function demander(uint _montant, string memory _pseudo, address _contratCible, s
 
 function payerCanal(string memory _pseudo) public payable
 {
+  require(mappPseudo[_pseudo] == msg.sender);
+  require(msg.value > 0);
   uint _channelID = uint(keccak256(bytes(_pseudo)));
-  require(mappChannel[_channelID].montant > mappChannel[_channelID].enCours);
   uint fees = uint(msg.value / PRICE_RATIO);
-  _mint(msg.sender,msg.value + fees);
-  uint addValue = msg.value;
+  _mint(msg.sender,msg.value - fees);
+  uint addValue;
+  if (mappChannel[_channelID].montant > mappChannel[_channelID].enCours.add(msg.value))
+  {
+    addValue = mappChannel[_channelID].montant.sub(mappChannel[_channelID].enCours);
+  }
+  else addValue = msg.value;
   mappChannel[_channelID].donnations += addValue;
   addValue -= fees;
   mappChannel[_channelID].receptions += addValue;
@@ -118,9 +127,12 @@ function payerCanal(string memory _pseudo) public payable
 function fermetureCanal(string memory _pseudo) public
 {
   uint _channelID = uint(keccak256(bytes(_pseudo)));
-  require(mappChannel[_channelID].enCours != 0);
+  require(mappChannel[_channelID].montant != 0);
   require(mappChannel[_channelID].demandeur == msg.sender);
-  msg.sender.transfer(mappChannel[_channelID].enCours);
+  if (mappChannel[_channelID].enCours > 0)
+  {
+    msg.sender.transfer(mappChannel[_channelID].enCours);
+  }
   mappChannel[_channelID].enCours = 0;
   mappChannel[_channelID].montant = 0;
   mappChannel[_channelID].contratCible = address(0);

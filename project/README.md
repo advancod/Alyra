@@ -9,20 +9,13 @@ Cette application permet la création de réseau sociaux poussant à l'entraide 
 - Ce jeux consiste en la liquidation de la cagnotte accumulé par les frais de chaque transactions.
 - Le modèle éco consiste d'une part à charger faiblement les créations de groupes, adhésions, ouvertures de demandes. Mais surtout en la gestion financière des fonds emprunmptés par le contrat (emmission de tokens) jusqu'à leur rétribution sous forme de jackpot aux utilisateurs
 
-Il s'agit la d'une simple DApp développées en solidity javascript/ether.js sur la chaine ethereum
+Il s'agit la d'une simple DApp développées en solidity javascript/ether.js sur la chaine ethereum développée sur truffle.
 
-Créez un dossier :
+Créez un dossier et y entrer la ligne de commande:
 $npm install -g truffle
 
 Y copier le dossier du lien suivant :
 https://github.com/advancod/Alyra/tree/master/project/Ether-Union
-
-Ouvrez un client ganache :
-Localhost
-port 7545
-network ID = 5777
-
-Sur metamask configurez la connection RPC correspondante
 
 Installation
 Assurez vous que vous êtes dans le dossier Ether-Union
@@ -37,10 +30,32 @@ $npm install
 
 $npx live-server
 
+Ouvrir Chrome Ouvrir un metamask et le connecter au reseau de test ropsten
+et lancer http://localhost:8080/
+
 - Creez un groupe
 - Rafraichissez
 - Ajoutez un membre
 - Rafraichissez
 - effectuer une demande
 - solder une demande
-- tanter de gagner a la lotterie!!!!
+- tanter de gagner a la loterie!!!!
+
+Principe de loterie :
+
+Il s'agit en fait plus d'un jeux que d'une lotterie. Ici le propriétaire du groupe déclanchera la loterie via un contrat externe.
+
+L'utilisateur doit tout simplement deviner le montant de la cagnotte globale du contrat dans un bloc futur donnée.
+
+Vous devez posséder des token UNION pour jouer a la lotterie.
+
+Evolutions :
+- Améliorer l'ergonomie en donnant une allure proche de l'application whatsapp.
+- Améliorer l'administration des groupes (administrateurs multiples, suppression de membres, blacklistings)
+- Mettre en place un modèle économique faisant fructifier les ethers bloqués dans le contrat (ex cdp)
+- Création du contrat controlant le cicle de vie de la loterie.
+- Amélioration du rapport difficulté/prix/gains/probabilité du jeux.
+- Améliorer les statistiques grace à fonctionnalité de vérification de paiement "contrat cible" par le rensu du hash de transaction et affiliation des entreprises beneficiaires des contrats cibles pour reconnaissance directe des versements
+
+Peut etre ...
+- Ajouter des groupes de discussion

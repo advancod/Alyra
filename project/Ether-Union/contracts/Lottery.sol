@@ -12,8 +12,6 @@ enum LotteryState { Started, Finished, Pending }
 address[] private players;
 address[] private winners;
 
-uint private player;
-uint private winner;
 uint private blockInterval;
 uint private blockStart;
 
@@ -23,7 +21,7 @@ LotteryState state;
 
 constructor() public
 {
-  PRICE_LOTTERY_TOKEN = 1000000000;
+  PRICE_LOTTERY_TOKEN = 100000000;
   blockInterval = 1000000;
   state == LotteryState.Pending;
 }
@@ -41,8 +39,7 @@ function play(uint _prediction) public
   require(state == LotteryState.Started);
   _burnFrom(msg.sender,PRICE_LOTTERY_TOKEN);
   prediction[msg.sender].push(_prediction);
-  players[player] = msg.sender;
-  player += 1;
+  players.push(msg.sender);
 }
 
 function endGame() public onlyOwner
@@ -56,19 +53,17 @@ function endGame() public onlyOwner
       if (prediction[players[i]][j] == LOTTERY_CAGNOTTE && prediction[players[i]][j] != 0)
       {
         prediction[players[i]][j] = 0;
-        winners[winner] = players[i];
-        winner += 1;
+        winners.push(players[i]);
       }
       delete players[i];
     }
-    player = 0;
   }
 }
 
 function soldeGame() public onlyOwner
 {
   require(state == LotteryState.Finished);
-  LOTTERY_CAGNOTTE = uint(LOTTERY_CAGNOTTE.div(winner));
+  LOTTERY_CAGNOTTE = uint(LOTTERY_CAGNOTTE.div(winners.length));
   for (uint i=0; i< winners.length; i++)
   {
     gains[winners[i]].add(LOTTERY_CAGNOTTE);
@@ -80,8 +75,9 @@ function soldeGame() public onlyOwner
 
 function withdrawGains() public
 {
-  msg.sender.transfer(gains[msg.sender]);
+  uint MyGains = gains[msg.sender];
   gains[msg.sender] = 0;
+  msg.sender.transfer(MyGains);
 }
 
 function getPrixLottery() public view returns (uint)

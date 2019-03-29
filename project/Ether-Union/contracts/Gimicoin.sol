@@ -7,8 +7,8 @@ contract Gimicoin is IERC20{
 
   using SafeMath for uint256;
 
-    string public constant name = "gimicoin";
-    string public constant symbol = "GMC";
+    string public constant name = "coinunion";
+    string public constant symbol = "UNION";
     uint32 public constant decimals = 18;
 
     mapping (address => uint256) private _balances;
