@@ -13,7 +13,6 @@ mapping (address => uint[]) private mappOwnedGroup;
 mapping (string => address) private mappGroupeOwner;
 mapping (string => uint) private mappNomGroupe;
 mapping (string => address[]) private mappGroupe;
-mapping (string => address) private mappPseudo;
 mapping (string => uint) private mappPseudoToID;
 mapping (uint => mapping (address => uint)) private mappPseudoInGroup;
 
@@ -53,39 +52,37 @@ function creerGroupe(string memory _nom, string memory _pseudo) payable public
 {
   require(PRICE_GROUP == msg.value);
   require(mappNomGroupe[_nom] == 0);
-  require(mappPseudo[_pseudo] == address(0));
-  mappPseudo[_pseudo] = msg.sender;
+  uint channelID = uint(keccak256(bytes(_pseudo)));
+  require(mappChannel[channelID].demandeur == address(0));
   uint IDGroupe = uint(keccak256(bytes(_nom)));
+  mappChannel[channelID].demandeur = msg.sender;
   mappNomGroupe[_nom] = IDGroupe;
   mappGroupeOwner[_nom] = msg.sender;
   mappOwnedGroup[msg.sender].push(IDGroupe);
   mappIDGroupe[IDGroupe] = _nom;
   mappGroupe[_nom].push(msg.sender);
   mappGroupesForAddress[msg.sender].push(IDGroupe);
-  creerCanal(_pseudo, _nom, msg.sender);
+  creerCanal(_pseudo, _nom, IDGroupe, channelID);
 }
 
 function ajouterMembre(address _membre, string memory _groupe, string memory _pseudo) payable public
 {
   require(PRICE_MEMBRE == msg.value);
-  require(mappPseudo[_pseudo] == address(0));
+  uint channelID = uint(keccak256(bytes(_pseudo)));
+  require(mappChannel[channelID].demandeur == address(0));
   require(mappGroupeOwner[_groupe] == msg.sender);
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
   require(mappPseudoInGroup[IDGroupe][msg.sender] == 0);
-  mappPseudo[_pseudo] = _membre;
+  mappChannel[channelID].demandeur = msg.sender;
   mappGroupesForAddress[_membre].push(IDGroupe);
   mappGroupe[_groupe].push(_membre);
-  creerCanal(_pseudo, _groupe, _membre);
+  creerCanal(_pseudo, _groupe, IDGroupe, channelID);
 }
 
-function creerCanal(string memory _pseudo, string memory _groupe, address _membre) private
+function creerCanal(string memory _pseudo, string memory _groupe, uint groupeID, uint channelID) private
 {
-  uint channelID = uint(keccak256(bytes(_pseudo)));
-  uint groupeID = uint(keccak256(bytes(_groupe)));
-  require(mappPseudo[_pseudo] == _membre);
   mappChannel[channelID].pseudo = _pseudo;
   mappChannel[channelID].groupe = _groupe;
-  mappChannel[channelID].demandeur = msg.sender;
   mappGroupeAndChannels[_groupe].push(channelID);
   mappPseudoToID[_pseudo] = channelID;
   mappPseudoInGroup[groupeID][msg.sender] = channelID;
@@ -96,8 +93,8 @@ function demander(uint _montant, string memory _pseudo, address _contratCible, s
   require(msg.value == PRICE_CHANEL);
   require(_montant > MIN_AMOUNT);
   require(_montant < MAX_AMOUNT);
-  require(mappPseudo[_pseudo] == msg.sender);
   uint channelID = uint(keccak256(bytes(_pseudo)));
+  require(mappChannel[channelID].demandeur == msg.sender);
   require(mappChannel[channelID].montant == 0);
   mappChannel[channelID].montant = _montant;
   mappChannel[channelID].contratCible = _contratCible;
@@ -106,9 +103,9 @@ function demander(uint _montant, string memory _pseudo, address _contratCible, s
 
 function payerCanal(string memory _pseudo) public payable
 {
-  require(mappPseudo[_pseudo] == msg.sender);
   require(msg.value > 0);
   uint _channelID = uint(keccak256(bytes(_pseudo)));
+  require(mappChannel[_channelID].demandeur != msg.sender);
   uint fees = uint(msg.value / PRICE_RATIO);
   _mint(msg.sender,msg.value - fees);
   uint addValue;
@@ -129,10 +126,7 @@ function fermetureCanal(string memory _pseudo) public
   uint _channelID = uint(keccak256(bytes(_pseudo)));
   require(mappChannel[_channelID].montant != 0);
   require(mappChannel[_channelID].demandeur == msg.sender);
-  if (mappChannel[_channelID].enCours > 0)
-  {
-    msg.sender.transfer(mappChannel[_channelID].enCours);
-  }
+  msg.sender.transfer(mappChannel[_channelID].enCours);
   mappChannel[_channelID].enCours = 0;
   mappChannel[_channelID].montant = 0;
   mappChannel[_channelID].contratCible = address(0);
