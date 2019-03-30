@@ -63,13 +63,16 @@ function endGame() public onlyOwner
 function soldeGame() public onlyOwner
 {
   require(state == LotteryState.Finished);
-  LOTTERY_CAGNOTTE = uint(LOTTERY_CAGNOTTE.div(winners.length));
-  for (uint i=0; i< winners.length; i++)
+  if (winners.length>0)
+  uint actualGain = uint(LOTTERY_CAGNOTTE.div(winners.length));
   {
-    gains[winners[i]].add(LOTTERY_CAGNOTTE);
-    delete winners[i];
-  }
+    for (uint i=0; i< winners.length; i++)
+    {
+      gains[winners[i]].add(actualGain);
+      delete winners[i];
+    }
   LOTTERY_CAGNOTTE = 0;
+  }
   state = LotteryState.Pending;
 }
 
