@@ -38,8 +38,8 @@ function initierLottery() public onlyOwner
 
 function play(uint _prediction) public
 {
-  require(state == LotteryState.Started);`
-  require(prediction[msg.sender].length < MAX_PLAY);`
+  require(state == LotteryState.Started);
+  require(prediction[msg.sender].length < MAX_PLAY);
   _burnFrom(msg.sender,PRICE_LOTTERY_TOKEN);
   prediction[msg.sender].push(_prediction);
   players.push(msg.sender);
