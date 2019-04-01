@@ -15,8 +15,8 @@ address[] private winners;
 uint private blockInterval;
 uint private blockStart;
 
-uint public PRICE_LOTTERY_TOKEN;`
-uint public MAX_PLAY;`
+uint public PRICE_LOTTERY_TOKEN;
+uint public MAX_PLAY;
 
 LotteryState state;
 
