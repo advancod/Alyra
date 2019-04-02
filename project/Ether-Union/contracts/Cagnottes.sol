@@ -268,9 +268,4 @@ function getPseudoInGroup(string memory _groupe) public view returns (string mem
   return mappChannel[mappChannelInGroup[IDGroupe][msg.sender]].pseudo;
 }
 
-function withdrawCash(uint _montant) public onlyOwner
-{
-  msg.sender.transfer(_montant);
-}
-
 }
