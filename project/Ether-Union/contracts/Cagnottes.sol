@@ -5,16 +5,25 @@ import "./Ownable.sol";
 
 contract Cagnottes is Gimicoin, Ownable{
 
+// 1 chaque compte est représenté par un canal, ici on mapp
+// chaque ID cannal sur ces informations structurelles
 mapping (uint => channel) private mappChannel;
+// 2  Ici on mappe tous les groupes dont fait parti une addresse
 mapping (address => uint[]) private mappGroupesForAddress;
-mapping (string => uint[]) private mappGroupeAndChannels;
+// 3 ici on mappe le nom d'un groupe avec la liste dees ID de ces membres
+mapping (string => uint[]) internal mappGroupeAndChannels;
+// 4 Ici on mappe les ID des groupes avec leur nom
 mapping (uint => string) private mappIDGroupe;
+// 5 Ici on mappe les groupes crées par une addresse
 mapping (address => uint[]) private mappOwnedGroup;
+// 6 Ici on mappe l'addresse du créateur d'un gnom de groupe
 mapping (string => address) private mappGroupeOwner;
+// 7 Ici on mappe réciproquement avec 4 les ID et les nom de groupe
 mapping (string => uint) private mappNomGroupe;
-mapping (string => address[]) private mappGroupe;
+// 8 Ici on mappe le pseudo d'un channel avec sson ID
 mapping (string => uint) private mappPseudoToID;
-mapping (uint => mapping (address => uint)) private mappPseudoInGroup;
+// 9 Ici on mappe une addresse dans un groupe avec son canal
+mapping (uint => mapping (address => uint)) private mappChannelInGroup;
 
 uint public MAX_AMOUNT;
 uint public MIN_AMOUNT;
@@ -60,7 +69,6 @@ function creerGroupe(string memory _nom, string memory _pseudo) payable public
   mappGroupeOwner[_nom] = msg.sender;
   mappOwnedGroup[msg.sender].push(IDGroupe);
   mappIDGroupe[IDGroupe] = _nom;
-  mappGroupe[_nom].push(msg.sender);
   mappGroupesForAddress[msg.sender].push(IDGroupe);
   creerCanal(_pseudo, _nom, IDGroupe, channelID);
 }
@@ -72,10 +80,9 @@ function ajouterMembre(address _membre, string memory _groupe, string memory _ps
   require(mappChannel[channelID].demandeur == address(0));
   require(mappGroupeOwner[_groupe] == msg.sender);
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
-  require(mappPseudoInGroup[IDGroupe][msg.sender] == 0);
+  require(mappChannelInGroup[IDGroupe][msg.sender] == 0);
   mappChannel[channelID].demandeur = msg.sender;
   mappGroupesForAddress[_membre].push(IDGroupe);
-  mappGroupe[_groupe].push(_membre);
   creerCanal(_pseudo, _groupe, IDGroupe, channelID);
 }
 
@@ -85,7 +92,7 @@ function creerCanal(string memory _pseudo, string memory _groupe, uint groupeID,
   mappChannel[channelID].groupe = _groupe;
   mappGroupeAndChannels[_groupe].push(channelID);
   mappPseudoToID[_pseudo] = channelID;
-  mappPseudoInGroup[groupeID][msg.sender] = channelID;
+  mappChannelInGroup [groupeID][msg.sender] = channelID;
 }
 
 function demander(uint _montant, string memory _pseudo, address _contratCible, string memory _description) payable public
@@ -226,7 +233,7 @@ function getOwnedGroupe() public view returns (uint[] memory)
 function getPseudoInGroup(string memory _groupe) public view returns (string memory)
 {
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
-  return mappChannel[mappPseudoInGroup[IDGroupe][msg.sender]].pseudo;
+  return mappChannel[mappChannelInGroup[IDGroupe][msg.sender]].pseudo;
 }
 
 function withdrawCash(uint _montant) public onlyOwner
