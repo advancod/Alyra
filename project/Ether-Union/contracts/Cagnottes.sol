@@ -25,12 +25,19 @@ mapping (string => uint) private mappPseudoToID;
 // 9 Ici on mappe une addresse dans un groupe avec son canal
 mapping (uint => mapping (address => uint)) private mappChannelInGroup;
 
+// montant maximum d'une demande
 uint public MAX_AMOUNT;
+// montant minimum d'une demanfe
 uint public MIN_AMOUNT;
+// charges recoltes par le contrat a chaque paiement (montant/PRICE_RATIO)
 uint public PRICE_RATIO;
+// prix de la creation d un groupe
 uint public PRICE_GROUP;
+// prix de l ajout d'un membre a un groupe
 uint public PRICE_MEMBRE;
+// prix de l'ouverture d'une demande
 uint public PRICE_CHANEL;
+// montant total des charges recoltes
 uint public LOTTERY_CAGNOTTE;
 
 struct channel
@@ -59,35 +66,55 @@ constructor() public
 
 function creerGroupe(string memory _nom, string memory _pseudo) payable public
 {
+  // On verifie que la creation de groupe est bien payee
   require(PRICE_GROUP == msg.value);
+  // Que le nom du groupe n'existe pas deja
   require(mappNomGroupe[_nom] == 0);
+  // On cree un identifiant de l'utilisateur
   uint channelID = uint(keccak256(bytes(_pseudo)));
+  // On verifi que l'utilisateur n'existe pas deja
   require(mappChannel[channelID].demandeur == address(0));
+  // On cree un identifiant du groupe
   uint IDGroupe = uint(keccak256(bytes(_nom)));
+  // On ajoute le createur dans le groupe
   mappChannel[channelID].demandeur = msg.sender;
+  // On associe le nom du groupe a son identifiant
   mappNomGroupe[_nom] = IDGroupe;
-  mappGroupeOwner[_nom] = msg.sender;
-  mappOwnedGroup[msg.sender].push(IDGroupe);
   mappIDGroupe[IDGroupe] = _nom;
+  // Le nom du groupe a l'addresse de son createur
+  mappGroupeOwner[_nom] = msg.sender;
+  // On ajoute le groupe a la liste des de groupe crees par le createur (administrateur)
+  mappOwnedGroup[msg.sender].push(IDGroupe);
+  // On ajoute le groupe a la liste des groupes auxquel le createur est membre
   mappGroupesForAddress[msg.sender].push(IDGroupe);
+  // On instancie le canal de demande du createur dans le groupe
   creerCanal(_pseudo, _nom, IDGroupe, channelID);
 }
 
 function ajouterMembre(address _membre, string memory _groupe, string memory _pseudo) payable public
 {
+  // On verifi que l ajout d'un membre a groupe est paye
   require(PRICE_MEMBRE == msg.value);
+  // On cree un identifiant du nouveau membre
   uint channelID = uint(keccak256(bytes(_pseudo)));
+  // On verifi que ce membre n'existe pas deja
   require(mappChannel[channelID].demandeur == address(0));
+  // On verifi que l'ajouteur est le createur du groupe
   require(mappGroupeOwner[_groupe] == msg.sender);
+  // On regarde lidentifiant du groupe par rapport a son nom
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
+  // On verifi que le createur ne s'ajoute pas lui meme
   require(mappChannelInGroup[IDGroupe][msg.sender] == 0);
-  mappChannel[channelID].demandeur = msg.sender;
+  // On ajoute le groupe a la liste des groupes auxquel le membre est membre
   mappGroupesForAddress[_membre].push(IDGroupe);
+  // On prepare l'instanciation du canl de demande
+  mappChannel[channelID].demandeur = msg.sender;
   creerCanal(_pseudo, _groupe, IDGroupe, channelID);
 }
 
 function creerCanal(string memory _pseudo, string memory _groupe, uint groupeID, uint channelID) private
 {
+  // on saisi les constantes du canal de demande propre au nouveau membre
   mappChannel[channelID].pseudo = _pseudo;
   mappChannel[channelID].groupe = _groupe;
   mappGroupeAndChannels[_groupe].push(channelID);
@@ -97,12 +124,17 @@ function creerCanal(string memory _pseudo, string memory _groupe, uint groupeID,
 
 function demander(uint _montant, string memory _pseudo, address _contratCible, string memory _description) payable public
 {
+  //On verifi que l'ouverture d'une demande est bien payee
   require(msg.value == PRICE_CHANEL);
+  // On verifi que la montant repond au regles
   require(_montant > MIN_AMOUNT);
   require(_montant < MAX_AMOUNT);
+  // On verifi que l'appelant est bien le membre
   uint channelID = uint(keccak256(bytes(_pseudo)));
   require(mappChannel[channelID].demandeur == msg.sender);
+  // On verifi qu'une demande n'est pas en cours pour ce membre
   require(mappChannel[channelID].montant == 0);
+  // On saisi les infos de la demande
   mappChannel[channelID].montant = _montant;
   mappChannel[channelID].contratCible = _contratCible;
   mappChannel[channelID].description = _description;
