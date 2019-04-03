@@ -6,7 +6,7 @@ contract("Test Lottery", async accounts => {
     let groupe = "groupe";
     let pseudo = "pseudo";
     let ID = "pseudo";
-    let balance = await contractInstance.creerGroupe.call(groupe,pseudo);
+    let balance = await contractInstance.creerGroupe(nom,pseudo, {value : 100000})
     assert.equal(getNomGroupe(ID), 10000);
   });
 });

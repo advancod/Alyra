@@ -185,25 +185,6 @@ const Lottery = [
   },
   {
     "constant": true,
-    "inputs": [
-      {
-        "name": "_pseudo",
-        "type": "string"
-      }
-    ],
-    "name": "getDonnations",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
     "inputs": [],
     "name": "decimals",
     "outputs": [
@@ -411,6 +392,20 @@ const Lottery = [
     "outputs": [],
     "payable": true,
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "MAX_PLAY",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -813,6 +808,23 @@ const Lottery = [
     "inputs": [
       {
         "indexed": true,
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "_montant",
+        "type": "uint256"
+      }
+    ],
+    "name": "fundsTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
         "name": "from",
         "type": "address"
       },
@@ -934,6 +946,20 @@ const Lottery = [
     "constant": false,
     "inputs": [
       {
+        "name": "_maxPlay",
+        "type": "uint256"
+      }
+    ],
+    "name": "modifierMaxPlay",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
         "name": "_interval",
         "type": "uint256"
       }
@@ -960,7 +986,7 @@ const Lottery = [
   }
 ]
 
-let contractAddress = "0xa2047389398dc2d2e2bb9ab963e408e7b0a9c0ad"
+let contractAddress = "0xfeeb8b00970c5f45baf9c0893341f5bcc9a72e17"
 const provider = new ethers.providers.Web3Provider(ethereum)
 let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner())
 
@@ -1004,13 +1030,12 @@ async function _getMembresGroupe() {
       copy.push(group)
     }
   document.getElementById('getMembres').innerHTML = copy
-  document.getElementById('getMonPseudo').innerHTML =  await contractInstance.getPseudoInGroup(nomGroupe,)
+  document.getElementById('getMonPseudo').innerHTML =  await contractInstance.getPseudoInGroup(nomGroupe)
 }
 
 async function _membreInfo() {
     let pseudo = document.getElementById('pseudo6').value
     document.getElementById('getContratCible').innerHTML = await contractInstance.getContratCible(pseudo)
-    document.getElementById('getDonnations').innerHTML = await contractInstance.getDonnations(pseudo)
     document.getElementById('getMontant').innerHTML = await contractInstance.getMontant(pseudo)
     document.getElementById('getEncours').innerHTML = await contractInstance.getEncours(pseudo)
     document.getElementById('getReceptions').innerHTML = await contractInstance.getReceptions(pseudo)
