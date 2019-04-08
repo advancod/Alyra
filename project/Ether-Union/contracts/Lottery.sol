@@ -12,34 +12,32 @@ enum LotteryState { Started, Finished, Pending }
 address[] private players;
 address[] private winners;
 
-uint private blockInterval;
-uint private blockStart;
+uint private blockEnd;
+uint private PRICE_LOTTERY_TOKEN;
+uint private NB_TICKETS;
 
-uint public PRICE_LOTTERY_TOKEN;
-uint public MAX_PLAY;
-
-LotteryState state;
+LotteryState private state;
 
 constructor() public
 {
-  PRICE_LOTTERY_TOKEN = 100000000;
-  blockInterval = 1000000;
-  state == LotteryState.Pending;
-  MAX_PLAY = 10;
+  state = LotteryState.Pending;
 }
 
-function initierLottery() public onlyOwner
+function initierLottery(uint _price, uint _tickets, uint _blockEnd) public onlyOwner
 {
   require(state == LotteryState.Pending);
-  require(LOTTERY_CAGNOTTE > PRICE_LOTTERY_TOKEN);
+  require(block.number < _blockEnd);
+  blockEnd = _blockEnd;
+  NB_TICKETS = _tickets;
+  PRICE_LOTTERY_TOKEN = _price;
   state = LotteryState.Started;
-  blockStart = block.number;
 }
 
 function play(uint _prediction) public
 {
   require(state == LotteryState.Started);
-  require(prediction[msg.sender].length < MAX_PLAY);
+  require(NB_TICKETS > 0);
+  NB_TICKETS -= 1;
   _burnFrom(msg.sender,PRICE_LOTTERY_TOKEN);
   prediction[msg.sender].push(_prediction);
   players.push(msg.sender);
@@ -48,7 +46,7 @@ function play(uint _prediction) public
 function endGame() public onlyOwner
 {
   require(state == LotteryState.Started);
-  require(block.number - blockStart > blockInterval);
+  require(block.number > blockEnd);
   for (uint i=0; i< players.length; i++)
   {
     for (uint j=0; j< prediction[players[i]].length; j++)
@@ -91,19 +89,14 @@ function getPrixLottery() public view returns (uint)
   return PRICE_LOTTERY_TOKEN;
 }
 
-function modifierPrixLottery(uint _price) public onlyOwner
+function getTicketsLeft() public view returns (uint)
 {
-  PRICE_LOTTERY_TOKEN = _price;
+  return NB_TICKETS;
 }
 
-function modifierMaxPlay(uint _maxPlay) public onlyOwner
+function getEndGame() public view returns (uint)
 {
-  MAX_PLAY = _maxPlay;
-}
-
-function modifierBlockInterval(uint _interval) public onlyOwner
-{
-  blockInterval = _interval;
+  return blockEnd;
 }
 
 function getSuperCagnotte() public view returns (uint)

@@ -98,7 +98,7 @@ function ajouterMembre(address _membre, string memory _groupe, string memory _ps
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
   // On ajoute le groupe a la liste des groupes auxquel le membre est membre
   mappGroupesForAddress[_membre].push(IDGroupe);
-  // On prepare l'instanciation du canl de demande
+  // On prepare l'instanciation du canal de demande
   mappChannel[channelID].demandeur = msg.sender;
   creerCanal(_pseudo, _groupe, IDGroupe, channelID);
 }

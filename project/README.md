@@ -56,6 +56,7 @@ L'utilisateur doit tout simplement deviner le montant de la cagnotte globale du 
 Vous devez posséder des token UNION pour jouer a la lotterie.
 
 Evolutions :
+- utilistation de bridge pour les canaux de paiement
 - Ajout d'une couche front react native
 - Améliorer l'administration des groupes (administrateurs multiples, suppression de membres, blacklistings)
 - Mettre en place un modèle économique faisant fructifier les ethers bloqués dans le contrat (ex cdp)

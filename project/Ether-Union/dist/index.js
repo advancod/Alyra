@@ -125,20 +125,6 @@ const Lottery = [
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "PRICE_LOTTERY_TOKEN",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "constant": false,
     "inputs": [
       {
@@ -392,20 +378,6 @@ const Lottery = [
     "outputs": [],
     "payable": true,
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "MAX_PLAY",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -866,7 +838,20 @@ const Lottery = [
   },
   {
     "constant": false,
-    "inputs": [],
+    "inputs": [
+      {
+        "name": "_price",
+        "type": "uint256"
+      },
+      {
+        "name": "_tickets",
+        "type": "uint256"
+      },
+      {
+        "name": "_blockEnd",
+        "type": "uint256"
+      }
+    ],
     "name": "initierLottery",
     "outputs": [],
     "payable": false,
@@ -929,45 +914,31 @@ const Lottery = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
+    "constant": true,
+    "inputs": [],
+    "name": "getTicketsLeft",
+    "outputs": [
       {
-        "name": "_price",
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "modifierPrixLottery",
-    "outputs": [],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
+    "constant": true,
+    "inputs": [],
+    "name": "getEndGame",
+    "outputs": [
       {
-        "name": "_maxPlay",
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "modifierMaxPlay",
-    "outputs": [],
     "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_interval",
-        "type": "uint256"
-      }
-    ],
-    "name": "modifierBlockInterval",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -986,7 +957,7 @@ const Lottery = [
   }
 ]
 
-let contractAddress = "0xfeeb8b00970c5f45baf9c0893341f5bcc9a72e17"
+let contractAddress = "0x9b19088c54df4822344457a4ce148dce13f192f7"
 const provider = new ethers.providers.Web3Provider(ethereum)
 let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner())
 
@@ -999,6 +970,8 @@ async function demarrage() {
 async function _lotteryInfo() {
   document.getElementById('getPrixLottery').innerHTML = await contractInstance.getPrixLottery()
   document.getElementById('getSuperCagnotte').innerHTML = await contractInstance.getSuperCagnotte()
+  document.getElementById('getTicketsLeft').innerHTML = await contractInstance.getTicketsLeft()
+  document.getElementById('getEndGame').innerHTML = await contractInstance.getEndGame()
 }
 
 async function _getGroupesPerAddress() {
@@ -1085,4 +1058,9 @@ async function _jouerLottery() {
     await ethereum.enable()
     let prediction = document.getElementById('prediction').value
   	await contractInstance.play(prediction)
+}
+
+async function _withdrawGains() {
+    await ethereum.enable()
+  	await contractInstance.withdrawGains()
 }
