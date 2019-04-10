@@ -5,26 +5,38 @@ import "./Cagnottes.sol";
 contract Lottery is Cagnottes{
 
 mapping (address => uint[]) private prediction ;
-mapping (address => uint) private gains ;
+mapping (address => uint) private gains;
 
 enum LotteryState { Started, Finished, Pending }
 
 address[] private players;
 address[] private winners;
 
+uint private blockStop;
 uint private blockEnd;
 uint private PRICE_LOTTERY_TOKEN;
 uint private NB_TICKETS;
 
 LotteryState private state;
 
+struct resultat
+{
+  uint numCagnotte;
+  uint cagnotte;
+  uint nbGagnants;
+}
+
+resultat lastResult;
+
 constructor() public
 {
   state = LotteryState.Pending;
+  blockStop = 100;
 }
 
 function initierLottery(uint _price, uint _tickets, uint _blockEnd) public onlyOwner
 {
+  require(block.number < blockEnd - blockStop);
   require(state == LotteryState.Pending);
   require(block.number < _blockEnd);
   blockEnd = _blockEnd;
@@ -35,6 +47,7 @@ function initierLottery(uint _price, uint _tickets, uint _blockEnd) public onlyO
 
 function play(uint _prediction) public
 {
+  require(block.number < blockEnd - blockStop);
   require(state == LotteryState.Started);
   require(NB_TICKETS > 0);
   NB_TICKETS -= 1;
@@ -56,9 +69,12 @@ function endGame() public onlyOwner
         prediction[players[i]][j] = 0;
         winners.push(players[i]);
       }
-      delete players[i];
     }
+    delete players[i];
   }
+  lastResult.numCagnotte += 1;
+  lastResult.cagnotte = LOTTERY_CAGNOTTE;
+  lastResult.nbGagnants = players.length;
 }
 
 function soldeGame() public onlyOwner
@@ -102,6 +118,31 @@ function getEndGame() public view returns (uint)
 function getSuperCagnotte() public view returns (uint)
 {
   return LOTTERY_CAGNOTTE;
+}
+
+function getBlockStop() public view returns (uint)
+{
+  return blockEnd - blockStop;
+}
+
+function modifierBlockStop(uint _stop) public onlyOwner
+{
+  blockStop = _stop;
+}
+
+function getNumCagnotte() public view returns (uint)
+{
+  return lastResult.numCagnotte;
+}
+
+function getCagnotte() public view returns (uint)
+{
+  return lastResult.cagnotte;
+}
+
+function getNbGagnants() public view returns (uint)
+{
+  return lastResult.nbGagnants;
 }
 
 }

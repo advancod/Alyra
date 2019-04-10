@@ -972,6 +972,11 @@ async function _lotteryInfo() {
   document.getElementById('getSuperCagnotte').innerHTML = await contractInstance.getSuperCagnotte()
   document.getElementById('getTicketsLeft').innerHTML = await contractInstance.getTicketsLeft()
   document.getElementById('getEndGame').innerHTML = await contractInstance.getEndGame()
+  document.getElementById('getBlockStop').innerHTML = await contractInstance.getBlockStop()
+
+  document.getElementById('getNumCagnotte').innerHTML = await contractInstance.getNumCagnotte()
+  document.getElementById('getCagnotte').innerHTML = await contractInstance.getCagnotte()
+  document.getElementById('getNbGagnants').innerHTML = await contractInstance.getNbGagnants()
 }
 
 async function _getGroupesPerAddress() {

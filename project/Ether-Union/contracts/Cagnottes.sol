@@ -5,6 +5,8 @@ import "./Ownable.sol";
 
 contract Cagnottes is Gimicoin, Ownable{
 
+event nouvelleDemamnde(string groupe, string pseudo);
+
 // 1 chaque compte est représenté par un canal, ici on mapp
 // chaque ID cannal sur ces informations structurelles
 mapping (uint => channel) private mappChannel;
@@ -18,25 +20,25 @@ mapping (uint => string) private mappIDGroupe;
 mapping (address => uint[]) private mappOwnedGroup;
 // 6 Ici on mappe l'addresse du créateur d'un gnom de groupe
 mapping (string => address) private mappGroupeOwner;
-// 8 Ici on mappe le pseudo d'un channel avec sson ID
+// 7 Ici on mappe le pseudo d'un channel avec sson ID
 mapping (string => uint) private mappPseudoToID;
-// 9 Ici on mappe une addresse dans un groupe avec son canal
+// 8 Ici on mappe une addresse dans un groupe avec son canal
 mapping (uint => mapping (address => uint)) private mappChannelInGroup;
 
 // montant maximum d'une demande
-uint public MAX_AMOUNT;
+uint private MAX_AMOUNT;
 // montant minimum d'une demanfe
-uint public MIN_AMOUNT;
+uint private MIN_AMOUNT;
 // charges recoltes par le contrat a chaque paiement (montant/PRICE_RATIO)
-uint public PRICE_RATIO;
+uint private PRICE_RATIO;
 // prix de la creation d un groupe
-uint public PRICE_GROUP;
+uint private PRICE_GROUP;
 // prix de l ajout d'un membre a un groupe
-uint public PRICE_MEMBRE;
+uint private PRICE_MEMBRE;
 // prix de l'ouverture d'une demande
-uint public PRICE_CHANEL;
+uint private PRICE_CHANEL;
 // montant total des charges recoltes
-uint public LOTTERY_CAGNOTTE;
+uint internal LOTTERY_CAGNOTTE;
 
 struct channel
 {
@@ -129,6 +131,8 @@ function demander(uint _montant, string memory _pseudo, address _contratCible, s
   mappChannel[channelID].montant = _montant;
   mappChannel[channelID].contratCible = _contratCible;
   mappChannel[channelID].description = _description;
+  
+  emit nouvelleDemamnde(mappChannel[channelID].groupe, _pseudo);
 }
 
 function payerCanal(string memory _pseudo) public payable
