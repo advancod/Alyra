@@ -70,7 +70,6 @@ function endGame() public onlyOwner
     {
       if (prediction[players[i]][j] == LOTTERY_CAGNOTTE && prediction[players[i]][j] != 0)
       {
-        prediction[players[i]][j] = 0;
         winners.push(players[i]);
       }
     }
@@ -79,7 +78,7 @@ function endGame() public onlyOwner
   msg.sender.transfer(LOTTERY_CAGNOTTE);
   lastResult.numCagnotte += 1;
   lastResult.cagnotte = LOTTERY_CAGNOTTE;
-  lastResult.nbGagnants = players.length;
+  lastResult.nbGagnants = winners.length;
 }
 
 function soldeGame() public onlyOwner
@@ -127,7 +126,12 @@ function getSuperCagnotte() external view returns (uint)
 
 function getBlockStop() external view returns (uint)
 {
-  return blockEnd - blockStop;
+  if (state == LotteryState.Pending)
+  {
+  return 0;
+  }
+  else return blockEnd - blockStop;
+
 }
 
 function modifierBlockStop(uint _stop) public onlyOwner
