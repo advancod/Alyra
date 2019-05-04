@@ -63,3 +63,14 @@ Evolutions :
 - Création du contrat controlant le cicle de vie de la loterie.
 - Amélioration du rapport difficulté/prix/gains/probabilité du jeux.
 - Améliorer les statistiques grace à fonctionnalité de vérification de paiement "contrat cible" par le rensu du hash de transaction et affiliation des entreprises beneficiaires des contrats cibles pour reconnaissance directe des versements
+
+https://ds453.haisoft.net:8443/
+hassan
+?#6x]=k2vV)$
+chown -R admindeepblockfr:psaserv securact.deepblock.fr
+ls -l
+
+
+cle github securact
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDrUH25cVA/6Jjkww+O7xjdi3snUrJQzRNsMkWO8aq670zjhHvOvYvLPGvbdnNTGKKNe3sTa2HGkQrLDIz+XEDh/XikFWv4Ke3IHJw7X65vjHpTcn7IkpS68q7sfWmJ5VWOZQtA5hSAZ7FGp+eMI4GxrPMuF9qY+B1/eJ52rfko1Gm8VOQ2SVzaZIVhqaaGEkomqXW/pM7gQr9Ulh5wILaPVUomiP6VowSTze6soDSjnwwPR7uoSnU5Qx7zqYsOh/Ckj8COUkK13A+51i+5QvNcz5oF+v1plJM7p+EvK9VHY+zZzwMwuxetp27YoB3F1zUmGMHW2hpPE2OMQtHS5al4XY9x9iM6L6fJCQsnLW9IGUT2UrqFvukgbXBSTXNRaoxLbDz7tw1WEQbRe37NzfGGvIuYbRUe3FJeqJGESGksOWEOdlxCDMKZWOdQ87WmdHvoJIDBuezlas5DmEMNnY1eBYOSSmEZzRNomA2K2mgUyN4s0A7HLckhjmGVEbpjwzK4EVkR0RJl4fq3InJ4FT9ovTRAmV2aO2276bfCB0pCBXvJGa46IrTH3vT+FVSDsfJ6ekHhE0HT+dp9XXO9VCvcxIOcHwGWEUNNXQAtmu+oRSP3K89siNvS/43uTHb9f009EibLV/V+MiBYuwuhd9DNC8D37WZSj2RQKfwDsFnVow==

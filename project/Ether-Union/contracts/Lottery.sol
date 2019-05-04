@@ -45,14 +45,18 @@ function initierLottery(uint _price, uint _tickets, uint _blockEnd) public onlyO
   state = LotteryState.Started;
 }
 
-function play(uint _prediction) public
+function play(uint _prediction, uint _nbTickets) public
 {
   require(block.number < blockEnd - blockStop);
   require(state == LotteryState.Started);
-  require(NB_TICKETS > 0);
-  NB_TICKETS -= 1;
-  _burnFrom(msg.sender,PRICE_LOTTERY_TOKEN);
+  require(NB_TICKETS - _nbTickets > 0);
+  require(balanceOf(msg.sender) >= _nbTickets.mul(PRICE_LOTTERY_TOKEN));
+  NB_TICKETS -= _nbTickets;
+  _burnFrom(msg.sender,_nbTickets.mul(PRICE_LOTTERY_TOKEN));
+  for (uint i=0; i< _nbTickets; i++)
+  {
   prediction[msg.sender].push(_prediction);
+  }
   players.push(msg.sender);
 }
 
@@ -72,6 +76,7 @@ function endGame() public onlyOwner
     }
     delete players[i];
   }
+  msg.sender.transfer(LOTTERY_CAGNOTTE);
   lastResult.numCagnotte += 1;
   lastResult.cagnotte = LOTTERY_CAGNOTTE;
   lastResult.nbGagnants = players.length;
@@ -100,27 +105,27 @@ function withdrawGains() public
   msg.sender.transfer(MyGains);
 }
 
-function getPrixLottery() public view returns (uint)
+function getPrixLottery() external view returns (uint)
 {
   return PRICE_LOTTERY_TOKEN;
 }
 
-function getTicketsLeft() public view returns (uint)
+function getTicketsLeft() external view returns (uint)
 {
   return NB_TICKETS;
 }
 
-function getEndGame() public view returns (uint)
+function getEndGame() external view returns (uint)
 {
   return blockEnd;
 }
 
-function getSuperCagnotte() public view returns (uint)
+function getSuperCagnotte() external view returns (uint)
 {
   return LOTTERY_CAGNOTTE;
 }
 
-function getBlockStop() public view returns (uint)
+function getBlockStop() external view returns (uint)
 {
   return blockEnd - blockStop;
 }
@@ -130,17 +135,17 @@ function modifierBlockStop(uint _stop) public onlyOwner
   blockStop = _stop;
 }
 
-function getNumCagnotte() public view returns (uint)
+function getNumCagnotte() external view returns (uint)
 {
   return lastResult.numCagnotte;
 }
 
-function getCagnotte() public view returns (uint)
+function getCagnotte() external view returns (uint)
 {
   return lastResult.cagnotte;
 }
 
-function getNbGagnants() public view returns (uint)
+function getNbGagnants() external view returns (uint)
 {
   return lastResult.nbGagnants;
 }

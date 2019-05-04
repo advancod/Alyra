@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ether.js": "^1.0.0",
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "requirejs": "^2.3.6"
   }
 }

@@ -9,7 +9,6 @@ contract Ownable {
 
 
   event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-  event fundsTransferred(address indexed owner, uint _montant);
 
   /**
    * @dev The Ownable constructor sets the original `owner` of the contract to the sender
@@ -37,13 +36,6 @@ contract Ownable {
     require(newOwner != address(0));
     emit OwnershipTransferred(owner, newOwner);
     owner = newOwner;
-  }
-
-
-  function withdrawCash(uint _montant) onlyOwner public
-  {
-    msg.sender.transfer(_montant);
-    emit fundsTransferred(owner, _montant);
   }
 
 }
