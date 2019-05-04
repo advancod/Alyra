@@ -164,32 +164,32 @@ function fermetureCanal(string memory _pseudo) public
   mappChannel[_channelID].description = "";
 }
 
-function modifierPriceChannel(uint _priceChannel) external onlyOwner
+function modifierPriceChannel(uint _priceChannel) public onlyOwner
 {
   PRICE_CHANEL = _priceChannel;
 }
 
-function modifierMaxAmount(uint _maxAmount) external onlyOwner
+function modifierMaxAmount(uint _maxAmount) public onlyOwner
 {
   MAX_AMOUNT = _maxAmount;
 }
 
-function modifierMinAmount(uint _minAmount) external onlyOwner
+function modifierMinAmount(uint _minAmount) public onlyOwner
 {
   MIN_AMOUNT = _minAmount;
 }
 
-function modifierCharges(uint _priceRatio) external onlyOwner
+function modifierCharges(uint _priceRatio) public onlyOwner
 {
   PRICE_RATIO = _priceRatio;
 }
 
-function modifierPriceGroup(uint _priceGroup) external onlyOwner
+function modifierPriceGroup(uint _priceGroup) public onlyOwner
 {
   PRICE_GROUP = _priceGroup;
 }
 
-function modifierPriceMember(uint _priceMember) external onlyOwner
+function modifierPriceMember(uint _priceMember) public onlyOwner
 {
   PRICE_MEMBRE = _priceMember;
 }
