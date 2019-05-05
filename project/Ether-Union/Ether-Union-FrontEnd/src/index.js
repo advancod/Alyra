@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Play from './components/Play';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Play />, document.getElementById('play'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -104,27 +104,27 @@ function withdrawGains() public
   msg.sender.transfer(MyGains);
 }
 
-function getPrixLottery() external view returns (uint)
+function getPrixLottery() public view returns (uint)
 {
   return PRICE_LOTTERY_TOKEN;
 }
 
-function getTicketsLeft() external view returns (uint)
+function getTicketsLeft() public view returns (uint)
 {
   return NB_TICKETS;
 }
 
-function getEndGame() external view returns (uint)
+function getEndGame() public view returns (uint)
 {
   return blockEnd;
 }
 
-function getSuperCagnotte() external view returns (uint)
+function getSuperCagnotte() public view returns (uint)
 {
   return LOTTERY_CAGNOTTE;
 }
 
-function getBlockStop() external view returns (uint)
+function getBlockStop() public view returns (uint)
 {
   if (state == LotteryState.Pending)
   {
@@ -139,17 +139,22 @@ function modifierBlockStop(uint _stop) public onlyOwner
   blockStop = _stop;
 }
 
-function getNumCagnotte() external view returns (uint)
+function getNumCagnotte() public view returns (uint)
 {
   return lastResult.numCagnotte;
 }
 
-function getCagnotte() external view returns (uint)
+function getCagnotte() public view returns (uint)
 {
   return lastResult.cagnotte;
 }
 
-function getNbGagnants() external view returns (uint)
+function getSolde() public view returns (uint)
+{
+  return balanceOf(msg.sender);
+}
+
+function getNbGagnants() public view returns (uint)
 {
   return lastResult.nbGagnants;
 }

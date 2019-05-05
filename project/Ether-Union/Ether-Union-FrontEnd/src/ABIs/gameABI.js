@@ -1,6 +1,25 @@
 const Lottery = [
   {
     "constant": true,
+    "inputs": [
+      {
+        "name": "_pseudo",
+        "type": "string"
+      }
+    ],
+    "name": "getAddresse",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [],
     "name": "name",
     "outputs": [
@@ -19,7 +38,7 @@ const Lottery = [
       {
         "name": "spender",
         "type": "address"
-      }, 
+      },
       {
         "name": "value",
         "type": "uint256"
@@ -954,6 +973,20 @@ const Lottery = [
     "constant": true,
     "inputs": [],
     "name": "getCagnotte",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getSolde",
     "outputs": [
       {
         "name": "",

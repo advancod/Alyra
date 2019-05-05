@@ -1,6 +1,25 @@
 const Lottery = [
   {
     "constant": true,
+    "inputs": [
+      {
+        "name": "_pseudo",
+        "type": "string"
+      }
+    ],
+    "name": "getAddresse",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [],
     "name": "name",
     "outputs": [
@@ -967,6 +986,20 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
+    "name": "getSolde",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "getNbGagnants",
     "outputs": [
       {
@@ -980,7 +1013,7 @@ const Lottery = [
   }
 ]
 
-let contractAddress = "0xd08c1df11d17f73584a3065bd10bb85a2cc30e1b"
+let contractAddress = "0x03384ac0049f18e9bc2199edbb8f037fc99bd7b2"
 const provider = new ethers.providers.Web3Provider(ethereum)
 let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner())
 
@@ -997,7 +1030,7 @@ async function _lotteryInfo() {
   document.getElementById('getTicketsLeft').innerHTML = await contractInstance.getTicketsLeft()
   document.getElementById('getEndGame').innerHTML = await contractInstance.getEndGame()
   document.getElementById('getBlockStop').innerHTML = await contractInstance.getBlockStop()
-
+  document.getElementById('balanceOf').innerHTML = await contractInstance.getSolde()
   document.getElementById('getNumCagnotte').innerHTML = await contractInstance.getNumCagnotte()
   document.getElementById('getCagnotte').innerHTML = await contractInstance.getCagnotte()
   document.getElementById('getNbGagnants').innerHTML = await contractInstance.getNbGagnants()
@@ -1044,6 +1077,7 @@ async function _membreInfo() {
     document.getElementById('getDonnations').innerHTML = await contractInstance.getDonnations(pseudo)
     document.getElementById('getGroupe').innerHTML = await contractInstance.getGroupe(pseudo)
     document.getElementById('getDescription').innerHTML = await contractInstance.getDescription(pseudo)
+    document.getElementById('getAddresse').innerHTML = await contractInstance.getAddresse(pseudo)
     document.getElementById('getMembre').innerHTML = pseudo
 }
 

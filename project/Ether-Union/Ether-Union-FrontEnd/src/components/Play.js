@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import { ethers } from 'ethers';
-import Lottery from './gameABI';
-import logo from './logo.svg';
-import './App.css';
+import contractInstance from '../options';
 
-const contractAddress = "0x08e52395c0fc7abece10c3ce6cb9e6211940bc7b";
-const provider = new ethers.getDefaultProvider('ropsten');
-const contractInstance = new ethers.Contract(contractAddress, Lottery, provider);
-
-
-class App extends Component {
+class Play extends Component {
   constructor() {
     super();
     this.state = {
@@ -20,7 +12,7 @@ class App extends Component {
       getBlockStop: '',
       getNumCagnotte: '',
       getCagnotte: '',
-      getNbGagnants   : ''
+      getNbGagnants: ''
 		};
   }
 
@@ -48,8 +40,6 @@ class App extends Component {
   render() {
 
     return (
-
-
 
       <div class="table-responsive w3-card-4">
       <table class="table table-bordered">
@@ -82,13 +72,9 @@ class App extends Component {
       </tbody>
       </table>
       </div>
-    
-
-
 
     );
   }
 }
 
-
-export default App;
+export default Play;
