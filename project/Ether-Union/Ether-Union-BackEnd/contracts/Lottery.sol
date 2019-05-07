@@ -149,6 +149,16 @@ function getCagnotte() public view returns (uint)
   return lastResult.cagnotte;
 }
 
+function getBlock() public view returns (uint)
+{
+  return block.number;
+}
+
+function getGains() public view returns (uint)
+{
+  return gains[msg.sender];
+}
+
 function getSolde() public view returns (uint)
 {
   return balanceOf(msg.sender);

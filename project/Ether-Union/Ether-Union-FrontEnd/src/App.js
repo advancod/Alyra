@@ -1,7 +1,10 @@
 import React, { Component } from "react"
 import { isMobile } from 'react-device-detect'
 import { CssBaseline, Grid, Card, CardContent } from "@material-ui/core"
-import Play from './components/Play';
+import Play from './components/game/Play';
+import Menu from './components/Menu';
+import Withdraw from './components/game/Withdraw';
+import PreviewGame from './components/game/PreviewGame';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import logo from './logo.png'
 import "./App.css"
@@ -37,8 +40,10 @@ class App extends Component {
 
           <div className="commentStyle">
             Send, receive, stay connected with yours and earn tokens,
-            enter in the new social network system of consuming and lotery
+            enter in the new social network system of consuming and play to our super lotery
           </div>
+        <Menu />
+
           </div>
 </div>
 
@@ -47,16 +52,25 @@ class App extends Component {
 
           <Grid container alignItems="center" justify="center">
             <Grid item xs={8} lg={16} >
-              <Card className="card">
-                <CardContent>
-                 <Play />
-                </CardContent>
-              </Card>
-              <Card className="card">
-                <CardContent>
-                 <Play />
-                </CardContent>
-              </Card>
+            <Router>
+            <Route path="/">
+            <Card className="card">
+              <CardContent>
+               <Play />
+              </CardContent>
+            </Card>
+            <Card className="card">
+              <CardContent>
+               <PreviewGame />
+              </CardContent>
+            </Card>
+            <Card className="card">
+              <CardContent>
+               <Withdraw />
+              </CardContent>
+            </Card>
+            </Route>
+          </Router>
             </Grid>
           </Grid>
         </div >

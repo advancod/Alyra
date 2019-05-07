@@ -1,6 +1,5 @@
 .main_content {
   background-image: url("./index.jpg");
-  min-height: 100vh;
   background-size: 100% 100%;
 }
 
@@ -29,6 +28,7 @@
 
 .card {
   margin-top : 30px;
+  margin-bottom : 30px;
 }
 
 .header {

@@ -986,6 +986,34 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
+    "name": "getBlock",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getGains",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "getSolde",
     "outputs": [
       {
@@ -1013,7 +1041,7 @@ const Lottery = [
   }
 ]
 
-let contractAddress = "0x03384ac0049f18e9bc2199edbb8f037fc99bd7b2"
+let contractAddress = "0xda81896538c795836fb68b9b9de47eb6e6b82e21"
 const provider = new ethers.providers.Web3Provider(ethereum)
 let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner())
 
@@ -1034,6 +1062,8 @@ async function _lotteryInfo() {
   document.getElementById('getNumCagnotte').innerHTML = await contractInstance.getNumCagnotte()
   document.getElementById('getCagnotte').innerHTML = await contractInstance.getCagnotte()
   document.getElementById('getNbGagnants').innerHTML = await contractInstance.getNbGagnants()
+  document.getElementById('getBlock').innerHTML = await contractInstance.getBlock()
+  document.getElementById('getGains').innerHTML = await contractInstance.getGains()
 }
 
 async function _getGroupesPerAddress() {

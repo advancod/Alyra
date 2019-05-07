@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import contractInstance from '../options'
+import contractInstance from '../../options'
 import PropTypes from "prop-types"
-import TextField from "@material-ui/core/TextField"
 
 class Play extends Component {
   constructor() {
@@ -15,7 +14,8 @@ class Play extends Component {
       getNumCagnotte: '',
       getCagnotte: '',
       getNbGagnants: '',
-      balanceOf: ''
+      balanceOf: '',
+      getBlock: ''
 		};
   }
 
@@ -31,7 +31,6 @@ class Play extends Component {
     handleChange: () => {}
   }
 
-
   async componentDidMount() {
 
     var getPrixLottery = await contractInstance.getPrixLottery()
@@ -43,7 +42,7 @@ class Play extends Component {
     var getCagnotte  = await contractInstance.getCagnotte()
     var getNbGagnants = await contractInstance.getNbGagnants()
     var balanceOf = await contractInstance.getSolde()
-
+    var getBlock = await contractInstance.getBlock()
 
     this.setState({ getPrixLottery: parseInt(getPrixLottery,10),
                     getSuperCagnotte: parseInt(getSuperCagnotte,10),
@@ -53,7 +52,8 @@ class Play extends Component {
                     getNumCagnotte: parseInt(getNumCagnotte,10),
                     getCagnotte: parseInt(getCagnotte,10),
                     getNbGagnants: parseInt(getNbGagnants,10),
-                    balanceOf: parseInt(balanceOf,10) })
+                    balanceOf: parseInt(balanceOf,10),
+                    getBlock: parseInt(getBlock,10)})
   }
   render() {
 
@@ -61,45 +61,52 @@ class Play extends Component {
 
     return (
 
-      <div class="table-responsive w3-card-4">
-      <table class="table table-bordered">
+      <div className="table-responsive w3-card-4">
+      <table className="table table-bordered">
         <thead>
-          <tr class="w3-theme-d4">
+          <tr className="w3-theme-d4">
             <th>JOUEZ A NOTRE JEUX ET GAGNEZ DES ETHERS</th>
           </tr>
         </thead>
           <tbody>
-            <tr class="w3-theme-l2">
-              <td>prix en token</td>
-              <td class="w3-theme-l3">{this.state.getPrixLottery}</td>
+            <tr className="w3-theme-l2">
+              <td>prix du ticket en token</td>
+              <td className="w3-theme-l3">{this.state.getPrixLottery}</td>
             </tr>
           <tr class="w3-theme-l2">
             <td>tickets restants</td>
-            <td class="w3-theme-l3">{this.state.getTicketsLeft}</td>
+            <td className="w3-theme-l3">{this.state.getTicketsLeft}</td>
           </tr>
-          <tr class="w3-theme-l2">
+          <tr className="w3-theme-l2">
+            <td>bloc actuel</td>
+            <td className="w3-theme-l3">{this.state.getBlock}</td>
+          </tr>
+          <tr className="w3-theme-l2">
             <td>bloc de fin du jeu</td>
-            <td class="w3-theme-l3">{this.state.getEndGame}</td>
+            <td className="w3-theme-l3">{this.state.getEndGame}</td>
           </tr>
           <tr class="w3-theme-l2">
             <td>bloc de prediction</td>
-            <td class="w3-theme-l3">{this.state.getBlockStop}</td>
+            <td className="w3-theme-l3">{this.state.getBlockStop}</td>
           </tr>
-          <tr class="w3-theme-l2">
+          <tr className="w3-theme-l2">
             <td>cagnotte en ether</td>
-            <td class="w3-theme-l3">{this.state.getSuperCagnotte}</td>
+            <td className="w3-theme-l3">{this.state.getSuperCagnotte}</td>
           </tr>
-          <tr class="w3-theme-l2">
+          <tr className="w3-theme-l2">
             <td>votre solde gimicoin</td>
-            <td class="w3-theme-l3">{this.state.balanceOf}</td>
+            <td className="w3-theme-l3">{this.state.balanceOf}</td>
           </tr>
-          <tr class="w3-theme-l2">
+          <tr className="w3-theme-l2">
             <td>votre prediction pour la cagnotte</td>
-            <td class="w3-theme-l3"><input type="text" value="" id={prediction} placeholder="montant"/></td>
+            <td className="w3-theme-l3"><input type="text" value="" id={prediction} placeholder="montant"/></td>
           </tr>
-          <tr class="w3-theme-l2">
+          <tr className="w3-theme-l2">
             <td>nombre de tickets a jouer</td>
-            <td class="w3-theme-l3"><input type="text" value="" id={quantite} placeholder="quantite"/></td>
+            <td className="w3-theme-l3"><input type="text" value="" id={quantite} placeholder="quantite"/></td>
+          </tr>
+          <tr>
+            <td class="w3-theme-l2"><button class="w3-button w3-black btn btn-primary btn-smbtn btn-primary btn-block" onclick="">jouer</button></td>
           </tr>
       </tbody>
       </table>
