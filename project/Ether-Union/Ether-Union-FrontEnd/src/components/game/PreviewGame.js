@@ -13,13 +13,9 @@ class PreviewGame extends Component {
 
   async componentDidMount() {
 
-    var getNumCagnotte = await contractInstance.getNumCagnotte()
-    var getCagnotte = await contractInstance.getCagnotte()
-    var getNbGagnants = await contractInstance.getNbGagnants()
-
-    this.setState({ getNumCagnotte: parseInt(getNumCagnotte,10) })
-    this.setState({ getCagnotte: parseInt(getCagnotte,10) })
-    this.setState({ getNbGagnants: parseInt(getNbGagnants,10) })
+    this.setState({ getNumCagnotte: parseInt(await contractInstance.getNumCagnotte(),10) })
+    this.setState({ getCagnotte: parseInt(await contractInstance.getCagnotte(),10) })
+    this.setState({ getNbGagnants: parseInt(await contractInstance.getNbGagnants(),10) })
   }
   render() {
 

@@ -33,27 +33,16 @@ class Play extends Component {
 
   async componentDidMount() {
 
-    var getPrixLottery = await contractInstance.getPrixLottery()
-    var getSuperCagnotte = await contractInstance.getSuperCagnotte()
-    var getTicketsLeft = await contractInstance.getTicketsLeft()
-    var getEndGame = await contractInstance.getEndGame()
-    var getBlockStop = await contractInstance.getBlockStop()
-    var getNumCagnotte = await contractInstance.getNumCagnotte()
-    var getCagnotte  = await contractInstance.getCagnotte()
-    var getNbGagnants = await contractInstance.getNbGagnants()
-    var balanceOf = await contractInstance.getSolde()
-    var getBlock = await contractInstance.getBlock()
-
-    this.setState({ getPrixLottery: parseInt(getPrixLottery,10),
-                    getSuperCagnotte: parseInt(getSuperCagnotte,10),
-                    getTicketsLeft: parseInt(getTicketsLeft,10),
-                    getEndGame: parseInt(getEndGame,10),
-                    getBlockStop: parseInt(getBlockStop,10),
-                    getNumCagnotte: parseInt(getNumCagnotte,10),
-                    getCagnotte: parseInt(getCagnotte,10),
-                    getNbGagnants: parseInt(getNbGagnants,10),
-                    balanceOf: parseInt(balanceOf,10),
-                    getBlock: parseInt(getBlock,10)})
+    this.setState({ getPrixLottery: parseInt(await contractInstance.getPrixLottery(),10),
+                    getSuperCagnotte: parseInt(await contractInstance.getSuperCagnotte(),10),
+                    getTicketsLeft: parseInt(await contractInstance.getTicketsLeft(),10),
+                    getEndGame: parseInt(await contractInstance.getEndGame(),10),
+                    getBlockStop: parseInt(await contractInstance.getBlockStop(),10),
+                    getNumCagnotte: parseInt(await contractInstance.getNumCagnotte(),10),
+                    getCagnotte: parseInt(await contractInstance.getCagnotte(),10),
+                    getNbGagnants: parseInt(await contractInstance.getNbGagnants(),10),
+                    balanceOf: parseInt(await contractInstance.getSolde(),10),
+                    getBlock: parseInt(await contractInstance.getBlock(),10)})
   }
   render() {
 
@@ -99,11 +88,11 @@ class Play extends Component {
           </tr>
           <tr className="w3-theme-l2">
             <td>votre prediction pour la cagnotte</td>
-            <td className="w3-theme-l3"><input type="text" value="" id={prediction} placeholder="montant"/></td>
+            <td className="w3-theme-l3"><input type="text" value={prediction} id="prediction" placeholder="montant"/></td>
           </tr>
           <tr className="w3-theme-l2">
             <td>nombre de tickets a jouer</td>
-            <td className="w3-theme-l3"><input type="text" value="" id={quantite} placeholder="quantite"/></td>
+            <td className="w3-theme-l3"><input type="text" value={quantite} id="quantite" placeholder="quantite"/></td>
           </tr>
           <tr>
             <td class="w3-theme-l2"><button class="w3-button w3-black btn btn-primary btn-smbtn btn-primary btn-block" onclick="">jouer</button></td>

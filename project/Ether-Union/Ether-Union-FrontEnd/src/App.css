@@ -47,7 +47,6 @@
   margin-top: 20px;
   margin-left: 0px;
   margin-bottom: 20px;
-  width: 550px;
   border-radius: 5px;
   color: #fff;
   letter-spacing: 2px;
@@ -57,9 +56,9 @@
 
 .commentStyle {
   font-family: "lato";
-  text-align: left;
-  -webkit-justify-content: left;
-  justify-content: left;
+  text-align: center;
+  -webkit-justify-content: center;
+  justify-content: center;
   margin-left: 18px;
   margin-top: 50px;
   margin-right: 18px;
@@ -68,7 +67,7 @@
   border-radius: 3px;
   margin-top: auto;
   margin-bottom: auto;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .container_logo {

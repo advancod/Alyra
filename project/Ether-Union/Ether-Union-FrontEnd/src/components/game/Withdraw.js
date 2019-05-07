@@ -11,9 +11,7 @@ class Withdraw extends Component {
 
   async componentDidMount() {
 
-    var gains = await contractInstance.getGains()
-
-    this.setState({ gains: parseInt(gains,10) })
+    this.setState({ gains: parseInt(await contractInstance.getGains(),10) })
   }
   render() {
 

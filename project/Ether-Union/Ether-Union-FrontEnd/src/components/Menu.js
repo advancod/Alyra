@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -14,7 +14,9 @@ const styles = theme => ({
     display: 'flex',
   },
   paper: {
+    marginTop: theme.spacing.unit * 1,
     marginRight: theme.spacing.unit * 3,
+    "background-color": "#2a439b",
   },
 });
 
@@ -23,9 +25,6 @@ class Menu extends React.Component {
     open: false,
   };
 
-  handleToggle = () => {
-    this.setState(state => ({ open: !state.open }));
-  };
 
   handleClose = event => {
     if (this.anchorEl.contains(event.target)) {
@@ -42,17 +41,68 @@ class Menu extends React.Component {
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
-        <Router>
-        <Route path="/">
-        <MenuList>
-          <MenuItem>admin</MenuItem>
-          <MenuItem>demands</MenuItem>
-        </MenuList>
-      </Route>
-      </Router>
+          <Router>
+            <Route exact path="/" component={home}/>
+            <Route exact path="/game" component={game}/>
+            <Route exact path="/demand" component={demand}/>
+            <Route exact path="/admin" component={admin}/>
+          </Router>
         </Paper>
       </div>
     );
+  }
+}
+
+class game extends Component {
+  render() {
+      return (
+      <div>
+      <MenuList>
+        <MenuItem>ADMIN GROUPS</MenuItem>
+        <MenuItem>DEMANDS</MenuItem>
+      </MenuList>
+        </div >
+    )
+  }
+}
+
+class demand extends Component {
+  render() {
+      return (
+      <div>
+      <MenuList>
+        <MenuItem>PLAY</MenuItem>
+        <MenuItem>DEMANDS</MenuItem>
+      </MenuList>
+        </div >
+    )
+  }
+}
+
+class admin extends Component {
+  render() {
+      return (
+      <div>
+      <MenuList>
+        <MenuItem>ADMIN GROUPS</MenuItem>
+        <MenuItem>PLAY</MenuItem>
+      </MenuList>
+        </div >
+    )
+  }
+}
+
+class home extends Component {
+  render() {
+    return (
+      <div>
+      <MenuList>
+        <MenuItem>ADMIN GROUPS</MenuItem>
+        <MenuItem>PLAY</MenuItem>
+        <MenuItem>DEMANDS</MenuItem>
+      </MenuList>
+        </div >
+    )
   }
 }
 

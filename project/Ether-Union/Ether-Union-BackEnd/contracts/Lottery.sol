@@ -134,37 +134,37 @@ function getBlockStop() public view returns (uint)
 
 }
 
-function modifierBlockStop(uint _stop) public onlyOwner
+function modifierBlockStop(uint _stop) external onlyOwner
 {
   blockStop = _stop;
 }
 
-function getNumCagnotte() public view returns (uint)
+function getNumCagnotte() external view returns (uint)
 {
   return lastResult.numCagnotte;
 }
 
-function getCagnotte() public view returns (uint)
+function getCagnotte() external view returns (uint)
 {
   return lastResult.cagnotte;
 }
 
-function getBlock() public view returns (uint)
+function getBlock() external view returns (uint)
 {
   return block.number;
 }
 
-function getGains() public view returns (uint)
+function getGains() external view returns (uint)
 {
   return gains[msg.sender];
 }
 
-function getSolde() public view returns (uint)
+function getSolde() external view returns (uint)
 {
   return balanceOf(msg.sender);
 }
 
-function getNbGagnants() public view returns (uint)
+function getNbGagnants() external view returns (uint)
 {
   return lastResult.nbGagnants;
 }
