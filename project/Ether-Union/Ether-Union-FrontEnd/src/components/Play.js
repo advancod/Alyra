@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import contractInstance from '../options';
+import React, { Component } from 'react'
+import contractInstance from '../options'
+import PropTypes from "prop-types"
+import TextField from "@material-ui/core/TextField"
 
 class Play extends Component {
   constructor() {
@@ -12,13 +14,27 @@ class Play extends Component {
       getBlockStop: '',
       getNumCagnotte: '',
       getCagnotte: '',
-      getNbGagnants: ''
+      getNbGagnants: '',
+      balanceOf: ''
 		};
   }
 
+  static propTypes = {
+    prediction: PropTypes.string,
+    quantite: PropTypes.string,
+    handleChange: PropTypes.func
+  }
+
+  static defaultProps = {
+    quantite: '',
+    prediction: '',
+    handleChange: () => {}
+  }
+
+
   async componentDidMount() {
 
-    var getPrixLottery = await contractInstance.getPrixLottery();
+    var getPrixLottery = await contractInstance.getPrixLottery()
     var getSuperCagnotte = await contractInstance.getSuperCagnotte()
     var getTicketsLeft = await contractInstance.getTicketsLeft()
     var getEndGame = await contractInstance.getEndGame()
@@ -26,6 +42,8 @@ class Play extends Component {
     var getNumCagnotte = await contractInstance.getNumCagnotte()
     var getCagnotte  = await contractInstance.getCagnotte()
     var getNbGagnants = await contractInstance.getNbGagnants()
+    var balanceOf = await contractInstance.getSolde()
+
 
     this.setState({ getPrixLottery: parseInt(getPrixLottery,10),
                     getSuperCagnotte: parseInt(getSuperCagnotte,10),
@@ -34,10 +52,12 @@ class Play extends Component {
                     getBlockStop: parseInt(getBlockStop,10),
                     getNumCagnotte: parseInt(getNumCagnotte,10),
                     getCagnotte: parseInt(getCagnotte,10),
-                    getNbGagnants: parseInt(getNbGagnants,10) });
-
+                    getNbGagnants: parseInt(getNbGagnants,10),
+                    balanceOf: parseInt(balanceOf,10) })
   }
   render() {
+
+    const { quantite, prediction, handleChange } = this.props
 
     return (
 
@@ -68,6 +88,18 @@ class Play extends Component {
           <tr class="w3-theme-l2">
             <td>cagnotte en ether</td>
             <td class="w3-theme-l3">{this.state.getSuperCagnotte}</td>
+          </tr>
+          <tr class="w3-theme-l2">
+            <td>votre solde gimicoin</td>
+            <td class="w3-theme-l3">{this.state.balanceOf}</td>
+          </tr>
+          <tr class="w3-theme-l2">
+            <td>votre prediction pour la cagnotte</td>
+            <td class="w3-theme-l3"><input type="text" value="" id={prediction} placeholder="montant"/></td>
+          </tr>
+          <tr class="w3-theme-l2">
+            <td>nombre de tickets a jouer</td>
+            <td class="w3-theme-l3"><input type="text" value="" id={quantite} placeholder="quantite"/></td>
           </tr>
       </tbody>
       </table>
