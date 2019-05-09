@@ -29,9 +29,6 @@ class Withdraw extends Component {
               <td>mes gains</td>
               <td className="w3-theme-l3">{this.state.gains}</td>
             </tr>
-            <tr>
-              <td class="w3-theme-l2"><button class="w3-button w3-black btn btn-primary btn-smbtn btn-primary btn-block" onclick="">recuperer</button></td>
-            </tr>
       </tbody>
       </table>
       </div>

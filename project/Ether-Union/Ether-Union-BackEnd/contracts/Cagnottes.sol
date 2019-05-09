@@ -164,117 +164,117 @@ function fermetureCanal(string memory _pseudo) public
   mappChannel[_channelID].description = "";
 }
 
-function modifierPriceChannel(uint _priceChannel) external onlyOwner
+function modifierPriceChannel(uint _priceChannel) public onlyOwner
 {
   PRICE_CHANEL = _priceChannel;
 }
 
-function modifierMaxAmount(uint _maxAmount) external onlyOwner
+function modifierMaxAmount(uint _maxAmount) public onlyOwner
 {
   MAX_AMOUNT = _maxAmount;
 }
 
-function modifierMinAmount(uint _minAmount) external onlyOwner
+function modifierMinAmount(uint _minAmount) public onlyOwner
 {
   MIN_AMOUNT = _minAmount;
 }
 
-function modifierCharges(uint _priceRatio) external onlyOwner
+function modifierCharges(uint _priceRatio) public onlyOwner
 {
   PRICE_RATIO = _priceRatio;
 }
 
-function modifierPriceGroup(uint _priceGroup) external onlyOwner
+function modifierPriceGroup(uint _priceGroup) public onlyOwner
 {
   PRICE_GROUP = _priceGroup;
 }
 
-function modifierPriceMember(uint _priceMember) external onlyOwner
+function modifierPriceMember(uint _priceMember) public onlyOwner
 {
   PRICE_MEMBRE = _priceMember;
 }
 
-function getPriceGroup() external view returns (uint)
+function getPriceGroup() public view returns (uint)
 {
   return PRICE_GROUP;
 }
 
-function getPriceMember() external view returns (uint)
+function getPriceMember() public view returns (uint)
 {
   return PRICE_MEMBRE;
 }
 
-function getPriceChannel() external view returns (uint)
+function getPriceChannel() public view returns (uint)
 {
   return PRICE_CHANEL;
 }
 
-function getGroupesPerAddress() external view returns (uint[] memory)
+function getGroupesPerAddress() public view returns (uint[] memory)
 {
   return mappGroupesForAddress[msg.sender];
 }
 
-function getMembres(string calldata _groupe) external view returns (uint[] memory)
+function getMembres(string memory _groupe) public view returns (uint[] memory)
 {
   return mappGroupeAndChannels[_groupe];
 }
 
-function getDescription(string calldata _pseudo) external view returns (string memory)
+function getDescription(string memory _pseudo) public view returns (string memory)
 {
   return mappChannel[mappPseudoToID[_pseudo]].description;
 }
 
-function getNomMembre(uint _ID) external view returns (string memory)
+function getNomMembre(uint _ID) public view returns (string memory)
 {
   return mappChannel[_ID].pseudo;
 }
 
-function getGroupe(string calldata _pseudo) external view returns (string memory)
+function getGroupe(string memory _pseudo) public view returns (string memory)
 {
   return mappChannel[mappPseudoToID[_pseudo]].groupe;
 }
 
-function getAddresse(string calldata _pseudo) external view returns (address)
+function getAddresse(string memory _pseudo) public view returns (address)
 {
   return mappChannel[mappPseudoToID[_pseudo]].demandeur;
 }
 
-function getMontant(string calldata _pseudo) external view returns (uint)
+function getMontant(string memory _pseudo) public view returns (uint)
 {
   return mappChannel[mappPseudoToID[_pseudo]].montant;
 }
 
-function getEncours(string calldata _pseudo) external view returns (uint)
+function getEncours(string memory _pseudo) public view returns (uint)
 {
   return mappChannel[mappPseudoToID[_pseudo]].enCours;
 }
 
-function getReceptions(string calldata _pseudo) external view returns (uint)
+function getReceptions(string memory _pseudo) public view returns (uint)
 {
   return mappStats[mappChannel[uint(keccak256(bytes(_pseudo)))].demandeur][msg.sender];
 }
 
-function getDonnations(string calldata _pseudo) external view returns (uint)
+function getDonnations(string memory _pseudo) public view returns (uint)
 {
   return mappStats[msg.sender][mappChannel[uint(keccak256(bytes(_pseudo)))].demandeur];
 }
 
-function getContratCible(string calldata _pseudo) external view returns (address)
+function getContratCible(string memory _pseudo) public view returns (address)
 {
   return mappChannel[mappPseudoToID[_pseudo]].contratCible;
 }
 
-function getNomGroupe(uint _ID) external view returns (string memory)
+function getNomGroupe(uint _ID) public view returns (string memory)
 {
   return mappIDGroupe[_ID];
 }
 
-function getOwnedGroupe() external view returns (uint[] memory)
+function getOwnedGroupe() public view returns (uint[] memory)
 {
   return mappOwnedGroup[msg.sender];
 }
 
-function getPseudoInGroup(string calldata _groupe) external view returns (string memory)
+function getPseudoInGroup(string memory _groupe) public view returns (string memory)
 {
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
   return mappChannel[mappChannelInGroup[IDGroupe][msg.sender]].pseudo;

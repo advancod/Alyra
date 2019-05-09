@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import Lottery from './ABIs/gameABI';
 
-const contractAddress = "0xda81896538c795836fb68b9b9de47eb6e6b82e21";
+const contractAddress = "0xa244a02a49fd9adedeb7b5d49633be7fe5fb4fb2";
 const provider = new ethers.getDefaultProvider('ropsten');
 const contractInstance = new ethers.Contract(contractAddress, Lottery, provider);
 

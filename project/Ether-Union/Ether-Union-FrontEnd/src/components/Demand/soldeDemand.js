@@ -32,7 +32,7 @@ class SoldeDemand extends Component {
           </thead>
             <tbody>
             <tr class="w3-theme-l2">
-              <td>pseudo</td>
+              <td><strong>pseudo</strong></td>
               <td class="w3-theme-l3"><input type="text" value={pseudo4} id="pseudo4" placeholder="pseudo"/></td>
             </tr>
             <tr class="w3-theme-l2">

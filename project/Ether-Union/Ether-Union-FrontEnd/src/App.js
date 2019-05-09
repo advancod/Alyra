@@ -41,7 +41,7 @@ class App extends Component {
               </div>
 
               <div className="UNION">
-                <h1>ETHER UNION</h1>
+                <h1><a href="/">ETHER UNION</a></h1>
               </div>
 
               <div className="commentStyle">
@@ -61,7 +61,7 @@ class App extends Component {
           <div className="main_content">
 
             <Grid container alignItems="center" justify="center">
-              <Grid item xs={8} lg={16} >
+              <Grid item xs={8} lg={10} >
                 <Router>
                   <Route exact path="/" component={home}/>
                   <Route exact path="/game" component={game}/>
@@ -81,12 +81,15 @@ class home extends Component {
   render() {
       return (
         <div>
-          <Card className="card">
+      <Card className="card">
+
             <CardContent>
               <Menu />
             </CardContent>
           </Card>
-        </div >
+
+          </div>
+
     )
   }
 }

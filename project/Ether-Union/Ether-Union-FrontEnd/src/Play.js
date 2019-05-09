@@ -112,7 +112,7 @@ class Play extends Component {
             <td className="w3-theme-l3"><input type="text" onChange={handleChange} id="prediction" placeholder="montant"/></td>
           </tr>
           <tr className="w3-theme-l2">
-            <td><strong>nombre de tickets a jouer (1 à 10)</strong></td>
+            <td><strong>nombre de tickets a jouer</strong></td>
             <td className="w3-theme-l3"><input type="text" onChange={handleChange} id="quantite" placeholder="quantite"/></td>
           </tr>
           <tr class="w3-theme-l1">

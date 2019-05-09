@@ -1041,8 +1041,8 @@ const Lottery = [
   }
 ]
 
-let contractAddress = "0xc2414e82bb7b079e51ce04bcddf80cbba7f1bb0b"
-const provider = new ethers.providers.Web3Provider(ethereum)
+let contractAddress = "0xa244a02a49fd9adedeb7b5d49633be7fe5fb4fb2"
+let provider = new ethers.providers.Web3Provider(web3.currentProvider);
 let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner())
 
 

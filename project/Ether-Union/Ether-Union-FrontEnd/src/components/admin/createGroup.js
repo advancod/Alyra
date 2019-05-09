@@ -34,11 +34,11 @@ class CreateGroup extends Component {
           </thead>
             <tbody>
               <tr class="w3-theme-l2">
-                <td>nom du groupe</td>
+                <td><strong>nom du groupe</strong></td>
                 <td class="w3-theme-l3"><input type="text" value={nom} id="nom"  placeholder="nom"/></td>
               </tr>
               <tr class="w3-theme-l2">
-                <td>votre pseudo dans le groupe</td>
+                <td><strong>votre pseudo dans le groupe</strong></td>
                 <td class="w3-theme-l3"><input type="text" value={pseudo} id="pseudo"  placeholder="pseudo"/></td>
               </tr>
               <tr>

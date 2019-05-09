@@ -29,16 +29,16 @@ class payDemand extends Component {
         <table class="table table-bordered">
           <thead>
             <tr class="w3-theme-d4">
-              <th>PAYER UNE DEMANDE</th>
+              <th>PAYER UNE DEMANDE - Gagnez des tokens</th>
             </tr>
           </thead>
             <tbody>
             <tr class="w3-theme-l2">
-              <td>pseudo du demandeur</td>
+              <td><strong>pseudo du demandeur</strong></td>
               <td class="w3-theme-l3"><input type="text" value={pseudo3} id="pseudo3" placeholder="pseudo"/></td>
             </tr>
             <tr class="w3-theme-l2">
-              <td>montant propose</td>
+              <td><strong>montant propose</strong></td>
               <td class="w3-theme-l3"><input type="text" value={proposition} id="proposition" placeholder="montant"/></td>
             </tr>
             <tr class="w3-theme-l2">

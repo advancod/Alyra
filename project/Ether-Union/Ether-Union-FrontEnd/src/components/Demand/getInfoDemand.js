@@ -70,7 +70,7 @@ class GetInfoDemand extends Component {
         <td class="w3-theme-l4">{this.state.getAdminGroups}</td>
       </tr>
       <tr class="w3-theme-l1">
-        <td>Choisir un groupe</td>
+        <td><strong>Choisir un groupe</strong></td>
         <td class="w3-theme-l3"><input type="text" value={nomGroupe} id="nomGroupe"  placeholder="groupe"/></td>
       </tr>
       <tr class="w3-theme-l1">
@@ -85,7 +85,7 @@ class GetInfoDemand extends Component {
         <td class="w3-theme-l4">{this.state.getMonPseudo}</td>
       </tr>
       <tr class="w3-theme-l1">
-        <td>selectionner un pseudo</td>
+        <td><strong>selectionner un pseudo</strong></td>
         <td class="w3-theme-l3"><input type="text" value={pseudo6} id="pseudo6" placeholder="pseudo"/></td>
       </tr>
       <tr class="w3-theme-l1">

@@ -17,26 +17,14 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 1,
     marginRight: theme.spacing.unit * 3,
     "background-color": "#2a439b",
+    "text-shadow": "white 1px 1px 1px"
   },
 });
 
 class Menu extends React.Component {
-  state = {
-    open: false,
-  };
-
-
-  handleClose = event => {
-    if (this.anchorEl.contains(event.target)) {
-      return;
-    }
-
-    this.setState({ open: false });
-  };
 
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
 
     return (
       <div className={classes.root}>
@@ -58,8 +46,8 @@ class game extends Component {
       return (
       <div>
       <MenuList>
-        <MenuItem>ADMIN GROUPS</MenuItem>
-        <MenuItem>DEMANDS</MenuItem>
+        <MenuItem><a href="/admin">GET TOKENS</a></MenuItem>
+        <MenuItem><a href="/demand">DEMANDS</a></MenuItem>
       </MenuList>
         </div >
     )
@@ -69,12 +57,12 @@ class game extends Component {
 class demand extends Component {
   render() {
       return (
-      <div>
+
       <MenuList>
-        <MenuItem>PLAY</MenuItem>
-        <MenuItem>DEMANDS</MenuItem>
+        <MenuItem><a href="/game">GAME</a></MenuItem>
+        <MenuItem><a href="/admin">GET TOKENS</a></MenuItem>
       </MenuList>
-        </div >
+
     )
   }
 }
@@ -82,12 +70,12 @@ class demand extends Component {
 class admin extends Component {
   render() {
       return (
-      <div>
+
       <MenuList>
-        <MenuItem>ADMIN GROUPS</MenuItem>
-        <MenuItem>PLAY</MenuItem>
+        <MenuItem><a href="/demand">DEMANDS</a></MenuItem>
+        <MenuItem><a href="/game">GAME</a></MenuItem>
       </MenuList>
-        </div >
+
     )
   }
 }
@@ -95,13 +83,13 @@ class admin extends Component {
 class home extends Component {
   render() {
     return (
-      <div>
+
       <MenuList>
-        <MenuItem>ADMIN GROUPS</MenuItem>
-        <MenuItem>PLAY</MenuItem>
-        <MenuItem>DEMANDS</MenuItem>
+          <MenuItem><a href="/admin">GET TOKENS</a></MenuItem>
+        <MenuItem><a href="/game">GAME</a></MenuItem>
+        <MenuItem><a href="/demand">DEMANDS</a></MenuItem>
       </MenuList>
-        </div >
+
     )
   }
 }

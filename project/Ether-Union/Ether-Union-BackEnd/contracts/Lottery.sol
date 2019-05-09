@@ -49,6 +49,7 @@ function play(uint _prediction, uint _nbTickets) public
 {
   require(block.number < blockEnd - blockStop);
   require(state == LotteryState.Started);
+  require(_nbTickets < 11);
   require(NB_TICKETS - _nbTickets > 0);
   require(balanceOf(msg.sender) >= _nbTickets.mul(PRICE_LOTTERY_TOKEN));
   NB_TICKETS -= _nbTickets;
@@ -64,9 +65,25 @@ function endGame() public onlyOwner
 {
   require(state == LotteryState.Started);
   require(block.number > blockEnd);
-  for (uint i=0; i< players.length; i++)
+  uint length;
+  if (players.length > 10)
   {
-    for (uint j=0; j< prediction[players[i]].length; j++)
+    length = 10;
+  }
+  else {
+    length = players.length;
+  }
+  for (uint i=0; i< length; i++)
+  {
+    uint length2;
+    if (prediction[players[i]].length > 10)
+    {
+      length2 = 10;
+    }
+    else {
+      length2 = prediction[players[i]].length;
+    }
+    for (uint j=0; j< length2; j++)
     {
       if (prediction[players[i]][j] == LOTTERY_CAGNOTTE && prediction[players[i]][j] != 0)
       {
@@ -74,6 +91,14 @@ function endGame() public onlyOwner
       }
     }
     delete players[i];
+  }
+  if (players.length == 0)
+  {
+    if (winners.length > 0)
+    {
+    LOTTERY_CAGNOTTE = uint(LOTTERY_CAGNOTTE.div(winners.length));
+    }
+    state = LotteryState.Finished;
   }
   msg.sender.transfer(LOTTERY_CAGNOTTE);
   lastResult.numCagnotte += 1;
@@ -84,21 +109,30 @@ function endGame() public onlyOwner
 function soldeGame() public onlyOwner
 {
   require(state == LotteryState.Finished);
-  if (winners.length>0)
-  LOTTERY_CAGNOTTE = uint(LOTTERY_CAGNOTTE.div(winners.length));
+  require(winners.length>0);
+  uint length;
+  if (winners.length > 10)
   {
-    for (uint i=0; i< winners.length; i++)
-    {
-      gains[winners[i]].add(LOTTERY_CAGNOTTE);
-      delete winners[i];
-    }
-  LOTTERY_CAGNOTTE = 0;
+    length = 10;
   }
-  state = LotteryState.Pending;
+  else {
+    length = winners.length;
+  }
+  for (uint i=0; i< length; i++)
+  {
+    gains[winners[i]].add(LOTTERY_CAGNOTTE);
+    delete winners[i];
+  }
+  if (winners.length == 0)
+  {
+    LOTTERY_CAGNOTTE = 0;
+    state = LotteryState.Pending;
+  }
 }
 
 function withdrawGains() public
 {
+  require(gains[msg.sender]> 0);
   uint MyGains = gains[msg.sender];
   gains[msg.sender] = 0;
   msg.sender.transfer(MyGains);
@@ -134,37 +168,37 @@ function getBlockStop() public view returns (uint)
 
 }
 
-function modifierBlockStop(uint _stop) external onlyOwner
+function modifierBlockStop(uint _stop) public onlyOwner
 {
   blockStop = _stop;
 }
 
-function getNumCagnotte() external view returns (uint)
+function getNumCagnotte() public view returns (uint)
 {
   return lastResult.numCagnotte;
 }
 
-function getCagnotte() external view returns (uint)
+function getCagnotte() public view returns (uint)
 {
   return lastResult.cagnotte;
 }
 
-function getBlock() external view returns (uint)
+function getBlock() public view returns (uint)
 {
   return block.number;
 }
 
-function getGains() external view returns (uint)
+function getGains() public view returns (uint)
 {
   return gains[msg.sender];
 }
 
-function getSolde() external view returns (uint)
+function getSolde() public view returns (uint)
 {
   return balanceOf(msg.sender);
 }
 
-function getNbGagnants() external view returns (uint)
+function getNbGagnants() public view returns (uint)
 {
   return lastResult.nbGagnants;
 }

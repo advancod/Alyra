@@ -44,19 +44,19 @@ class CreateDemand extends Component {
           </thead>
             <tbody>
               <tr class="w3-theme-l2">
-                <td>pseudo</td>
+                <td><strong>pseudo</strong></td>
                 <td class="w3-theme-l3"><input type="text" value={pseudo2} id="pseudo2" placeholder="pseudo" /></td>
               </tr>
               <tr class="w3-theme-l2">
-                <td>montant</td>
+                <td><strong>montant</strong></td>
                 <td class="w3-theme-l3"><input type="text" value={montant} id="montant" placeholder="montant"/></td>
               </tr>
               <tr class="w3-theme-l2">
-                <td>contrat cible (optionnel)</td>
+                <td><strong>contrat cible (optionnel)</strong></td>
                 <td class="w3-theme-l3"><input type="text" value={contrat} id="contrat" placeholder="addresse" /></td>
               </tr>
               <tr class="w3-theme-l2">
-                <td>description</td>
+                <td><strong>description</strong></td>
                 <td class="w3-theme-l3"><input type="text" value={description} id="description" placeholder="description" /></td>
               </tr>
               <tr class="w3-theme-l2">
