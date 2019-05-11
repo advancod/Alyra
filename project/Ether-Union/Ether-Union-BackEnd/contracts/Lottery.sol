@@ -16,6 +16,7 @@ uint private blockStop;
 uint private blockEnd;
 uint private PRICE_LOTTERY_TOKEN;
 uint private NB_TICKETS;
+uint private POOL_ENDGAME;
 
 LotteryState private state;
 
@@ -32,6 +33,7 @@ constructor() public
 {
   state = LotteryState.Pending;
   blockStop = 100;
+  POOL_ENDGAME = 10;
 }
 
 function initierLottery(uint _price, uint _tickets, uint _blockEnd) public onlyOwner
@@ -66,9 +68,9 @@ function endGame() public onlyOwner
   require(state == LotteryState.Started);
   require(block.number > blockEnd);
   uint length;
-  if (players.length > 10)
+  if (players.length > POOL_ENDGAME)
   {
-    length = 10;
+    length = POOL_ENDGAME;
   }
   else {
     length = players.length;
@@ -76,9 +78,9 @@ function endGame() public onlyOwner
   for (uint i=0; i< length; i++)
   {
     uint length2;
-    if (prediction[players[i]].length > 10)
+    if (prediction[players[i]].length > POOL_ENDGAME)
     {
-      length2 = 10;
+      length2 = POOL_ENDGAME;
     }
     else {
       length2 = prediction[players[i]].length;
@@ -176,6 +178,16 @@ function modifierBlockStop(uint _stop) public onlyOwner
 function getNumCagnotte() public view returns (uint)
 {
   return lastResult.numCagnotte;
+}
+
+function modifierPoolEnd(uint _pool) public onlyOwner
+{
+  POOL_ENDGAME = _pool;
+}
+
+function getPoolEnd() public onlyOwner view returns (uint)
+{
+  return POOL_ENDGAME;
 }
 
 function getCagnotte() public view returns (uint)
