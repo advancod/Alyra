@@ -20,12 +20,15 @@ mapping (uint => string) private mappIDGroupe;
 mapping (address => uint[]) private mappOwnedGroup;
 // 6 Ici on mappe l'addresse du créateur d'un gnom de groupe
 mapping (string => address) private mappGroupeOwner;
-// 7 Ici on mappe le pseudo d'un channel avec sson ID
+// 7 Ici on mappe le pseudo d'un channel avec son ID
 mapping (string => uint) private mappPseudoToID;
 // 8 Ici on mappe une addresse dans un groupe avec son canal
 mapping (uint => mapping (address => uint)) private mappChannelInGroup;
 // 9 Ici on mappe les statististiques 2 a 2
 mapping (address => mapping (address => uint)) private mappStats;
+// 10 Tous ses pseudos
+mapping (address => uint[]) private mappPseudosList;
+
 
 // montant maximum d'une demande
 uint private MAX_AMOUNT;
@@ -51,7 +54,6 @@ struct channel
   uint enCours;
   address contratCible;
   string description;
-  uint prediction;
 }
 
 constructor() public
@@ -112,6 +114,7 @@ function creerCanal(string memory _pseudo, string memory _groupe, uint groupeID,
   mappChannel[channelID].pseudo = _pseudo;
   mappChannel[channelID].groupe = _groupe;
   mappGroupeAndChannels[_groupe].push(channelID);
+  mappPseudosList[msg.sender].push(channelID);
   mappPseudoToID[_pseudo] = channelID;
   mappChannelInGroup[groupeID][msg.sender] = channelID;
 }
@@ -279,5 +282,11 @@ function getPseudoInGroup(string memory _groupe) public view returns (string mem
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
   return mappChannel[mappChannelInGroup[IDGroupe][msg.sender]].pseudo;
 }
+
+function getPseudosList() public view returns (uint[] memory)
+{
+  return mappPseudosList[msg.sender];
+}
+
 
 }

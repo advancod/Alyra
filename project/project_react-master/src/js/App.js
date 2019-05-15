@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
-import Election from '../../build/contracts/Election.json'
 import Lottery from '../../build/contracts/Lottery.json'
 import Content from './Content'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -19,16 +18,11 @@ import SoldeDemand from './components/Demand/soldeDemand';
 
 import "../css/App.css"
 
-
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       account: '0x0',
-      candidates: [],
-      hasVoted: false,
-      loading: true,
-      voting: false,
 
       getPrixLottery: 0,
       getSuperCagnotte: 0,
@@ -64,22 +58,18 @@ class App extends React.Component {
 
     this.web3 = new Web3(this.web3Provider)
 
-    this.election = TruffleContract(Election)
-    this.election.setProvider(this.web3Provider)
-
     this.Lottery = TruffleContract(Lottery)
     this.Lottery.setProvider(this.web3Provider)
 
-    this.castVote = this.castVote.bind(this)
   }
 
   componentDidMount() {
-    // TODO: Refactor with promise chain
+
     this.web3.eth.getCoinbase((err, account) => {
       this.setState({ account })
-
     this.Lottery.deployed().then((LotteryInstance) => {
       this.LotteryInstance = LotteryInstance
+
       this.LotteryInstance.getPrixLottery().then((result) => {
         this.setState({ getPrixLottery:  parseInt(result,10)})
       })
@@ -113,8 +103,6 @@ class App extends React.Component {
       this.LotteryInstance.getBlock().then((result) => {
         this.setState({ getBlock:  parseInt(result,10)})
       })
-
-
       this.LotteryInstance.getNumCagnotte().then((result) => {
         this.setState({ getNumCagnotte:  parseInt(result,10)})
       })
@@ -131,12 +119,6 @@ class App extends React.Component {
 })
   }
 
-  castVote(candidateId) {
-    this.setState({ voting: true })
-    this.electionInstance.vote(candidateId, { from: this.state.account }).then((result) =>
-      this.setState({ hasVoted: true })
-    )
-  }
 
   render() {
 
@@ -155,25 +137,39 @@ class App extends React.Component {
           getBlock={this.state.getBlock}
           />
 
-          <Withdraw getGains={this.state.getGains}
-          />
-
           <PreviousGame getNumCagnotte={this.state.getNumCagnotte}
           getCagnotte={this.state.getCagnotte}
           getNbGagnants={this.state.getNbGagnants}
           />
 
-          <CreateGroup />
-
-          <CreateMember />
-
-          <CreateDemand />
-
-          <GetInfoDemand />
+          <Withdraw getGains={this.state.getGains}
+          />
 
           <PayDemand />
 
+          <GetInfoDemand
+          getGroupesPerAddress={this.state.getBlock}
+          getMembres={this.state.getMembres}
+          getReceptions={this.state.getReceptions}
+          getDonnations={this.state.getDonnations}
+          getContratCible={this.state.getContratCible}
+          getMontant={this.state.getMontant}
+          getEncours={this.state.getEncours}
+          getDescription={this.state.getDescription}
+          />
+
           <SoldeDemand />
+
+          <CreateGroup />
+
+          <CreateMember
+          getAdminGroups={this.state.getAdminGroups}
+          />
+
+          <CreateDemand
+          getGroupesPerAddress={this.state.getGroupesPerAddress}
+          pseudo={this.state.pseudo}
+          />
 
       </div>
     )

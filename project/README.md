@@ -14,13 +14,15 @@ Il s'agit la d'une DApp développée en solidity react.js/ether.js sur la chaine
 Ouvrir Chrome Ouvrir un metamask et le connecter au reseau de test ropsten
 
 Y copier le dossier du lien suivant :
-https://github.com/advancod/Alyra/tree/master/project/Ether-Union/Ether-Union-FrontEnd
+https://github.com/advancod/Alyra/tree/master/project/
 
-$npm install
+truffle migrate
 
-$npm run start
+$ npm install
+$ npm install -g webpack webpack-cli
+$ npm run start
 
-et lancer http://localhost:3000/
+et lancer http://localhost:8080/
 
 - Creez un groupe
 - Ajoutez un membre
