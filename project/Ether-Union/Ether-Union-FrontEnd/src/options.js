@@ -1,13 +1,8 @@
-import Web3 from 'web3'
-import Lottery from './ABIs/gameABI.json';
+import { ethers } from 'ethers';
+import Lottery from './ABIs/gameABI';
 
-let contractInstance = new Promise(function (resolve, reject) {
-  let web3 = new Web3(window.web3.currentProvider)
-
-  let classifiedAdsContract = web3.eth.contract(classifiedAdsContractData.abi)
-  let classifiedAdsContractInstance = classifiedAdsContract.at(classifiedAdsContractData.networks[web3.currentProvider.networkVersion].address)
-  // casinoContractInstance = () => casinoContractInstance
-  resolve(classifiedAdsContractInstance)
-})
+const contractAddress = "0xa244a02a49fd9adedeb7b5d49633be7fe5fb4fb2";
+const provider = new ethers.getDefaultProvider('ropsten');
+const contractInstance = new ethers.Contract(contractAddress, Lottery, provider);
 
 export default contractInstance;

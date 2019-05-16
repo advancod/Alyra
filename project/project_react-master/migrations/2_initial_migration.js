@@ -1,5 +1,5 @@
-const Cagnottes = artifacts.require("Lottery");
+const Lottery = artifacts.require("./Lottery.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Cagnottes, {gas : 6000000});
+  deployer.deploy(Lottery, {gas : 6500000});
 };

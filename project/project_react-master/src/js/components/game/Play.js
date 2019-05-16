@@ -1,6 +1,19 @@
 import React from 'react'
+import PropTypes from "prop-types"
 
 class Play extends React.Component {
+
+  static propTypes = {
+    prediction: PropTypes.string,
+    quantite: PropTypes.string,
+    handleChange: PropTypes.func
+  }
+
+  static defaultProps = {
+    quantite: '',
+    prediction: '',
+    handleChange: () => {}
+  }
 
   render() {
 
@@ -44,14 +57,14 @@ class Play extends React.Component {
           </tr>
           <tr>
             <td><strong>votre prediction pour la cagnotte</strong></td>
-            <td><input type="text" id="prediction" placeholder="montant"/></td>
+            <td><input type="text" onChange={this.props.handleChange} id={this.props.prediction} placeholder="montant"/></td>
           </tr>
           <tr>
             <td><strong>nombre de tickets a jouer (1 à 10)</strong></td>
-            <td><input type="text" id="quantite" placeholder="quantite"/></td>
+            <td><input type="text" onChange={this.props.handleChange} id={this.props.quantite} placeholder="quantite"/></td>
           </tr>
           <tr>
-            <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_membreInfo()">jouer</button></td>
+            <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick={this.props._prediction(this.props.prediction,this.props.quantite)}>jouer</button></td>
           </tr>
       </tbody>
       </table>

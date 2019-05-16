@@ -23,6 +23,12 @@ class App extends React.Component {
     super(props)
     this.state = {
       account: '0x0',
+      hasPlayed : false,
+      hasWithdraw : false,
+      hasClosed : false,
+      hasPayed : false,
+      hasAdd : false,
+      hasCreated : false,
 
       getPrixLottery: 0,
       getSuperCagnotte: 0,
@@ -61,64 +67,112 @@ class App extends React.Component {
     this.Lottery = TruffleContract(Lottery)
     this.Lottery.setProvider(this.web3Provider)
 
+    this._prediction = this._prediction.bind(this)
+    this._withdrawGains = this._withdrawGains.bind(this)
+    this._fermetureCanal = this._fermetureCanal.bind(this)
+    this._demander = this._demander.bind(this)
+    this._ajouterMembre = this._ajouterMembre.bind(this)
+    this._creerGroupe = this._creerGroupe.bind(this)
+
+
   }
 
   componentDidMount() {
 
     this.web3.eth.getCoinbase((err, account) => {
       this.setState({ account })
-    this.Lottery.deployed().then((LotteryInstance) => {
-      this.LotteryInstance = LotteryInstance
+      this.Lottery.deployed().then((LotteryInstance) => {
 
-      this.LotteryInstance.getPrixLottery().then((result) => {
-        this.setState({ getPrixLottery:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getPrixLottery().then((result) => {
-        this.setState({ getPrixLottery:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getSuperCagnotte().then((result) => {
-        this.setState({ getSuperCagnotte:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getTicketsLeft().then((result) => {
-        this.setState({ getTicketsLeft:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getEndGame().then((result) => {
-        this.setState({ getEndGame:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getBlockStop().then((result) => {
-        this.setState({ getBlockStop:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getNumCagnotte().then((result) => {
-        this.setState({ getNumCagnotte:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getCagnotte().then((result) => {
-        this.setState({ getCagnotte:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getNbGagnants().then((result) => {
-        this.setState({ getNbGagnants:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getSolde().then((result) => {
-        this.setState({ getSolde:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getBlock().then((result) => {
-        this.setState({ getBlock:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getNumCagnotte().then((result) => {
-        this.setState({ getNumCagnotte:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getCagnotte().then((result) => {
-        this.setState({ getCagnotte:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getNbGagnants().then((result) => {
-        this.setState({ getNbGagnants:  parseInt(result,10)})
-      })
-      this.LotteryInstance.getGains().then((result) => {
-        this.setState({ getGains:  parseInt(result,10)})
+        LotteryInstance.getPrixLottery().then((result) => {
+          this.setState({ getPrixLottery:  parseInt(result,10)})
+        })
+        LotteryInstance.getSuperCagnotte().then((result) => {
+          this.setState({ getSuperCagnotte:  parseInt(result,10)})
+        })
+        LotteryInstance.getTicketsLeft().then((result) => {
+          this.setState({ getTicketsLeft:  parseInt(result,10)})
+        })
+        LotteryInstance.getEndGame().then((result) => {
+          this.setState({ getEndGame:  parseInt(result,10)})
+        })
+        LotteryInstance.getBlockStop().then((result) => {
+          this.setState({ getBlockStop:  parseInt(result,10)})
+        })
+        LotteryInstance.getNumCagnotte().then((result) => {
+          this.setState({ getNumCagnotte:  parseInt(result,10)})
+        })
+        LotteryInstance.getCagnotte().then((result) => {
+          this.setState({ getCagnotte:  parseInt(result,10)})
+        })
+        LotteryInstance.getNbGagnants().then((result) => {
+          this.setState({ getNbGagnants:  parseInt(result,10)})
+        })
+        LotteryInstance.getSolde().then((result) => {
+          this.setState({ getSolde:  parseInt(result,10)})
+        })
+        LotteryInstance.getBlock().then((result) => {
+          this.setState({ getBlock:  parseInt(result,10)})
+        })
+        LotteryInstance.getNumCagnotte().then((result) => {
+          this.setState({ getNumCagnotte:  parseInt(result,10)})
+        })
+        LotteryInstance.getCagnotte().then((result) => {
+          this.setState({ getCagnotte:  parseInt(result,10)})
+        })
+        LotteryInstance.getNbGagnants().then((result) => {
+          this.setState({ getNbGagnants:  parseInt(result,10)})
+        })
+        LotteryInstance.getGains().then((result) => {
+          this.setState({ getGains:  parseInt(result,10)})
+        })
       })
     })
-})
   }
 
+
+  _prediction(montant,quantite) {
+      this.Lottery.deployed().then((LotteryInstance) => {
+      LotteryInstance.play(montant,quantite, { from: this.state.account }).then((result) =>
+      this.setState({ hasPlayed: true })
+      )
+  })
+  }
+
+  _withdrawGains() {
+      this.LotteryInstance.withdrawGains({ from: this.state.account }).then((result) =>
+      this.setState({ hasWithdraw: true })
+      )
+  }
+
+  _fermetureCanal(pseudo) {
+      this.LotteryInstance.fermetureCanal(pseudo,{ from: this.state.account }).then((result) =>
+      this.setState({ hasClosed: true })
+      )
+  }
+
+  _payerCanal(pseudo) {
+      this.LotteryInstance.payerCanal(pseudo,{ from: this.state.account, value : parseInt(proposition,10) }).then((result) =>
+      this.setState({ hasPayed: true })
+      )
+  }
+
+  _demander(montant,pseudo,contrat,description) {
+      this.LotteryInstance.demander(montant,pseudo,contrat,description,{ from: this.state.account, value : this.LotteryInstance.getPriceChannel() }).then((result) =>
+      this.setState({ hasAsked: true })
+      )
+  }
+
+  _ajouterMembre(membre,groupe,pseudo) {
+      this.LotteryInstance.ajouterMembre(membre,groupe,pseudo,{ from: this.state.account, value : this.LotteryInstance.getPriceChannel() }).then((result) =>
+      this.setState({ hasAdd: true })
+      )
+  }
+
+  _creerGroupe(membre,groupe,pseudo) {
+      this.LotteryInstance.creerGroupe(nom,pseudo, { from: this.state.account, value : this.LotteryInstance.getPriceGroup() }).then((result) =>
+      this.setState({ hasCreated: true })
+      )
+  }
 
   render() {
 
@@ -135,6 +189,7 @@ class App extends React.Component {
           getNbGagnants={this.state.getNbGagnants}
           balanceOf={this.state.balanceOf}
           getBlock={this.state.getBlock}
+          _prediction={this._prediction}
           />
 
           <PreviousGame getNumCagnotte={this.state.getNumCagnotte}

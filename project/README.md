@@ -5,11 +5,11 @@ Cette application permet la création de réseau sociaux poussant à l'entraide 
 - Verification de financement possible
 - Etablissement de statistiques d'activité
 - Echange d'un pourcentage de chaque versement en ether contre des tokens.
-- Les tokens sont ensuite bruler lors de la participation à un jeux
+- Les tokens sont ensuite brulés lors de la participation à un jeux
 - Ce jeux consiste en la liquidation de la cagnotte accumulé par les frais de chaque transactions.
-- Le modèle éco consiste d'une part à charger faiblement les créations de groupes, adhésions, ouvertures de demandes. Mais surtout en la gestion financière des fonds emprunmptés par le contrat (emmission de tokens) jusqu'à leur rétribution sous forme de jackpot aux utilisateurs
+- Le modèle éco consiste d'une part à charger faiblement les créations de groupes, adhésions, ouvertures de demandes. Mais surtout en la gestion financière des fonds emprunmptés par le contrat (emmission de tokens) jusqu'à leur rétribution sous forme de jackpot aux utilisateurs ainsi que les charges
 
-Il s'agit la d'une DApp développée en solidity react.js/ether.js sur la chaine ethereum développée s
+Il s'agit la d'une DApp développée en solidity/react/webpack sur la chaine ethereum développée s
 
 Ouvrir Chrome Ouvrir un metamask et le connecter au reseau de test ropsten
 

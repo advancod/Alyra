@@ -25390,7 +25390,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-05-15T15:38:49.203Z",
+  "updatedAt": "2019-05-16T13:23:48.626Z",
   "devdoc": {
     "methods": {
       "allowance(address,address)": {
