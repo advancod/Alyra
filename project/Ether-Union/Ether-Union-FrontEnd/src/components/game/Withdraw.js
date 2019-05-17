@@ -5,14 +5,21 @@ class Withdraw extends Component {
   constructor() {
     super();
     this.state = {
-      gains: ''
+      gains: 0
 		};
+
   }
 
   async componentDidMount() {
 
     this.setState({ gains: parseInt(await contractInstance.getGains(),10) })
   }
+
+  async _withdrawGains() {
+    //  await ethereum.enable()
+    //	await contractInstance.withdrawGains()
+  }
+
   render() {
 
     return (
@@ -27,7 +34,11 @@ class Withdraw extends Component {
           <tbody>
             <tr className="w3-theme-l2">
               <td>mes gains</td>
-              <td className="w3-theme-l3">{this.state.gains}</td>
+              <td className="w3-theme-l3"></td>
+            </tr>
+
+            <tr>
+              <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._withdrawGains()}>recuperer</button></td>
             </tr>
       </tbody>
       </table>

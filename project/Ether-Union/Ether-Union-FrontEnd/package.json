@@ -4,15 +4,15 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
-    "ether.js": "^1.0.0",
     "ethers": "^4.0.27",
+    "live-server": "^1.2.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-device-detect": "^1.6.2",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
-    "web3": "^1.0.0-beta.54"
+    "requirejs": "^2.3.6"
   },
   "scripts": {
     "start": "react-scripts start",

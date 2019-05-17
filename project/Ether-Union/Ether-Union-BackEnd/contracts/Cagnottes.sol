@@ -29,7 +29,7 @@ mapping (address => mapping (address => uint)) private mappStats;
 
 // montant maximum d'une demande
 uint private MAX_AMOUNT;
-// montant minimum d'une demanfe
+// montant minimum d'une demande
 uint private MIN_AMOUNT;
 // charges recoltes par le contrat a chaque paiement (montant/PRICE_RATIO)
 uint private PRICE_RATIO;

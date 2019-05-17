@@ -30,8 +30,7 @@ class Menu extends React.Component {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <Router>
-            <Route exact path="/" component={home}/>
-            <Route exact path="/game" component={game}/>
+            <Route exact path="/" component={game}/>
             <Route exact path="/demand" component={demand}/>
             <Route exact path="/admin" component={admin}/>
           </Router>
@@ -44,12 +43,10 @@ class Menu extends React.Component {
 class game extends Component {
   render() {
       return (
-      <div>
       <MenuList>
         <MenuItem><a href="/admin">GET TOKENS</a></MenuItem>
         <MenuItem><a href="/demand">DEMANDS</a></MenuItem>
       </MenuList>
-        </div >
     )
   }
 }
@@ -59,7 +56,7 @@ class demand extends Component {
       return (
 
       <MenuList>
-        <MenuItem><a href="/game">GAME</a></MenuItem>
+        <MenuItem><a href="/">GAME</a></MenuItem>
         <MenuItem><a href="/admin">GET TOKENS</a></MenuItem>
       </MenuList>
 
@@ -73,21 +70,7 @@ class admin extends Component {
 
       <MenuList>
         <MenuItem><a href="/demand">DEMANDS</a></MenuItem>
-        <MenuItem><a href="/game">GAME</a></MenuItem>
-      </MenuList>
-
-    )
-  }
-}
-
-class home extends Component {
-  render() {
-    return (
-
-      <MenuList>
-          <MenuItem><a href="/admin">GET TOKENS</a></MenuItem>
-        <MenuItem><a href="/game">GAME</a></MenuItem>
-        <MenuItem><a href="/demand">DEMANDS</a></MenuItem>
+        <MenuItem><a href="/">GAME</a></MenuItem>
       </MenuList>
 
     )

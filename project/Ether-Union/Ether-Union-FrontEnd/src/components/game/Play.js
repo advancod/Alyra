@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
 import PropTypes from "prop-types"
-import { Button, Divider, Grid, Typography } from "@material-ui/core"
-import TextField from "@material-ui/core/TextField"
 
 const styles = {
   divider: {
@@ -15,37 +13,35 @@ const styles = {
 }
 
 class Play extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-			getPrixLottery: '',
-      getSuperCagnotte: '',
-      getTicketsLeft: '',
-      getEndGame: '',
-      getBlockStop: '',
-      getNumCagnotte: '',
-      getCagnotte: '',
-      getNbGagnants: '',
-      balanceOf: '',
-      getBlock: '',
-      onClicks : ''
+			getPrixLottery: 0,
+      getSuperCagnotte: 0,
+      getTicketsLeft: 0,
+      getEndGame: 0,
+      getBlockStop: 0,
+      getNumCagnotte: 0,
+      getCagnotte: 0,
+      getNbGagnants: 0,
+      balanceOf: 0,
+      getBlock: 0
 		};
   }
 
   static propTypes = {
-    prediction: PropTypes.string,
-    quantite: PropTypes.string,
+    prediction: PropTypes.number,
+    quantite: PropTypes.number,
     handleChange: PropTypes.func
   }
 
   static defaultProps = {
-    quantite: '',
-    prediction: '',
+    quantite: 0,
+    prediction: 0,
     handleChange: () => {}
   }
 
   async componentDidMount() {
-
     this.setState({ getPrixLottery: parseInt(await contractInstance.getPrixLottery(),10),
                     getSuperCagnotte: parseInt(await contractInstance.getSuperCagnotte(),10),
                     getTicketsLeft: parseInt(await contractInstance.getTicketsLeft(),10),
@@ -56,18 +52,14 @@ class Play extends Component {
                     getNbGagnants: parseInt(await contractInstance.getNbGagnants(),10),
                     balanceOf: parseInt(await contractInstance.getSolde(),10),
                     getBlock: parseInt(await contractInstance.getBlock(),10)})
-
   }
 
-  async play() {
-
-  await contractInstance.play(this.props.prediction,this.props.quantite)
-
+  async _jouerLottery() {
+    //  await ethereum.enable()
+    //	await contractInstance.play(this.props.prediction,this.props.quantite)
   }
 
   render() {
-
-    const { quantite, prediction, handleChange, classes } = this.props
 
     return (
 
@@ -109,14 +101,14 @@ class Play extends Component {
           </tr>
           <tr className="w3-theme-l2">
             <td><strong>votre prediction pour la cagnotte</strong></td>
-            <td className="w3-theme-l3"><input type="text" onChange={handleChange} id="prediction" placeholder="montant"/></td>
+            <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.prediction} placeholder="montant"/></td>
           </tr>
           <tr className="w3-theme-l2">
             <td><strong>nombre de tickets a jouer (1 à 10)</strong></td>
-            <td className="w3-theme-l3"><input type="text" onChange={handleChange} id="quantite" placeholder="quantite"/></td>
+            <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.quantite} placeholder="quantite"/></td>
           </tr>
-          <tr class="w3-theme-l1">
-            <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_membreInfo()">jouer</button></td>
+          <tr className="w3-theme-l2">
+            <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._jouerLottery()}>jouer</button></td>
           </tr>
       </tbody>
       </table>

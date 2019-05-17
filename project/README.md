@@ -7,7 +7,6 @@ Cette application permet la création de réseau sociaux poussant à l'entraide 
 - Echange d'un pourcentage de chaque versement en ether contre des tokens.
 - Les tokens sont ensuite brulés lors de la participation à un jeux
 - Ce jeux consiste en la liquidation de la cagnotte accumulé par les frais de chaque transactions.
-- Le modèle éco consiste d'une part à charger faiblement les créations de groupes, adhésions, ouvertures de demandes. Mais surtout en la gestion financière des fonds emprunmptés par le contrat (emmission de tokens) jusqu'à leur rétribution sous forme de jackpot aux utilisateurs ainsi que les charges
 
 Il s'agit la d'une DApp développée en solidity/react/webpack sur la chaine ethereum développée s
 
@@ -15,6 +14,24 @@ Ouvrir Chrome Ouvrir un metamask et le connecter au reseau de test ropsten
 
 Y copier le dossier du lien suivant :
 https://github.com/advancod/Alyra/tree/master/project/
+
+- version 1 : version html/ether.js dans ETHER-UNION/ETHET-UNION-BACKEND
+
+$ npm install
+$ npx live-server
+
+et lancer http://localhost:8080/
+
+- version 2 : version react/web3 dans ETHER-UNION/ETHET-UNION-FRONTEND (c'est cette version qui sera présentée)
+
+truffle migrate
+
+$ npm install
+$ npm run start
+
+et lancer http://localhost:8080/
+
+- version 3 : version react/webPack/truffle dans project_react_master (incomplet)
 
 truffle migrate
 

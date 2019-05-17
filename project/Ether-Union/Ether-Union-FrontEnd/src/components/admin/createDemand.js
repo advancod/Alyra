@@ -3,13 +3,10 @@ import contractInstance from '../../options'
 import PropTypes from "prop-types"
 
 class CreateDemand extends Component {
-  constructor() {
-    super();
-  }
 
   static propTypes = {
     pseudo2: PropTypes.string,
-    montant: PropTypes.string,
+    montant: PropTypes.number,
     contrat: PropTypes.string,
     description: PropTypes.string,
     handleChange: PropTypes.func
@@ -17,50 +14,52 @@ class CreateDemand extends Component {
 
   static defaultProps = {
     pseudo2: '',
-    montant: '',
-    contrat: '',
+    montant: 0,
+    contrat: '0x0',
     description: '',
     handleChange: () => {}
   }
 
-  async componentDidMount() {
-
-    var getGroupesPerAddress = ""
-
-    this.setState({ getGroupesPerAddress: parseInt(getGroupesPerAddress,10)})
+  async _demander() {
+    //  await ethereum.enable()
+    //	await contractInstance.demander(this.props.montant,this.props.pseudo,this.props.contrat,this.props.description, {value : contractInstance.getPriceChannel()})
   }
+
   render() {
 
     const { pseudo2, montant, contrat, description} = this.props
 
     return (
 
-      <div class="table-responsive w3-card-4">
-        <table class="table table-bordered">
+      <div className="table-responsive w3-card-4">
+        <table className="table table-bordered">
           <thead>
-            <tr class="w3-theme-d4">
+            <tr className="w3-theme-d4">
               <th>CREER UNE DEMANDE</th>
             </tr>
           </thead>
             <tbody>
-              <tr class="w3-theme-l2">
+              <tr className="w3-theme-l2">
                 <td><strong>pseudo</strong></td>
-                <td class="w3-theme-l3"><input type="text" value={pseudo2} id="pseudo2" placeholder="pseudo" /></td>
+
+                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.pseudo2} placeholder="pseudo"/></td>
               </tr>
-              <tr class="w3-theme-l2">
+              <tr className="w3-theme-l2">
                 <td><strong>montant</strong></td>
-                <td class="w3-theme-l3"><input type="text" value={montant} id="montant" placeholder="montant"/></td>
+
+                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.montant} placeholder="montant"/></td>
               </tr>
-              <tr class="w3-theme-l2">
+              <tr className="w3-theme-l2">
                 <td><strong>contrat cible (optionnel)</strong></td>
-                <td class="w3-theme-l3"><input type="text" value={contrat} id="contrat" placeholder="addresse" /></td>
+
+                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.contrat} placeholder="contrat"/></td>
               </tr>
-              <tr class="w3-theme-l2">
+              <tr className="w3-theme-l2">
                 <td><strong>description</strong></td>
-                <td class="w3-theme-l3"><input type="text" value={description} id="description" placeholder="description" /></td>
+                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.description} placeholder="description"/></td>
               </tr>
-              <tr class="w3-theme-l2">
-                <td class="w3-theme-l3"><button  class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="">emettre</button></td>
+              <tr className="w3-theme-l2">
+                <td><button  className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._demander()}>emettre</button></td>
               </tr>
 
 

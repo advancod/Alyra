@@ -49,7 +49,7 @@ class App extends Component {
                 enter in the new social network system of consuming and play to our free super lotery
               </div>
               <Router>
-                <Route exact path="/game" component={Menu}/>
+                <Route exact path="/" component={Menu}/>
                 <Route exact path="/demand" component={Menu}/>
                 <Route exact path="/admin" component={Menu}/>
               </Router>
@@ -63,8 +63,7 @@ class App extends Component {
             <Grid container alignItems="center" justify="center">
               <Grid item xs={8} lg={10} >
                 <Router>
-                  <Route exact path="/" component={home}/>
-                  <Route exact path="/game" component={game}/>
+                  <Route exact path="/" component={game}/>
                   <Route exact path="/demand" component={demand}/>
                   <Route exact path="/admin" component={admin}/>
                 </Router>
@@ -73,23 +72,6 @@ class App extends Component {
           </div >
 
       </React.Fragment>
-    )
-  }
-}
-
-class home extends Component {
-  render() {
-      return (
-        <div>
-      <Card className="card">
-
-            <CardContent>
-              <Menu />
-            </CardContent>
-          </Card>
-
-          </div>
-
     )
   }
 }

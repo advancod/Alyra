@@ -5,9 +5,9 @@ class PreviewGame extends Component {
   constructor() {
     super();
     this.state = {
-      getNumCagnotte: '',
-      getCagnotte: '',
-      getNbGagnants: ''
+      getNumCagnotte: 0,
+      getCagnotte: 0,
+      getNbGagnants: 0
 		};
   }
 

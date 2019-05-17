@@ -3,46 +3,46 @@ import contractInstance from '../../options'
 import PropTypes from "prop-types"
 
 class payDemand extends Component {
-  constructor() {
-    super();
-  }
 
   static propTypes = {
     pseudo3: PropTypes.string,
-    proposition: PropTypes.string,
+    proposition: PropTypes.number,
     handleChange: PropTypes.func
   }
 
   static defaultProps = {
     pseudo3: '',
-    proposition: '',
+    proposition: 0,
     handleChange: () => {}
+  }
+
+  async _payerCanal() {
+    //  await ethereum.enable()
+    //	await contractInstance.payerCanal(this.props.pseudo, {value : parseInt(this.props.proposition,10)})
   }
 
   render() {
 
-    const { pseudo3, proposition } = this.props
-
     return (
 
-      <div class="table-responsive w3-card-4">
-        <table class="table table-bordered">
+      <div className="table-responsive w3-card-4">
+        <table className="table table-bordered">
           <thead>
-            <tr class="w3-theme-d4">
+            <tr className="w3-theme-d4">
               <th>PAYER UNE DEMANDE - Gagnez des tokens</th>
             </tr>
           </thead>
             <tbody>
-            <tr class="w3-theme-l2">
+            <tr className="w3-theme-l2">
               <td><strong>pseudo du demandeur</strong></td>
-              <td class="w3-theme-l3"><input type="text" value={pseudo3} id="pseudo3" placeholder="pseudo"/></td>
+              <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.pseudo3} placeholder="pseudo"/></td>
             </tr>
-            <tr class="w3-theme-l2">
+            <tr className="w3-theme-l2">
               <td><strong>montant propose</strong></td>
-              <td class="w3-theme-l3"><input type="text" value={proposition} id="proposition" placeholder="montant"/></td>
+              <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.proposition} placeholder="montant"/></td>
             </tr>
-            <tr class="w3-theme-l2">
-              <td><button  class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick=")">payer</button></td>
+            <tr className="w3-theme-l2">
+              <td><button  className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._payerCanal()}>payer</button></td>
             </tr>
 
   </tbody>
