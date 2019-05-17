@@ -4,25 +4,19 @@ import "./Cagnottes.sol";
 
 contract Lottery is Cagnottes{
 
-mapping (address => uint[]) private prediction ;
-mapping (address => uint) private gains;
+mapping (address => uint) private prediction ;
+mapping (address => bool) private win ;
 
 enum LotteryState { Started, Finished, Pending }
-
-address[] private players;
-address[] private winners;
 
 uint private blockStop;
 uint private blockEnd;
 uint private PRICE_LOTTERY_TOKEN;
-uint private NB_TICKETS;
-uint private POOL_ENDGAME;
 
 LotteryState private state;
 
 struct resultat
 {
-  uint numCagnotte;
   uint cagnotte;
   uint nbGagnants;
 }
@@ -32,122 +26,67 @@ resultat lastResult;
 constructor() public
 {
   state = LotteryState.Pending;
-  blockStop = 100;
-  POOL_ENDGAME = 10;
+  blockStop = 1;
+  _mint(msg.sender, 10000);
 }
 
-function initierLottery(uint _price, uint _tickets, uint _blockEnd) public onlyOwner
+function initierLottery(uint _price, uint _blockEnd) public onlyOwner
 {
   require(block.number < blockEnd - blockStop);
   require(state == LotteryState.Pending);
-  require(block.number < _blockEnd);
+  lastResult.nbGagnants = 0;
   blockEnd = _blockEnd;
-  NB_TICKETS = _tickets;
   PRICE_LOTTERY_TOKEN = _price;
   state = LotteryState.Started;
 }
 
-function play(uint _prediction, uint _nbTickets) public
+function play(uint _prediction) public
 {
-  require(block.number < blockEnd - blockStop);
-  require(state == LotteryState.Started);
-  require(_nbTickets < 11);
-  require(NB_TICKETS - _nbTickets > 0);
-  require(balanceOf(msg.sender) >= _nbTickets.mul(PRICE_LOTTERY_TOKEN));
-  NB_TICKETS -= _nbTickets;
-  _burnFrom(msg.sender,_nbTickets.mul(PRICE_LOTTERY_TOKEN));
-  for (uint i=0; i< _nbTickets; i++)
-  {
-  prediction[msg.sender].push(_prediction);
-  }
-  players.push(msg.sender);
+ require(prediction[msg.sender] == 0);
+ require(block.number <= blockEnd - blockStop);
+ require(state == LotteryState.Started);
+ require(balanceOf(msg.sender) >= PRICE_LOTTERY_TOKEN);
+  _burn(msg.sender,PRICE_LOTTERY_TOKEN);
+  prediction[msg.sender] = _prediction;
 }
 
 function endGame() public onlyOwner
 {
   require(state == LotteryState.Started);
-  require(block.number > blockEnd);
-  uint length;
-  if (players.length > POOL_ENDGAME)
-  {
-    length = POOL_ENDGAME;
-  }
-  else {
-    length = players.length;
-  }
-  for (uint i=0; i< length; i++)
-  {
-    uint length2;
-    if (prediction[players[i]].length > POOL_ENDGAME)
-    {
-      length2 = POOL_ENDGAME;
-    }
-    else {
-      length2 = prediction[players[i]].length;
-    }
-    for (uint j=0; j< length2; j++)
-    {
-      if (prediction[players[i]][j] == LOTTERY_CAGNOTTE && prediction[players[i]][j] != 0)
-      {
-        winners.push(players[i]);
-      }
-    }
-    delete players[i];
-  }
-  if (players.length == 0)
-  {
-    if (winners.length > 0)
-    {
-    LOTTERY_CAGNOTTE = uint(LOTTERY_CAGNOTTE.div(winners.length));
-    }
-    state = LotteryState.Finished;
-  }
-  msg.sender.transfer(LOTTERY_CAGNOTTE);
-  lastResult.numCagnotte += 1;
+  require(block.number >= blockEnd);
   lastResult.cagnotte = LOTTERY_CAGNOTTE;
-  lastResult.nbGagnants = winners.length;
+  state = LotteryState.Finished;
+  LOTTERY_CAGNOTTE = 0;
+  blockEnd = 0;
 }
 
-function soldeGame() public onlyOwner
+function closeGame() public onlyOwner
 {
   require(state == LotteryState.Finished);
-  require(winners.length>0);
-  uint length;
-  if (winners.length > 10)
-  {
-    length = 10;
-  }
-  else {
-    length = winners.length;
-  }
-  for (uint i=0; i< length; i++)
-  {
-    gains[winners[i]].add(LOTTERY_CAGNOTTE);
-    delete winners[i];
-  }
-  if (winners.length == 0)
-  {
-    LOTTERY_CAGNOTTE = 0;
-    state = LotteryState.Pending;
-  }
+  state = LotteryState.Pending;
+}
+
+function saveWin() public
+{
+  require(state == LotteryState.Finished);
+  require(prediction[msg.sender] == lastResult.cagnotte);
+  win[msg.sender] = true;
+  lastResult.nbGagnants += 1;
+  prediction[msg.sender] = 0;
 }
 
 function withdrawGains() public
 {
-  require(gains[msg.sender]> 0);
-  uint MyGains = gains[msg.sender];
-  gains[msg.sender] = 0;
-  msg.sender.transfer(MyGains);
+  require(win[msg.sender] == true);
+  require(state == LotteryState.Pending);
+  require(prediction[msg.sender] == lastResult.cagnotte);
+  win[msg.sender] == false;
+  msg.sender.transfer(uint(lastResult.cagnotte.div(lastResult.nbGagnants)));
 }
 
 function getPrixLottery() public view returns (uint)
 {
   return PRICE_LOTTERY_TOKEN;
-}
-
-function getTicketsLeft() public view returns (uint)
-{
-  return NB_TICKETS;
 }
 
 function getEndGame() public view returns (uint)
@@ -160,9 +99,14 @@ function getSuperCagnotte() public view returns (uint)
   return LOTTERY_CAGNOTTE;
 }
 
+function getPrediction() public view returns (uint)
+{
+  return prediction[msg.sender];
+}
+
 function getBlockStop() public view returns (uint)
 {
-  if (state == LotteryState.Pending)
+  if (blockEnd < blockStop)
   {
   return 0;
   }
@@ -173,21 +117,6 @@ function getBlockStop() public view returns (uint)
 function modifierBlockStop(uint _stop) public onlyOwner
 {
   blockStop = _stop;
-}
-
-function getNumCagnotte() public view returns (uint)
-{
-  return lastResult.numCagnotte;
-}
-
-function modifierPoolEnd(uint _pool) public onlyOwner
-{
-  POOL_ENDGAME = _pool;
-}
-
-function getPoolEnd() public onlyOwner view returns (uint)
-{
-  return POOL_ENDGAME;
 }
 
 function getCagnotte() public view returns (uint)
@@ -202,7 +131,12 @@ function getBlock() public view returns (uint)
 
 function getGains() public view returns (uint)
 {
-  return gains[msg.sender];
+    if (win[msg.sender] == false)
+  {
+  return 0;
+  }
+  else return uint(lastResult.cagnotte.div(lastResult.nbGagnants));
+
 }
 
 function getSolde() public view returns (uint)

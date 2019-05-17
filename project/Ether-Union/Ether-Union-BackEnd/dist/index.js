@@ -812,7 +812,7 @@ const Lottery = [
         "type": "uint256"
       },
       {
-        "name": "_tickets",
+        "name": "_blockEnd",
         "type": "uint256"
       },
       {
@@ -831,10 +831,6 @@ const Lottery = [
     "inputs": [
       {
         "name": "_prediction",
-        "type": "uint256"
-      },
-      {
-        "name": "_nbTickets",
         "type": "uint256"
       }
     ],
@@ -875,20 +871,6 @@ const Lottery = [
     "constant": true,
     "inputs": [],
     "name": "getPrixLottery",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getTicketsLeft",
     "outputs": [
       {
         "name": "",
@@ -950,15 +932,63 @@ const Lottery = [
       }
     ],
     "name": "modifierBlockStop",
-    "outputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "constant": true,
-    "inputs": [],
+    "inputs": [
+      {
+        "name": "_stop",
+        "type": "uint256"
+      }
+    ],
     "name": "getNumCagnotte",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_pool",
+        "type": "uint256"
+      }
+    ],
+    "name": "modifierPoolEnd",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_pool",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPoolEnd",
     "outputs": [
       {
         "name": "",
@@ -1038,12 +1068,26 @@ const Lottery = [
     "payable": false,
     "stateMutability": "view",
     "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getNbGagnants",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   }
 ]
 
-let contractAddress = "0xa244a02a49fd9adedeb7b5d49633be7fe5fb4fb2"
+let contractAddress = "0x002a1354b803ac12170fa827c3e3f4ec07c35b20"
 let provider = new ethers.providers.Web3Provider(web3.currentProvider);
-let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner())
+let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner(0))
 
 
 async function demarrage() {
@@ -1055,7 +1099,6 @@ async function demarrage() {
 async function _lotteryInfo() {
   document.getElementById('getPrixLottery').innerHTML = await contractInstance.getPrixLottery()
   document.getElementById('getSuperCagnotte').innerHTML = await contractInstance.getSuperCagnotte()
-  document.getElementById('getTicketsLeft').innerHTML = await contractInstance.getTicketsLeft()
   document.getElementById('getEndGame').innerHTML = await contractInstance.getEndGame()
   document.getElementById('getBlockStop').innerHTML = await contractInstance.getBlockStop()
   document.getElementById('balanceOf').innerHTML = await contractInstance.getSolde()
@@ -1151,8 +1194,7 @@ async function _fermetureCanal() {
 async function _jouerLottery() {
     await ethereum.enable()
     let prediction = document.getElementById('prediction').value
-    let quantite = document.getElementById('quantite').value
-  	await contractInstance.play(prediction,quantite)
+  	await contractInstance.play(prediction, {gas : 6000000})
 }
 
 async function _withdrawGains() {

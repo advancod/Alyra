@@ -59,9 +59,9 @@ constructor() public
   MAX_AMOUNT = 10000000000000000000;
   MIN_AMOUNT = 10000000;
   PRICE_RATIO = 100;
-  PRICE_GROUP = 100000;
-  PRICE_MEMBRE = 10000;
-  PRICE_CHANEL = 1000;
+  PRICE_GROUP = 10000;
+  PRICE_MEMBRE = 1000;
+  PRICE_CHANEL = 100;
 }
 
 function creerGroupe(string memory _nom, string memory _pseudo) payable public
@@ -138,7 +138,6 @@ function demander(uint _montant, string memory _pseudo, address _contratCible, s
 
 function payerCanal(string memory _pseudo) public payable
 {
-  require(msg.value > PRICE_CHANEL);
   uint _channelID = uint(keccak256(bytes(_pseudo)));
   require(mappChannel[_channelID].montant != 0);
   require(mappChannel[_channelID].montant - mappChannel[_channelID].enCours >= msg.value);

@@ -31,12 +31,10 @@ class Play extends Component {
 
   static propTypes = {
     prediction: PropTypes.number,
-    quantite: PropTypes.number,
     handleChange: PropTypes.func
   }
 
   static defaultProps = {
-    quantite: 0,
     prediction: 0,
     handleChange: () => {}
   }
@@ -44,7 +42,6 @@ class Play extends Component {
   async componentDidMount() {
     this.setState({ getPrixLottery: parseInt(await contractInstance.getPrixLottery(),10),
                     getSuperCagnotte: parseInt(await contractInstance.getSuperCagnotte(),10),
-                    getTicketsLeft: parseInt(await contractInstance.getTicketsLeft(),10),
                     getEndGame: parseInt(await contractInstance.getEndGame(),10),
                     getBlockStop: parseInt(await contractInstance.getBlockStop(),10),
                     getNumCagnotte: parseInt(await contractInstance.getNumCagnotte(),10),
@@ -56,7 +53,7 @@ class Play extends Component {
 
   async _jouerLottery() {
     //  await ethereum.enable()
-    //	await contractInstance.play(this.props.prediction,this.props.quantite)
+    //	await contractInstance.play(this.props.prediction)
   }
 
   render() {
@@ -75,10 +72,6 @@ class Play extends Component {
               <td>prix du ticket en token</td>
               <td className="w3-theme-l3">{this.state.getPrixLottery}</td>
             </tr>
-          <tr className="w3-theme-l2">
-            <td>tickets restants</td>
-            <td className="w3-theme-l3">{this.state.getTicketsLeft}</td>
-          </tr>
           <tr className="w3-theme-l2">
             <td>bloc actuel</td>
             <td className="w3-theme-l3">{this.state.getBlock}</td>
@@ -102,10 +95,6 @@ class Play extends Component {
           <tr className="w3-theme-l2">
             <td><strong>votre prediction pour la cagnotte</strong></td>
             <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.prediction} placeholder="montant"/></td>
-          </tr>
-          <tr className="w3-theme-l2">
-            <td><strong>nombre de tickets a jouer (1 à 10)</strong></td>
-            <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.quantite} placeholder="quantite"/></td>
           </tr>
           <tr className="w3-theme-l2">
             <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._jouerLottery()}>jouer</button></td>

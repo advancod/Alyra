@@ -812,7 +812,7 @@ const Lottery = [
         "type": "uint256"
       },
       {
-        "name": "_tickets",
+        "name": "_blockEnd",
         "type": "uint256"
       },
       {
@@ -831,10 +831,6 @@ const Lottery = [
     "inputs": [
       {
         "name": "_prediction",
-        "type": "uint256"
-      },
-      {
-        "name": "_nbTickets",
         "type": "uint256"
       }
     ],
@@ -875,20 +871,6 @@ const Lottery = [
     "constant": true,
     "inputs": [],
     "name": "getPrixLottery",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getTicketsLeft",
     "outputs": [
       {
         "name": "",
@@ -950,15 +932,63 @@ const Lottery = [
       }
     ],
     "name": "modifierBlockStop",
-    "outputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "constant": true,
-    "inputs": [],
+    "inputs": [
+      {
+        "name": "_stop",
+        "type": "uint256"
+      }
+    ],
     "name": "getNumCagnotte",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_pool",
+        "type": "uint256"
+      }
+    ],
+    "name": "modifierPoolEnd",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_pool",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPoolEnd",
     "outputs": [
       {
         "name": "",
@@ -1015,6 +1045,20 @@ const Lottery = [
     "constant": true,
     "inputs": [],
     "name": "getSolde",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getNbGagnants",
     "outputs": [
       {
         "name": "",
