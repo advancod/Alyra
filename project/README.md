@@ -16,7 +16,8 @@ Y copier le dossier du lien suivant :
 https://github.com/advancod/Alyra/tree/master/project/
 
 
-- version react/ethers dans ETHER-UNION (c'est cette version qui sera présentée)
+- version react/ethers dans ETHER-UNION 
+Aller dans le dossier front end :
 
 $ npm install
 $ npm run start

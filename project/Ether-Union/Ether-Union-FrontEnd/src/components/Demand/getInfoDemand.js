@@ -133,16 +133,8 @@ class GetInfoDemand extends Component {
         <th className="w3-theme-d1">Informations</th>
       </tr>
       <tr>
-        <td className="w3-theme-l3">groupe</td>
-        <td className="w3-theme-l4">{this.state.getGroupe}</td>
-      </tr>
-      <tr>
-        <td className="w3-theme-l3">pseudo</td>
-        <td className="w3-theme-l4">{this.state.getMembre}</td>
-      </tr>
-      <tr>
         <td className="w3-theme-l3">addresse</td>
-        <td className="w3-theme-l4">{this.state.pseudo}</td>
+        <td className="w3-theme-l4">{this.state.getAddresse}</td>
       </tr>
       <tr>
         <td className="w3-theme-l3">Il vous a deja donne</td>
