@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-class Menu extends React.Component {
+class  Menu extends React.Component {
 
   render() {
     const { classes } = this.props;

@@ -15,7 +15,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import logo from './logo.png'
 import "./App.css"
 
-class App extends Component {
+
+export default class App extends Component {
   render() {
     if (isMobile) {
       return (
@@ -147,5 +148,3 @@ class admin extends Component {
     )
   }
 }
-
-export default App

@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import contractInstance from '../../options'
 import PropTypes from "prop-types"
 
-class CreateMember extends Component {
+export default class CreateMember extends Component {
 
   constructor() {
     super();
+    this.state = {
+      payable: 0
+    };
     this._ajouterMembre = this._ajouterMembre.bind(this)
   }
 
@@ -23,9 +26,16 @@ class CreateMember extends Component {
     handleChange: () => {}
   }
 
+  async componentDidMount() {
+
+    this.setState({
+                    payable: parseInt(await contractInstance.getPriceMember(),10)})
+
+  }
+
   async _ajouterMembre() {
       await window.ethereum.enable()
-     	await contractInstance.ajouterMembre(this.props.membre,this.props.groupe,this.props.pseudo1, {value : await contractInstance.getPriceMember()})
+     	await contractInstance.ajouterMembre(this.props.membre,this.props.groupe,this.props.pseudo1, {value : this.state.payable})
   }
 
   render() {
@@ -64,5 +74,3 @@ class CreateMember extends Component {
     );
   }
 }
-
-export default CreateMember;

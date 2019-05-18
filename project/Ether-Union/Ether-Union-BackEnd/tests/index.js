@@ -783,17 +783,8 @@ const Lottery = [
   },
   {
     "constant": false,
-    "inputs": [
-      {
-        "name": "_price",
-        "type": "uint256"
-      },
-      {
-        "name": "_blockEnd",
-        "type": "uint256"
-      }
-    ],
-    "name": "initierLottery",
+    "inputs": [],
+    "name": "initLottery",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -1016,10 +1007,80 @@ const Lottery = [
     "payable": false,
     "stateMutability": "view",
     "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getWithdrawBlock",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getSaveBlock",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_save",
+        "type": "uint256"
+      }
+    ],
+    "name": "modifierBlockSave",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_withdraw",
+        "type": "uint256"
+      }
+    ],
+    "name": "modifierBlockWithdraw",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_price",
+        "type": "uint256"
+      }
+    ],
+    "name": "modifierPriceTicket",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   }
 ]
 
-let contractAddress = "0xda75f6acd5e25327d4c41df7d278d30835c321b7"
+let contractAddress = "0xc754e24171f938ba8be3dab49bfeb48bcd4dbda8"
 let provider = new ethers.providers.Web3Provider(web3.currentProvider);
 let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner())
 

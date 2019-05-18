@@ -188,7 +188,7 @@ function getWithdrawBlock() public view returns (uint)
 
 function getSaveBlock() public view returns (uint)
 {
-  if (state == LotteryState.Finished)
+  if (state == LotteryState.Finished || state == LotteryState.Pending)
   {
   return 0;
   }

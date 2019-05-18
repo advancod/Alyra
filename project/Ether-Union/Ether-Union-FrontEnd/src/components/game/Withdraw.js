@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
 
-class Withdraw extends Component {
+export default class Withdraw extends Component {
   constructor() {
     super();
     this.state = {
@@ -55,6 +55,4 @@ class Withdraw extends Component {
 
     );
   }
-}
-
-export default Withdraw;
+};

@@ -783,17 +783,8 @@ const Lottery = [
   },
   {
     "constant": false,
-    "inputs": [
-      {
-        "name": "_price",
-        "type": "uint256"
-      },
-      {
-        "name": "_blockEnd",
-        "type": "uint256"
-      }
-    ],
-    "name": "initierLottery",
+    "inputs": [],
+    "name": "initLottery",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -1015,6 +1006,76 @@ const Lottery = [
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getWithdrawBlock",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getSaveBlock",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_save",
+        "type": "uint256"
+      }
+    ],
+    "name": "modifierBlockSave",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_withdraw",
+        "type": "uint256"
+      }
+    ],
+    "name": "modifierBlockWithdraw",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_price",
+        "type": "uint256"
+      }
+    ],
+    "name": "modifierPriceTicket",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

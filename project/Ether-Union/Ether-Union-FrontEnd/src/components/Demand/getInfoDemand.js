@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import contractInstance from '../../options'
 import PropTypes from "prop-types"
 
-class GetInfoDemand extends Component {
+export default class  GetInfoDemand extends Component {
   constructor() {
     super();
     this.state = {
@@ -22,8 +22,6 @@ class GetInfoDemand extends Component {
 		};
     this._membreInfo = this._membreInfo.bind(this)
     this._getMembresGroupe = this._getMembresGroupe.bind(this)
-    this._getGroupesPerAddress = this._getGroupesPerAddress.bind(this)
-    this._getOwnedGroupesPerAddress = this._getOwnedGroupesPerAddress.bind(this)
   }
 
 
@@ -39,26 +37,25 @@ class GetInfoDemand extends Component {
     handleChange: () => {}
   }
 
-  async _getGroupesPerAddress() {
-      let copy = []
-      let list = await contractInstance.getGroupesPerAddress()
-      for (let i=0; i<list.length; i++){
-        copy.push(await contractInstance.getNomGroupe(list[i]))
-      }
-      this.setState({
-        getGroupesPerAddress : copy
-      })
-  }
+  async componentWillMount() {
 
-  async _getOwnedGroupesPerAddress() {
-      let copy = []
-      let list = await contractInstance.getOwnedGroupe()
-      for (let i=0; i<list.length; i++){
-        copy.push(await contractInstance.getNomGroupe(list[i]))
-      }
-      this.setState({
-        getAdminGroups : copy
-      })
+    let copy = []
+    let list = await contractInstance.getGroupesPerAddress()
+    for (let i=0; i<list.length; i++){
+      copy.push(await contractInstance.getNomGroupe(list[i]))
+    }
+
+    let copy2 = []
+    let list2 = await contractInstance.getOwnedGroupe()
+    for (let j=0; j<list2.length; j++){
+      copy2.push(await contractInstance.getNomGroupe(list2[j]))
+    }
+
+    this.setState({
+      getGroupesPerAddress : copy,
+      getAdminGroups : copy2
+    })
+
   }
 
   async _getMembresGroupe() {
@@ -99,11 +96,11 @@ class GetInfoDemand extends Component {
             <tbody>
       <tr>
         <td className="w3-theme-l3">Liste des groupes dont vous etes membre</td>
-        <td onLoad={this._getGroupesPerAddress} className="w3-theme-l4">{this.state.getGroupesPerAddress}</td>
+        <td className="w3-theme-l4">{this.state.getGroupesPerAddress}</td>
       </tr>
       <tr>
         <td className="w3-theme-l3">Liste des groupes dont vous etes administrateur</td>
-        <td onLoad={this._getOwnedGroupesPerAddress} className="w3-theme-l4">{this.state.getAdminGroups}</td>
+        <td className="w3-theme-l4">{this.state.getAdminGroups}</td>
       </tr>
       <tr className="w3-theme-l1">
         <td><strong>Choisir un groupe</strong></td>
@@ -166,5 +163,3 @@ class GetInfoDemand extends Component {
     );
   }
 }
-
-export default GetInfoDemand;

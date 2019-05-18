@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import contractInstance from '../../options'
 import PropTypes from "prop-types"
 
-class CreateDemand extends Component {
+export default class CreateDemand extends Component {
 
   constructor() {
     super();
+    this.state = {
+      payable: 0
+		};
     this._demander = this._demander.bind(this)
   }
 
@@ -23,9 +26,16 @@ class CreateDemand extends Component {
     handleChange: () => {}
   }
 
+  async componentDidMount() {
+
+    this.setState({
+                    payable: parseInt(await contractInstance.getPriceChannel(),10)})
+
+  }
+
   async _demander() {
       await window.ethereum.enable()
-    	await contractInstance.demander(this.props.montant,this.props.pseudo,this.props.contrat,this.props.description, {value : await contractInstance.getPriceChannel()})
+    	await contractInstance.demander(this.props.montant,this.props.pseudo,this.props.contrat,this.props.description, {value : this.state.payable})
   }
 
   render() {
@@ -67,5 +77,3 @@ class CreateDemand extends Component {
     );
   }
 }
-
-export default CreateDemand;

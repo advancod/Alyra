@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
 
-class SaveWin extends Component {
+export default class  SaveWin extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -22,7 +23,7 @@ class SaveWin extends Component {
 
   async _saveWin() {
       await window.ethereum.enable()
-    	await contractInstance.saveWin()()
+    	await contractInstance.saveWin()
   }
 
   render() {
@@ -56,5 +57,3 @@ class SaveWin extends Component {
     );
   }
 }
-
-export default SaveWin;

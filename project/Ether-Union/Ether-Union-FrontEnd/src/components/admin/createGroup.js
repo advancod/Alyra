@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import contractInstance from '../../options'
 import PropTypes from "prop-types"
 
-class CreateGroup extends Component {
+export default class CreateGroup extends Component {
 
   constructor() {
     super();
+    this.state = {
+      payable: 0
+		};
     this._creerGroupe = this._creerGroupe.bind(this)
   }
 
@@ -21,9 +24,17 @@ class CreateGroup extends Component {
     handleChange: () => {}
   }
 
+  async componentDidMount() {
+
+    this.setState({
+                    payable: parseInt(await contractInstance.getPriceGroup(),10)})
+
+  }
+
   async _creerGroupe() {
+
       await window.ethereum.enable()
-    	await contractInstance.creerGroupe(this.props.nom,this.props.pseudo, {value : await contractInstance.getPriceGroup()})
+    	await contractInstance.creerGroupe(this.props.nom,this.props.pseudo, {value : this.state.payable})
   }
 
   render() {
@@ -60,5 +71,3 @@ class CreateGroup extends Component {
     );
   }
 }
-
-export default CreateGroup;

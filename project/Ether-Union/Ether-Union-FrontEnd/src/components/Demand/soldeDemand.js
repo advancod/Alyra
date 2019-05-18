@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import contractInstance from '../../options'
 import PropTypes from "prop-types"
 
-class SoldeDemand extends Component {
+export default class  SoldeDemand extends Component {
 
   constructor() {
     super();
@@ -54,5 +54,3 @@ class SoldeDemand extends Component {
 
   }
 }
-
-export default SoldeDemand;

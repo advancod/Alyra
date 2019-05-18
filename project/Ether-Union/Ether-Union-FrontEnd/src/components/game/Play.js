@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import contractInstance from '../../options'
 import PropTypes from "prop-types"
 
-class Play extends Component {
+export default class  Play extends Component {
   constructor() {
     super();
     this.state = {
@@ -15,6 +15,8 @@ class Play extends Component {
       getCagnotte: 0,
       getNbGagnants: 0,
       balanceOf: 0,
+      getWithdrawBlock: 0,
+      getSaveBlock: 0,
       getStateGame : '',
       getBlock: 0
 		};
@@ -37,6 +39,8 @@ class Play extends Component {
                     getPrixLottery: parseInt(await contractInstance.getPrixLottery(),10),
                     getStateGame: await contractInstance.getStateGame(),
                     getSuperCagnotte: parseInt(await contractInstance.getSuperCagnotte(),10),
+                    getSaveBlock: parseInt(await contractInstance.getSaveBlock(),10),
+                    getWithdrawBlock: parseInt(await contractInstance.getWithdrawBlock(),10),
                     getEndGame: parseInt(await contractInstance.getEndGame(),10),
                     getBlockStop: parseInt(await contractInstance.getBlockStop(),10),
                     getCagnotte: parseInt(await contractInstance.getCagnotte(),10),
@@ -71,12 +75,20 @@ class Play extends Component {
             <td className="w3-theme-l3">{this.state.getBlock}</td>
           </tr>
           <tr className="w3-theme-l2">
+            <td>bloc de prediction</td>
+            <td className="w3-theme-l3">{this.state.getBlockStop}</td>
+          </tr>
+          <tr className="w3-theme-l2">
             <td>bloc de fin du jeu</td>
             <td className="w3-theme-l3">{this.state.getEndGame}</td>
           </tr>
           <tr className="w3-theme-l2">
-            <td>bloc de prediction</td>
-            <td className="w3-theme-l3">{this.state.getBlockStop}</td>
+            <td>bloc de fin de declaration</td>
+            <td className="w3-theme-l3">{this.state.getSaveBlock}</td>
+          </tr>
+          <tr className="w3-theme-l2">
+            <td>bloc de fin recuperation des gains</td>
+            <td className="w3-theme-l3">{this.state.getWithdrawBlock}</td>
           </tr>
           <tr className="w3-theme-l2">
             <td>Etat actuel de la cagnote</td>
@@ -104,5 +116,3 @@ class Play extends Component {
     );
   }
 }
-
-export default Play;
