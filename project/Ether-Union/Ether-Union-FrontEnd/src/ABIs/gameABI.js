@@ -144,32 +144,6 @@ const Lottery = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_montant",
-        "type": "uint256"
-      },
-      {
-        "name": "_pseudo",
-        "type": "string"
-      },
-      {
-        "name": "_contratCible",
-        "type": "address"
-      },
-      {
-        "name": "_description",
-        "type": "string"
-      }
-    ],
-    "name": "demander",
-    "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
@@ -605,6 +579,28 @@ const Lottery = [
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_montant",
+        "type": "uint256"
+      },
+      {
+        "name": "_pseudo",
+        "type": "string"
+      },
+      {
+        "name": "_description",
+        "type": "string"
+      }
+    ],
+    "name": "demander",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [
       {
@@ -635,25 +631,6 @@ const Lottery = [
       {
         "name": "",
         "type": "uint256[]"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_pseudo",
-        "type": "string"
-      }
-    ],
-    "name": "getContratCible",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
       }
     ],
     "payable": false,
@@ -814,10 +791,6 @@ const Lottery = [
       {
         "name": "_blockEnd",
         "type": "uint256"
-      },
-      {
-        "name": "_blockEnd",
-        "type": "uint256"
       }
     ],
     "name": "initierLottery",
@@ -852,7 +825,16 @@ const Lottery = [
   {
     "constant": false,
     "inputs": [],
-    "name": "soldeGame",
+    "name": "closeGame",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "saveWin",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -865,6 +847,20 @@ const Lottery = [
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getStateGame",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -912,6 +908,20 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
+    "name": "getPrediction",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "getBlockStop",
     "outputs": [
       {
@@ -932,71 +942,9 @@ const Lottery = [
       }
     ],
     "name": "modifierBlockStop",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_stop",
-        "type": "uint256"
-      }
-    ],
-    "name": "getNumCagnotte",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_pool",
-        "type": "uint256"
-      }
-    ],
-    "name": "modifierPoolEnd",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_pool",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPoolEnd",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1045,20 +993,6 @@ const Lottery = [
     "constant": true,
     "inputs": [],
     "name": "getSolde",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getNbGagnants",
     "outputs": [
       {
         "name": "",

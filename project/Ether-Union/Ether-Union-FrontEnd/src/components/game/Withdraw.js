@@ -5,19 +5,25 @@ class Withdraw extends Component {
   constructor() {
     super();
     this.state = {
-      gains: 0
+      gains: 0,
+      getNbGagnants: 0
 		};
+    this._withdrawGains = this._withdrawGains.bind(this)
 
   }
 
   async componentDidMount() {
 
-    this.setState({ gains: parseInt(await contractInstance.getGains(),10) })
+    this.setState({
+      getNbGagnants: parseInt(await contractInstance.getNbGagnants(),10),
+      gains: parseInt(await contractInstance.getGains(),10) })
   }
 
+
+
   async _withdrawGains() {
-    //  await ethereum.enable()
-    //	await contractInstance.withdrawGains()
+      await window.ethereum.enable()
+    	await contractInstance.withdrawGains()
   }
 
   render() {
@@ -33,12 +39,15 @@ class Withdraw extends Component {
         </thead>
           <tbody>
             <tr className="w3-theme-l2">
-              <td>mes gains</td>
-              <td className="w3-theme-l3"></td>
+              <td>vos gains</td>
+              <td className="w3-theme-l3">{this.state.gains}</td>
             </tr>
-
-            <tr>
-              <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._withdrawGains()}>recuperer</button></td>
+            <tr className="w3-theme-l2">
+              <td>nombre de gagnants</td>
+              <td className="w3-theme-l3">{this.state.getNbGagnants}</td>
+            </tr>
+            <tr className="w3-theme-l2">
+              <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._withdrawGains}>RECUPERER</button></td>
             </tr>
       </tbody>
       </table>

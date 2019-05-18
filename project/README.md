@@ -15,7 +15,7 @@ Ouvrir Chrome Ouvrir un metamask et le connecter au reseau de test ropsten
 Y copier le dossier du lien suivant :
 https://github.com/advancod/Alyra/tree/master/project/
 
-- version 1 : version html/ether.js dans ETHER-UNION/ETHET-UNION-BACKEND
+- version 1 : version html/ether.js dans ETHER-UNION/ETHET-UNION-BACKEND (version de tests unitaire)
 
 $ npm install
 $ npx live-server

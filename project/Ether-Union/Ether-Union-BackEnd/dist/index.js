@@ -144,32 +144,6 @@ const Lottery = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_montant",
-        "type": "uint256"
-      },
-      {
-        "name": "_pseudo",
-        "type": "string"
-      },
-      {
-        "name": "_contratCible",
-        "type": "address"
-      },
-      {
-        "name": "_description",
-        "type": "string"
-      }
-    ],
-    "name": "demander",
-    "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
@@ -605,6 +579,28 @@ const Lottery = [
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_montant",
+        "type": "uint256"
+      },
+      {
+        "name": "_pseudo",
+        "type": "string"
+      },
+      {
+        "name": "_description",
+        "type": "string"
+      }
+    ],
+    "name": "demander",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [
       {
@@ -635,25 +631,6 @@ const Lottery = [
       {
         "name": "",
         "type": "uint256[]"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_pseudo",
-        "type": "string"
-      }
-    ],
-    "name": "getContratCible",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
       }
     ],
     "payable": false,
@@ -814,10 +791,6 @@ const Lottery = [
       {
         "name": "_blockEnd",
         "type": "uint256"
-      },
-      {
-        "name": "_blockEnd",
-        "type": "uint256"
       }
     ],
     "name": "initierLottery",
@@ -852,7 +825,16 @@ const Lottery = [
   {
     "constant": false,
     "inputs": [],
-    "name": "soldeGame",
+    "name": "closeGame",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "saveWin",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -865,6 +847,20 @@ const Lottery = [
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getStateGame",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -912,6 +908,20 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
+    "name": "getPrediction",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "getBlockStop",
     "outputs": [
       {
@@ -932,71 +942,9 @@ const Lottery = [
       }
     ],
     "name": "modifierBlockStop",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_stop",
-        "type": "uint256"
-      }
-    ],
-    "name": "getNumCagnotte",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_pool",
-        "type": "uint256"
-      }
-    ],
-    "name": "modifierPoolEnd",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_pool",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPoolEnd",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1068,26 +1016,12 @@ const Lottery = [
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getNbGagnants",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
   }
 ]
 
-let contractAddress = "0x002a1354b803ac12170fa827c3e3f4ec07c35b20"
+let contractAddress = "0xda75f6acd5e25327d4c41df7d278d30835c321b7"
 let provider = new ethers.providers.Web3Provider(web3.currentProvider);
-let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner(0))
+let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner())
 
 
 async function demarrage() {
@@ -1102,11 +1036,12 @@ async function _lotteryInfo() {
   document.getElementById('getEndGame').innerHTML = await contractInstance.getEndGame()
   document.getElementById('getBlockStop').innerHTML = await contractInstance.getBlockStop()
   document.getElementById('balanceOf').innerHTML = await contractInstance.getSolde()
-  document.getElementById('getNumCagnotte').innerHTML = await contractInstance.getNumCagnotte()
   document.getElementById('getCagnotte').innerHTML = await contractInstance.getCagnotte()
   document.getElementById('getNbGagnants').innerHTML = await contractInstance.getNbGagnants()
   document.getElementById('getBlock').innerHTML = await contractInstance.getBlock()
   document.getElementById('getGains').innerHTML = await contractInstance.getGains()
+  document.getElementById('getStateGame').innerHTML = await contractInstance.getStateGame()
+  document.getElementById('getPrediction').innerHTML = await contractInstance.getPrediction()
 }
 
 async function _getGroupesPerAddress() {
@@ -1143,7 +1078,6 @@ async function _getMembresGroupe() {
 
 async function _membreInfo() {
     let pseudo = document.getElementById('pseudo6').value
-    document.getElementById('getContratCible').innerHTML = await contractInstance.getContratCible(pseudo)
     document.getElementById('getMontant').innerHTML = await contractInstance.getMontant(pseudo)
     document.getElementById('getEncours').innerHTML = await contractInstance.getEncours(pseudo)
     document.getElementById('getReceptions').innerHTML = await contractInstance.getReceptions(pseudo)
@@ -1173,9 +1107,8 @@ async function _demander() {
     await ethereum.enable()
   	let montant = document.getElementById('montant').value
   	let pseudo = document.getElementById('pseudo2').value
-    let contrat = document.getElementById('contrat').value
     let description = document.getElementById('description').value
-  	await contractInstance.demander(montant,pseudo,contrat,description, {value : contractInstance.getPriceChannel()})
+  	await contractInstance.demander(montant,pseudo,description, {value : contractInstance.getPriceChannel()})
 }
 
 async function _payerCanal() {
@@ -1194,7 +1127,12 @@ async function _fermetureCanal() {
 async function _jouerLottery() {
     await ethereum.enable()
     let prediction = document.getElementById('prediction').value
-  	await contractInstance.play(prediction, {gas : 6000000})
+  	await contractInstance.play(prediction)
+}
+
+async function _saveWin() {
+    await ethereum.enable()
+  	await contractInstance.saveWin()()
 }
 
 async function _withdrawGains() {

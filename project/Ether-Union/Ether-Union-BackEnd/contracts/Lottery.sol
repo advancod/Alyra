@@ -27,7 +27,8 @@ constructor() public
 {
   state = LotteryState.Pending;
   blockStop = 1;
-  _mint(msg.sender, 10000);
+  // pour les tests
+  _mint(msg.sender, 10);
 }
 
 function initierLottery(uint _price, uint _blockEnd) public onlyOwner
@@ -84,6 +85,19 @@ function withdrawGains() public
   msg.sender.transfer(uint(lastResult.cagnotte.div(lastResult.nbGagnants)));
 }
 
+function getStateGame() public view returns (string memory)
+{
+  if(state == LotteryState.Pending){
+    return "jeux ferme : recuperer vos gains";
+  }
+  else if(state == LotteryState.Finished){
+    return "jeux termine : declarer vos gains";
+  }
+  else{
+    return "jeux en cours";
+  }
+}
+
 function getPrixLottery() public view returns (uint)
 {
   return PRICE_LOTTERY_TOKEN;
@@ -131,7 +145,7 @@ function getBlock() public view returns (uint)
 
 function getGains() public view returns (uint)
 {
-    if (win[msg.sender] == false)
+  if (win[msg.sender] == false)
   {
   return 0;
   }

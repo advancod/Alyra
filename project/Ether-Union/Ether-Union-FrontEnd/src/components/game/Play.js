@@ -2,16 +2,6 @@ import React, { Component } from 'react'
 import contractInstance from '../../options'
 import PropTypes from "prop-types"
 
-const styles = {
-  divider: {
-    marginBottom: 24
-  },
-
-  actions: {
-    justifyContent: 'flex-end'
-  }
-}
-
 class Play extends Component {
   constructor() {
     super();
@@ -25,8 +15,10 @@ class Play extends Component {
       getCagnotte: 0,
       getNbGagnants: 0,
       balanceOf: 0,
+      getStateGame : '',
       getBlock: 0
 		};
+    this.jouerLottery = this.jouerLottery.bind(this)
   }
 
   static propTypes = {
@@ -40,20 +32,22 @@ class Play extends Component {
   }
 
   async componentDidMount() {
-    this.setState({ getPrixLottery: parseInt(await contractInstance.getPrixLottery(),10),
+
+    this.setState({
+                    getPrixLottery: parseInt(await contractInstance.getPrixLottery(),10),
+                    getStateGame: await contractInstance.getStateGame(),
                     getSuperCagnotte: parseInt(await contractInstance.getSuperCagnotte(),10),
                     getEndGame: parseInt(await contractInstance.getEndGame(),10),
                     getBlockStop: parseInt(await contractInstance.getBlockStop(),10),
-                    getNumCagnotte: parseInt(await contractInstance.getNumCagnotte(),10),
                     getCagnotte: parseInt(await contractInstance.getCagnotte(),10),
                     getNbGagnants: parseInt(await contractInstance.getNbGagnants(),10),
                     balanceOf: parseInt(await contractInstance.getSolde(),10),
                     getBlock: parseInt(await contractInstance.getBlock(),10)})
   }
 
-  async _jouerLottery() {
-    //  await ethereum.enable()
-    //	await contractInstance.play(this.props.prediction)
+  async jouerLottery() {
+    await window.ethereum.enable()
+    await contractInstance.play(this.props.prediction)
   }
 
   render() {
@@ -85,7 +79,7 @@ class Play extends Component {
             <td className="w3-theme-l3">{this.state.getBlockStop}</td>
           </tr>
           <tr className="w3-theme-l2">
-            <td>cagnotte en ether</td>
+            <td>Etat actuel de la cagnote</td>
             <td className="w3-theme-l3">{this.state.getSuperCagnotte}</td>
           </tr>
           <tr className="w3-theme-l2">
@@ -93,11 +87,15 @@ class Play extends Component {
             <td className="w3-theme-l3">{this.state.balanceOf}</td>
           </tr>
           <tr className="w3-theme-l2">
+            <td>etat du jeux</td>
+            <td className="w3-theme-l3">{this.state.getStateGame}</td>
+          </tr>
+          <tr className="w3-theme-l2">
             <td><strong>votre prediction pour la cagnotte</strong></td>
             <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.prediction} placeholder="montant"/></td>
           </tr>
           <tr className="w3-theme-l2">
-            <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._jouerLottery()}>jouer</button></td>
+            <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this.jouerLottery}>JOUER</button></td>
           </tr>
       </tbody>
       </table>

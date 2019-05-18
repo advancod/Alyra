@@ -78,10 +78,6 @@
           <th class="w3-theme-d1">Etat du canal de demande</th>
         </tr>
         <tr>
-          <td class="w3-theme-l3">contrat cible (optionnel)</td>
-          <td class="w3-theme-l4"><span id="getContratCible"></span></td>
-        </tr>
-        <tr>
           <td class="w3-theme-l3">montant</td>
           <td class="w3-theme-l4"><span id="getMontant"></span></td>
         </tr>
@@ -167,10 +163,6 @@
           <td class="w3-theme-l3"><input type="text" value="" id="montant" placeholder="montant"/></td>
         </tr>
         <tr class="w3-theme-l2">
-          <td>contrat cible (optionnel)</td>
-          <td class="w3-theme-l3"><input type="text" value="" id="contrat" placeholder="addresse" /></td>
-        </tr>
-        <tr class="w3-theme-l2">
           <td>description</td>
           <td class="w3-theme-l3"><input type="text" value="" id="description" placeholder="description" /></td>
         </tr>
@@ -240,12 +232,42 @@
         <td class="w3-theme-l3"><span id="balanceOf"></span></td>
       </tr>
       <tr class="w3-theme-l2">
+        <td>etat du jeux</td>
+        <td class="w3-theme-l3"><span id="getStateGame"></span></td>
+      </tr>
+      <tr class="w3-theme-l2">
         <td>votre prediction pour la cagnotte</td>
         <td class="w3-theme-l3"><input type="text" value="" id="prediction" placeholder="montant"/></td>
       </tr>
       <tr class="w3-theme-l2">
         <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_fermetureCanal()">jouer</button></td>
       </tr>
+</tbody>
+</table>
+</div>
+
+<tr>
+<td>___________</td>
+</tr>
+<div class="table-responsive w3-card-4">
+<table class="table table-bordered">
+<thead>
+  <tr class="w3-theme-d4">
+    <th>DECLARER VOS GAINS</th>
+  </tr>
+</thead>
+  <tbody>
+    <tr class="w3-theme-l2">
+      <td>votre prediction</td>
+      <td class="w3-theme-l3"><span id="getPrediction"></span></td>
+    </tr>
+    <tr class="w3-theme-l2">
+      <td>cagnote</td>
+      <td class="w3-theme-l3"><span id="getCagnotte"></span></td>
+    </tr>
+    <tr class="w3-theme-l2">
+      <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_saveWin()">DECLARER</button></td>
+    </tr>
 </tbody>
 </table>
 </div>
@@ -266,38 +288,16 @@
       <td class="w3-theme-l3"><span id="getGains"></span></td>
     </tr>
     <tr class="w3-theme-l2">
-      <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_withdrawGains()">GAINS</button></td>
+      <td>nombre de gagnants</td>
+      <td class="w3-theme-l3"><span id="getNbGagnants"></span></td>
+    </tr>
+    <tr class="w3-theme-l2">
+      <td><button class="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onclick="_withdrawGains()">RECUPERER</button></td>
     </tr>
 </tbody>
 </table>
 </div>
 
-<tr>
-  <td>___________</td>
-</tr>
-<div class="table-responsive w3-card-4">
-<table class="table table-bordered">
-  <thead>
-    <tr class="w3-theme-d4">
-      <th>Resultats jeux precedant</th>
-    </tr>
-  </thead>
-    <tbody>
-      <tr class="w3-theme-l2">
-        <td>numero du jeux</td>
-        <td class="w3-theme-l3"><span id="getNumCagnotte"></span></td>
-      </tr>
-      <tr class="w3-theme-l2">
-        <td>cacgnotte</td>
-        <td class="w3-theme-l3"><span id="getCagnotte"></span></td>
-      </tr>
-      <tr class="w3-theme-l2">
-        <td>nombre de gagnants</td>
-        <td class="w3-theme-l3"><span id="getNbGagnants"></span></td>
-      </tr>
-</tbody>
-</table>
-</div>
 
     <script src="https://cdn.ethers.io/scripts/ethers-v4.min.js" charset="utf-8" type="text/javascript"></script>
     <script src="index.js"></script>

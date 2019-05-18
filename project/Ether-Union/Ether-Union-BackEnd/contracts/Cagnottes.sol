@@ -49,19 +49,18 @@ struct channel
   string groupe;
   uint montant;
   uint enCours;
-  address contratCible;
   string description;
   uint prediction;
 }
 
 constructor() public
 {
-  MAX_AMOUNT = 10000000000000000000;
-  MIN_AMOUNT = 10000000;
-  PRICE_RATIO = 100;
-  PRICE_GROUP = 10000;
-  PRICE_MEMBRE = 1000;
-  PRICE_CHANEL = 100;
+  MAX_AMOUNT = 100000000000000000000;
+  MIN_AMOUNT = 100000;
+  PRICE_RATIO = 200;
+  PRICE_GROUP = 1000;
+  PRICE_MEMBRE = 100;
+  PRICE_CHANEL = 10;
 }
 
 function creerGroupe(string memory _nom, string memory _pseudo) payable public
@@ -116,7 +115,7 @@ function creerCanal(string memory _pseudo, string memory _groupe, uint groupeID,
   mappChannelInGroup[groupeID][msg.sender] = channelID;
 }
 
-function demander(uint _montant, string memory _pseudo, address _contratCible, string memory _description) payable public
+function demander(uint _montant, string memory _pseudo, string memory _description) payable public
 {
   //On verifi que l'ouverture d'une demande est bien payee
   require(msg.value == PRICE_CHANEL);
@@ -130,7 +129,6 @@ function demander(uint _montant, string memory _pseudo, address _contratCible, s
   require(mappChannel[channelID].montant == 0);
   // On saisi les infos de la demande
   mappChannel[channelID].montant = _montant;
-  mappChannel[channelID].contratCible = _contratCible;
   mappChannel[channelID].description = _description;
 
   emit nouvelleDemamnde(mappChannel[channelID].groupe, _pseudo);
@@ -159,7 +157,6 @@ function fermetureCanal(string memory _pseudo) public
   msg.sender.transfer(mappChannel[_channelID].enCours);
   mappChannel[_channelID].enCours = 0;
   mappChannel[_channelID].montant = 0;
-  mappChannel[_channelID].contratCible = address(0);
   mappChannel[_channelID].description = "";
 }
 
@@ -256,11 +253,6 @@ function getReceptions(string memory _pseudo) public view returns (uint)
 function getDonnations(string memory _pseudo) public view returns (uint)
 {
   return mappStats[msg.sender][mappChannel[uint(keccak256(bytes(_pseudo)))].demandeur];
-}
-
-function getContratCible(string memory _pseudo) public view returns (address)
-{
-  return mappChannel[mappPseudoToID[_pseudo]].contratCible;
 }
 
 function getNomGroupe(uint _ID) public view returns (string memory)

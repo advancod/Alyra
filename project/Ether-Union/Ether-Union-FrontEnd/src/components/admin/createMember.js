@@ -4,6 +4,11 @@ import PropTypes from "prop-types"
 
 class CreateMember extends Component {
 
+  constructor() {
+    super();
+    this._ajouterMembre = this._ajouterMembre.bind(this)
+  }
+
   static propTypes = {
     membre: PropTypes.string,
     pseudo1: PropTypes.string,
@@ -19,8 +24,8 @@ class CreateMember extends Component {
   }
 
   async _ajouterMembre() {
-    //  await ethereum.enable()
-    //  	await contractInstance.ajouterMembre(this.props.membre,this.props.groupe,this.props.pseudo1, {value : contractInstance.getPriceMember()})
+      await window.ethereum.enable()
+     	await contractInstance.ajouterMembre(this.props.membre,this.props.groupe,this.props.pseudo1, {value : await contractInstance.getPriceMember()})
   }
 
   render() {
@@ -36,21 +41,21 @@ class CreateMember extends Component {
           </thead>
             <tbody>
             <tr className="w3-theme-l2">
-              <td>addresse</td>
+              <td><strong>addresse</strong></td>
 
               <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.membre} placeholder="membre"/></td>
             </tr>
             <tr className="w3-theme-l2">
-              <td>pseudo</td>
+              <td><strong>pseudo</strong></td>
 
               <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.pseudo1} placeholder="pseudo"/></td>
             </tr>
             <tr className="w3-theme-l2">
-              <td>groupe</td>
+              <td><strong>groupe</strong></td>
               <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.groupe} placeholder="groupe"/></td>
             </tr>
-            <tr>
-              <td><button className="w3-button w3-black btn btn-primary btn-smbtn btn-primary btn-block" onClick={this._ajouterMembre()}>creer</button></td>
+            <tr className="w3-theme-l2">
+              <td><button  className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._ajouterMembre}>AJOUTER</button></td>
             </tr>
   </tbody>
   </table>

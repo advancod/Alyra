@@ -4,7 +4,7 @@ import { CssBaseline, Grid, Card, CardContent } from "@material-ui/core"
 import Play from './components/game/Play';
 import Menu from './components/Menu';
 import Withdraw from './components/game/Withdraw';
-import PreviewGame from './components/game/PreviewGame';
+import SaveWin from './components/game/SaveWin';
 import CreateGroup from './components/admin/createGroup';
 import CreateMember from './components/admin/createMember';
 import CreateDemand from './components/admin/createDemand';
@@ -46,7 +46,7 @@ class App extends Component {
 
               <div className="commentStyle">
                 Send, receive, stay connected with yours and earn tokens,
-                enter in the new social network system of consuming and play to our free super lotery
+                enter in the new social network system of consuming and play to our super lotery
               </div>
               <Router>
                 <Route exact path="/" component={Menu}/>
@@ -87,7 +87,7 @@ class game extends Component {
           </Card>
           <Card className="card">
             <CardContent>
-              <PreviewGame />
+              <SaveWin />
             </CardContent>
           </Card>
           <Card className="card">

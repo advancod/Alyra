@@ -4,10 +4,14 @@ import PropTypes from "prop-types"
 
 class CreateDemand extends Component {
 
+  constructor() {
+    super();
+    this._demander = this._demander.bind(this)
+  }
+
   static propTypes = {
     pseudo2: PropTypes.string,
     montant: PropTypes.number,
-    contrat: PropTypes.string,
     description: PropTypes.string,
     handleChange: PropTypes.func
   }
@@ -15,19 +19,17 @@ class CreateDemand extends Component {
   static defaultProps = {
     pseudo2: '',
     montant: 0,
-    contrat: '0x0',
     description: '',
     handleChange: () => {}
   }
 
   async _demander() {
-    //  await ethereum.enable()
-    //	await contractInstance.demander(this.props.montant,this.props.pseudo,this.props.contrat,this.props.description, {value : contractInstance.getPriceChannel()})
+      await window.ethereum.enable()
+    	await contractInstance.demander(this.props.montant,this.props.pseudo,this.props.contrat,this.props.description, {value : await contractInstance.getPriceChannel()})
   }
 
   render() {
 
-    const { pseudo2, montant, contrat, description} = this.props
 
     return (
 
@@ -50,16 +52,11 @@ class CreateDemand extends Component {
                 <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.montant} placeholder="montant"/></td>
               </tr>
               <tr className="w3-theme-l2">
-                <td><strong>contrat cible (optionnel)</strong></td>
-
-                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.contrat} placeholder="contrat"/></td>
-              </tr>
-              <tr className="w3-theme-l2">
                 <td><strong>description</strong></td>
                 <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.description} placeholder="description"/></td>
               </tr>
               <tr className="w3-theme-l2">
-                <td><button  className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._demander()}>emettre</button></td>
+                <td><button  className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._demander}>EMETTRE</button></td>
               </tr>
 
 

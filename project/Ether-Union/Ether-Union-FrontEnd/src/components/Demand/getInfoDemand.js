@@ -13,15 +13,19 @@ class GetInfoDemand extends Component {
       getGroupe: '',
       getMembre: '',
       pseudo: '',
-      getReceptions: 0,
-      getDonnations: 0,
-      getContratCible: '0x0',
-      getMontant: 0,
-      getEncours: 0,
-      getDescription: 0,
-      getAddresse: '0x0'
+      getReceptions: '',
+      getDonnations: '',
+      getMontant: '',
+      getEncours: '',
+      getDescription: '',
+      getAddresse: ''
 		};
+    this._membreInfo = this._membreInfo.bind(this)
+    this._getMembresGroupe = this._getMembresGroupe.bind(this)
+    this._getGroupesPerAddress = this._getGroupesPerAddress.bind(this)
+    this._getOwnedGroupesPerAddress = this._getOwnedGroupesPerAddress.bind(this)
   }
+
 
   static propTypes = {
     nomGroupe: PropTypes.string,
@@ -37,9 +41,8 @@ class GetInfoDemand extends Component {
 
   async _getGroupesPerAddress() {
       let copy = []
-      let i = 0
       let list = await contractInstance.getGroupesPerAddress()
-      for (i=0; i<list.length; i++){
+      for (let i=0; i<list.length; i++){
         copy.push(await contractInstance.getNomGroupe(list[i]))
       }
       this.setState({
@@ -49,9 +52,8 @@ class GetInfoDemand extends Component {
 
   async _getOwnedGroupesPerAddress() {
       let copy = []
-      let i = 0
       let list = await contractInstance.getOwnedGroupe()
-      for (i=0; i<list.length; i++){
+      for (let i=0; i<list.length; i++){
         copy.push(await contractInstance.getNomGroupe(list[i]))
       }
       this.setState({
@@ -61,9 +63,8 @@ class GetInfoDemand extends Component {
 
   async _getMembresGroupe() {
       let copy = []
-      let i = 0
       let list = await contractInstance.getMembres(this.props.nomGroupe)
-      for (i=0; i<list.length; i++){
+      for (let i=0; i<list.length; i++){
         copy.push(await contractInstance.getNomMembre(list[i]))
       }
       this.setState({
@@ -77,7 +78,6 @@ class GetInfoDemand extends Component {
 
                     getReceptions: parseInt(await contractInstance.getReceptions(this.props.pseudo6),10),
                     getDonnations: parseInt(await contractInstance.getDonnations(this.props.pseudo6),10),
-                    getContratCible: parseInt(await contractInstance.getContratCible(this.props.pseudo6),10),
                     getMontant: parseInt(await contractInstance.getMontant(this.props.pseudo6),10),
                     getEncours: parseInt(await contractInstance.getEncours(this.props.pseudo6),10),
                     getAddresse : await contractInstance.getAddresse(this.props.pseudo6),
@@ -99,11 +99,11 @@ class GetInfoDemand extends Component {
             <tbody>
       <tr>
         <td className="w3-theme-l3">Liste des groupes dont vous etes membre</td>
-        <td className="w3-theme-l4">{this.state.getGroupesPerAddress}</td>
+        <td onLoad={this._getGroupesPerAddress} className="w3-theme-l4">{this.state.getGroupesPerAddress}</td>
       </tr>
       <tr>
         <td className="w3-theme-l3">Liste des groupes dont vous etes administrateur</td>
-        <td className="w3-theme-l4">{this.state.getAdminGroups}</td>
+        <td onLoad={this._getOwnedGroupesPerAddress} className="w3-theme-l4">{this.state.getAdminGroups}</td>
       </tr>
       <tr className="w3-theme-l1">
         <td><strong>Choisir un groupe</strong></td>
@@ -111,7 +111,7 @@ class GetInfoDemand extends Component {
         <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.nomGroupe} placeholder="groupe"/></td>
       </tr>
       <tr className="w3-theme-l1">
-        <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._getMembresGroupe()}>choisir</button></td>
+        <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._getMembresGroupe}>CHOISIR</button></td>
       </tr>
       <tr>
         <td className="w3-theme-l3">membres</td>
@@ -127,7 +127,7 @@ class GetInfoDemand extends Component {
           <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.pseudo6} placeholder="pseudo"/></td>
       </tr>
       <tr className="w3-theme-l1">
-        <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._membreInfo()}>choisir</button></td>
+        <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._membreInfo}>CHOISIR</button></td>
       </tr>
       <tr>
         <th className="w3-theme-d1">Informations</th>
@@ -154,10 +154,6 @@ class GetInfoDemand extends Component {
       </tr>
       <tr>
         <th className="w3-theme-d1">Etat du canal de demande</th>
-      </tr>
-      <tr>
-        <td className="w3-theme-l3">contrat cible (optionnel)</td>
-        <td className="w3-theme-l4">{this.state.getContratCible}</td>
       </tr>
       <tr>
         <td className="w3-theme-l3">montant</td>

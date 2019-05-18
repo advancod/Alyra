@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
@@ -44,7 +41,7 @@ class game extends Component {
   render() {
       return (
       <MenuList>
-        <MenuItem><a href="/admin">GET TOKENS</a></MenuItem>
+        <MenuItem><a href="/admin">ADMIN</a></MenuItem>
         <MenuItem><a href="/demand">DEMANDS</a></MenuItem>
       </MenuList>
     )
@@ -57,7 +54,7 @@ class demand extends Component {
 
       <MenuList>
         <MenuItem><a href="/">GAME</a></MenuItem>
-        <MenuItem><a href="/admin">GET TOKENS</a></MenuItem>
+        <MenuItem><a href="/admin">ADMIN</a></MenuItem>
       </MenuList>
 
     )

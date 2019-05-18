@@ -4,6 +4,11 @@ import PropTypes from "prop-types"
 
 class CreateGroup extends Component {
 
+  constructor() {
+    super();
+    this._creerGroupe = this._creerGroupe.bind(this)
+  }
+
   static propTypes = {
     nom: PropTypes.string,
     pseudo: PropTypes.string,
@@ -17,8 +22,8 @@ class CreateGroup extends Component {
   }
 
   async _creerGroupe() {
-    //  await ethereum.enable()
-    //	await contractInstance.creerGroupe(this.props.nom,this.props.pseudo, {value : contractInstance.getPriceGroup()})
+      await window.ethereum.enable()
+    	await contractInstance.creerGroupe(this.props.nom,this.props.pseudo, {value : await contractInstance.getPriceGroup()})
   }
 
   render() {
@@ -44,8 +49,8 @@ class CreateGroup extends Component {
 
                 <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.pseudo} placeholder="pseudo"/></td>
               </tr>
-              <tr>
-                <td><button className="w3-button w3-black btn btn-primary btn-smbtn btn-primary btn-block" onClick={this._creerGroupe()}>creer</button></td>
+              <tr className="w3-theme-l2">
+                <td><button  className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._creerGroupe}>CREER</button></td>
               </tr>
 
   </tbody>
