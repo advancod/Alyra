@@ -15,31 +15,12 @@ Ouvrir Chrome Ouvrir un metamask et le connecter au reseau de test ropsten
 Y copier le dossier du lien suivant :
 https://github.com/advancod/Alyra/tree/master/project/
 
-- version 1 : version html/ether.js dans ETHER-UNION/ETHET-UNION-BACKEND (version de tests unitaire)
 
-$ npm install
-$ npx live-server
-
-et lancer http://localhost:8080/
-
-- version 2 : version react/web3 dans ETHER-UNION/ETHET-UNION-FRONTEND (c'est cette version qui sera présentée)
-
-truffle migrate
+- version react/ethers dans ETHER-UNION (c'est cette version qui sera présentée)
 
 $ npm install
 $ npm run start
 
-et lancer http://localhost:8080/
-
-- version 3 : version react/webPack/truffle dans project_react_master (incomplet)
-
-truffle migrate
-
-$ npm install
-$ npm install -g webpack webpack-cli
-$ npm run start
-
-et lancer http://localhost:8080/
 
 - Creez un groupe
 - Ajoutez un membre
