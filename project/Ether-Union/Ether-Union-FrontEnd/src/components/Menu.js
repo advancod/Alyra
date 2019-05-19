@@ -41,8 +41,8 @@ class game extends Component {
   render() {
       return (
       <MenuList>
-        <MenuItem><a href="/admin">ADMIN</a></MenuItem>
-        <MenuItem><a href="/demand">DEMANDS</a></MenuItem>
+        <MenuItem><a href="/admin">ADMINS</a></MenuItem>
+        <MenuItem><a href="/demand">DEMAND</a></MenuItem>
       </MenuList>
     )
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
-import PropTypes from "prop-types"
+import { TextField } from "@material-ui/core"
 
 export default class  Play extends Component {
   constructor() {
@@ -18,20 +18,15 @@ export default class  Play extends Component {
       getWithdrawBlock: 0,
       getSaveBlock: 0,
       getStateGame : '',
+      prediction: 0,
       getBlock: 0
 		};
     this.jouerLottery = this.jouerLottery.bind(this)
   }
 
-  static propTypes = {
-    prediction: PropTypes.number,
-    handleChange: PropTypes.func
-  }
-
-  static defaultProps = {
-    prediction: 0,
-    handleChange: () => {}
-  }
+  handleChange = name => event => {
+   this.setState({ [name]: event.target.value });
+ };
 
   async componentDidMount() {
 
@@ -51,7 +46,7 @@ export default class  Play extends Component {
 
   async jouerLottery() {
     await window.ethereum.enable()
-    await contractInstance.play(this.props.prediction)
+    await contractInstance.play(this.state.prediction)
   }
 
   render() {
@@ -102,16 +97,22 @@ export default class  Play extends Component {
             <td>etat du jeux</td>
             <td className="w3-theme-l3">{this.state.getStateGame}</td>
           </tr>
+
           <tr className="w3-theme-l2">
-            <td><strong>votre prediction pour la cagnotte</strong></td>
-            <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.prediction} placeholder="montant"/></td>
-          </tr>
-          <tr className="w3-theme-l2">
-            <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this.jouerLottery}>JOUER</button></td>
-          </tr>
+  <td><strong>votre prediction pour la cagnotte</strong></td>
+  <td className="w3-theme-l3"><input type="number" onChange={this.handleChange('prediction')} id={this.state.prediction} placeholder="montant"/></td>
+</tr>
+
+          <tr>
+            <td>
+            <button className="btn-primary btn-block" onClick={this.jouerLottery}>JOUER</button>
+            </td>
+            </tr>
       </tbody>
       </table>
+
       </div>
+
 
     );
   }

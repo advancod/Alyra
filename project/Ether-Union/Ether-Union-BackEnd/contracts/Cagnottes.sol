@@ -82,6 +82,7 @@ function creerGroupe(string memory _nom, string memory _pseudo) payable public
   mappGroupeOwner[_nom] = msg.sender;
   // On ajoute le groupe a la liste des de groupe crees par le createur (administrateur)
   mappOwnedGroup[msg.sender].push(IDGroupe);
+  mappGroupesForAddress[msg.sender].push(IDGroupe);
   // On instancie le canal de demande du createur dans le groupe
   creerCanal(_pseudo, _nom, IDGroupe, channelID);
 }

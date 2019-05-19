@@ -1,28 +1,39 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
-import PropTypes from "prop-types"
+import { TextField } from "@material-ui/core"
 
 export default class  SoldeDemand extends Component {
 
   constructor() {
     super();
+    this.state = {
+			getPrixLottery: 0,
+      getSuperCagnotte: 0,
+      getTicketsLeft: 0,
+      getEndGame: 0,
+      getBlockStop: 0,
+      getNumCagnotte: 0,
+      getCagnotte: 0,
+      getNbGagnants: 0,
+      balanceOf: 0,
+      getWithdrawBlock: 0,
+      getSaveBlock: 0,
+      getStateGame : '',
+      prediction: 0,
+      getBlock: 0,
+      pseudo4: ''
+		};
 
     this._fermetureCanal = this._fermetureCanal.bind(this)
   }
 
-  static propTypes = {
-    pseudo4: PropTypes.string,
-    handleChange: PropTypes.func
-  }
-
-  static defaultProps = {
-    pseudo4: '',
-    handleChange: () => {}
-  }
+  handleChange = name => event => {
+   this.setState({ [name]: event.target.value });
+ };
 
   async _fermetureCanal() {
       await window.ethereum.enable()
-    	await contractInstance.fermetureCanal(this.props.pseudo4)
+    	await contractInstance.fermetureCanal(this.state.pseudo4)
   }
 
   render() {
@@ -37,13 +48,24 @@ export default class  SoldeDemand extends Component {
             </tr>
           </thead>
             <tbody>
-            <tr className="w3-theme-l2">
-              <td><strong>pseudo</strong></td>
-              <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.pseudo4} placeholder="pseudo"/></td>
+            <tr>
+              <td>
+                    <TextField
+                      required
+                      name="Pseudo de votre canal a solder"
+                      label="Pseudo de votre canal a solder"
+                      fullWidth
+                      value={this.state.pseudo4}
+                      onChange={this.handleChange('pseudo4')}
+                    />
+
+                </td>
             </tr>
-            <tr className="w3-theme-l2">
-              <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._fermetureCanal}>SOLDER</button></td>
-            </tr>
+            <tr>
+              <td>
+              <button className="btn-primary btn-block" onClick={this._fermetureCanal}>SOLDER</button>
+              </td>
+              </tr>
 
 
   </tbody>

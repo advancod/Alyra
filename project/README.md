@@ -1,3 +1,5 @@
+![Settings Window](https://github.com/advancod/Alyra/tree/master/project/Capture d’écran 2019-05-18 à 19.02.40.png)
+
 Cette application permet la création de réseau sociaux poussant à l'entraide dans les dépenses quotidiennes tout en alimentant une cagnotte de jeux auxquels les membres peuvent participer grace a l'utilisation de tokens ERC20.
 
 - Création et gestion de groupes
@@ -16,7 +18,7 @@ Y copier le dossier du lien suivant :
 https://github.com/advancod/Alyra/tree/master/project/
 
 
-- version react/ethers dans ETHER-UNION 
+- version react/ethers dans ETHER-UNION
 Aller dans le dossier front end :
 
 $ npm install

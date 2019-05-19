@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
-import PropTypes from "prop-types"
+import { TextField } from "@material-ui/core"
 
 export default class  GetInfoDemand extends Component {
   constructor() {
@@ -13,29 +13,22 @@ export default class  GetInfoDemand extends Component {
       getGroupe: '',
       getMembre: '',
       pseudo: '',
-      getReceptions: '',
-      getDonnations: '',
-      getMontant: '',
-      getEncours: '',
+      getReceptions: 0,
+      getDonnations: 0,
+      getMontant: 0,
+      getEncours: 0,
       getDescription: '',
+      nomGroupe: '',
+      pseudo6: '',
       getAddresse: ''
 		};
     this._membreInfo = this._membreInfo.bind(this)
     this._getMembresGroupe = this._getMembresGroupe.bind(this)
   }
 
-
-  static propTypes = {
-    nomGroupe: PropTypes.string,
-    pseudo1: PropTypes.string,
-    handleChange: PropTypes.func
-  }
-
-  static defaultProps = {
-    nomGroupe: '',
-    pseudo6: '',
-    handleChange: () => {}
-  }
+  handleChange = name => event => {
+   this.setState({ [name]: event.target.value });
+ };
 
   async componentWillMount() {
 
@@ -60,7 +53,7 @@ export default class  GetInfoDemand extends Component {
 
   async _getMembresGroupe() {
       let copy = []
-      let list = await contractInstance.getMembres(this.props.nomGroupe)
+      let list = await contractInstance.getMembres(this.state.nomGroupe)
       for (let i=0; i<list.length; i++){
         copy.push(await contractInstance.getNomMembre(list[i]))
       }
@@ -71,14 +64,23 @@ export default class  GetInfoDemand extends Component {
 
   async _membreInfo() {
 
+    let getReceptions = parseInt(await contractInstance.getReceptions(this.state.pseudo6),10)
+    let getDonnations = parseInt(await contractInstance.getDonnations(this.state.pseudo6),10)
+    let getMontant = parseInt(await contractInstance.getMontant(this.state.pseudo6),10)
+    let getEncours = parseInt(await contractInstance.getEncours(this.state.pseudo6),10)
+    let getAddresse = await contractInstance.getAddresse(this.state.pseudo6)
+    let getDescription = await contractInstance.getDescription(this.state.pseudo6)
+    let getMonPseudo = await contractInstance.getPseudoInGroup(this.state.nomGroupe)
+
     this.setState({
 
-                    getReceptions: parseInt(await contractInstance.getReceptions(this.props.pseudo6),10),
-                    getDonnations: parseInt(await contractInstance.getDonnations(this.props.pseudo6),10),
-                    getMontant: parseInt(await contractInstance.getMontant(this.props.pseudo6),10),
-                    getEncours: parseInt(await contractInstance.getEncours(this.props.pseudo6),10),
-                    getAddresse : await contractInstance.getAddresse(this.props.pseudo6),
-                    getDescription: await contractInstance.getDescription(this.props.pseudo6)})
+                    getReceptions: getReceptions,
+                    getDonnations: getDonnations,
+                    getMontant: getMontant,
+                    getEncours: getEncours,
+                    getAddresse : getAddresse,
+                    getDescription: getDescription,
+                    getMonPseudo: getMonPseudo})
 
   }
 
@@ -102,14 +104,25 @@ export default class  GetInfoDemand extends Component {
         <td className="w3-theme-l3">Liste des groupes dont vous etes administrateur</td>
         <td className="w3-theme-l4">{this.state.getAdminGroups}</td>
       </tr>
-      <tr className="w3-theme-l1">
-        <td><strong>Choisir un groupe</strong></td>
+      <tr>
+        <td>
 
-        <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.nomGroupe} placeholder="groupe"/></td>
+              <TextField
+                required
+                name="Choisir un groupe"
+                label="Choisir un groupe"
+                fullWidth
+                value={this.state.nomGroupe}
+                onChange={this.handleChange('nomGroupe')}
+              />
+
+          </td>
       </tr>
-      <tr className="w3-theme-l1">
-        <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._getMembresGroupe}>CHOISIR</button></td>
-      </tr>
+      <tr>
+        <td>
+        <button className="btn-primary btn-block" onClick={this._getMembresGroupe}>CHOISIR</button>
+        </td>
+        </tr>
       <tr>
         <td className="w3-theme-l3">membres</td>
         <td className="w3-theme-l4">{this.state.getMembres}</td>
@@ -118,14 +131,25 @@ export default class  GetInfoDemand extends Component {
         <td className="w3-theme-l3">votre pseudo dans ce goupe</td>
         <td className="w3-theme-l4">{this.state.getMonPseudo}</td>
       </tr>
-      <tr className="w3-theme-l1">
-        <td><strong>selectionner un pseudo</strong></td>
+      <tr>
+        <td>
 
-          <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.pseudo6} placeholder="pseudo"/></td>
+              <TextField
+                required
+                name="Choisir un membre"
+                label="Choisir un membre"
+                fullWidth
+                value={this.state.pseudo6}
+                onChange={this.handleChange('pseudo6')}
+              />
+
+          </td>
       </tr>
-      <tr className="w3-theme-l1">
-        <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._membreInfo}>CHOISIR</button></td>
-      </tr>
+      <tr>
+        <td>
+        <button className="btn-primary btn-block" onClick={this._membreInfo}>CHOISIR</button>
+        </td>
+        </tr>
       <tr>
         <th className="w3-theme-d1">Informations</th>
       </tr>

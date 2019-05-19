@@ -1,30 +1,23 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
-import PropTypes from "prop-types"
+import { TextField, Grid } from "@material-ui/core"
 
 export default class CreateDemand extends Component {
 
   constructor() {
     super();
     this.state = {
-      payable: 0
+      payable: 0,
+      pseudo2: '',
+      montant: 0,
+      description: ''
 		};
     this._demander = this._demander.bind(this)
   }
 
-  static propTypes = {
-    pseudo2: PropTypes.string,
-    montant: PropTypes.number,
-    description: PropTypes.string,
-    handleChange: PropTypes.func
-  }
-
-  static defaultProps = {
-    pseudo2: '',
-    montant: 0,
-    description: '',
-    handleChange: () => {}
-  }
+  handleChange = name => event => {
+   this.setState({ [name]: event.target.value });
+ };
 
   async componentDidMount() {
 
@@ -35,7 +28,7 @@ export default class CreateDemand extends Component {
 
   async _demander() {
       await window.ethereum.enable()
-    	await contractInstance.demander(this.props.montant,this.props.pseudo,this.props.contrat,this.props.description, {value : this.state.payable})
+    	await contractInstance.demander(this.state.montant,this.state.pseudo,this.state.contrat,this.state.description, {value : this.state.payable})
   }
 
   render() {
@@ -51,22 +44,42 @@ export default class CreateDemand extends Component {
             </tr>
           </thead>
             <tbody>
-              <tr className="w3-theme-l2">
-                <td><strong>pseudo</strong></td>
+            <tr className="w3-theme-l2">
+    <td><strong>Montant demande</strong></td>
+    <td className="w3-theme-l3"><input type="number" onChange={this.handleChange('montant')} id={this.state.montant} placeholder="montant"/></td>
+  </tr>
+            <tr>
+              <td>
+              <Grid container spacing={24}>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      name="pseudo"
+                      label="pseudo"
+                      fullWidth
+                      value={this.state.pseudo2}
+                      onChange={this.handleChange('pseudo2')}
+                    />
+                </Grid>
 
-                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.pseudo2} placeholder="pseudo"/></td>
-              </tr>
-              <tr className="w3-theme-l2">
-                <td><strong>montant</strong></td>
+                  <Grid item xs={12} md={6}>
+                      <TextField
+                        required
+                        name="description"
+                        label="description"
+                        fullWidth
+                        value={this.state.description}
+                        onChange={this.handleChange('description')}
+                      />
+                      </Grid>
+                    </Grid>
 
-                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.montant} placeholder="montant"/></td>
-              </tr>
-              <tr className="w3-theme-l2">
-                <td><strong>description</strong></td>
-                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.description} placeholder="description"/></td>
-              </tr>
-              <tr className="w3-theme-l2">
-                <td><button  className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._demander}>EMETTRE</button></td>
+                </td>
+            </tr>
+            <tr>
+              <td>
+              <button className="btn-primary btn-block" onClick={this._demander}>EMETTRE</button>
+              </td>
               </tr>
 
 

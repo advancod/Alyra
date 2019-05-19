@@ -1,28 +1,22 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
-import PropTypes from "prop-types"
+import { TextField, Grid } from "@material-ui/core"
 
 export default class CreateGroup extends Component {
 
   constructor() {
     super();
     this.state = {
-      payable: 0
+      payable: 0,
+      nom: '',
+      pseudo: ''
 		};
     this._creerGroupe = this._creerGroupe.bind(this)
   }
 
-  static propTypes = {
-    nom: PropTypes.string,
-    pseudo: PropTypes.string,
-    handleChange: PropTypes.func
-  }
-
-  static defaultProps = {
-    nom: '',
-    pseudo: '',
-    handleChange: () => {}
-  }
+  handleChange = name => event => {
+   this.setState({ [name]: event.target.value });
+ };
 
   async componentDidMount() {
 
@@ -34,7 +28,7 @@ export default class CreateGroup extends Component {
   async _creerGroupe() {
 
       await window.ethereum.enable()
-    	await contractInstance.creerGroupe(this.props.nom,this.props.pseudo, {value : this.state.payable})
+    	await contractInstance.creerGroupe(this.state.nom,this.state.pseudo, {value : this.state.payable})
   }
 
   render() {
@@ -50,18 +44,37 @@ export default class CreateGroup extends Component {
             </tr>
           </thead>
             <tbody>
-              <tr className="w3-theme-l2">
-                <td><strong>nom du groupe</strong></td>
+            <tr>
+              <td>
+              <Grid container spacing={24}>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      name="Nom du groupe"
+                      label="Nom du groupe"
+                      fullWidth
+                      value={this.state.nom}
+                      onChange={this.handleChange('nom')}
+                    />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      name="pseudo"
+                      label="pseudo"
+                      fullWidth
+                      value={this.state.pseudo}
+                      onChange={this.handleChange('pseudo')}
+                    />
+                    </Grid>
+                  </Grid>
 
-                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.nom} placeholder="nom"/></td>
-              </tr>
-              <tr className="w3-theme-l2">
-                <td><strong>votre pseudo dans le groupe</strong></td>
-
-                <td className="w3-theme-l3"><input type="text" onChange={this.props.handleChange} id={this.props.pseudo} placeholder="pseudo"/></td>
-              </tr>
-              <tr className="w3-theme-l2">
-                <td><button  className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._creerGroupe}>CREER</button></td>
+                </td>
+            </tr>
+            <tr>
+              <td>
+              <button className="btn-primary btn-block" onClick={this._creerGroupe}>PAYER</button>
+              </td>
               </tr>
 
   </tbody>
