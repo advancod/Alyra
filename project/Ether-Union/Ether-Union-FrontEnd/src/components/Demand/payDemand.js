@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
-import { TextField } from "@material-ui/core"
+import { TextField, Grid  } from "@material-ui/core"
 
 export default class  payDemand extends Component {
 
@@ -35,14 +35,21 @@ export default class  payDemand extends Component {
         </thead>
           <tbody>
 
-          <tr className="w3-theme-l2">
-  <td><strong>Montant propose</strong></td>
-  <td className="w3-theme-l3"><input type="number" onChange={this.handleChange('proposition')} id={this.state.proposition} placeholder="proposition"/></td>
-</tr>
-
           <tr>
             <td>
-
+            <Grid container spacing={24}>
+          <Grid item xs={12} md={6}>
+              <TextField
+                required
+                name="Montant propose"
+                label="Montant propose"
+                fullWidth
+                type="number"
+                value={this.state.proposition}
+                onChange={this.handleChange('proposition')}
+              />
+              </Grid>
+          <Grid item xs={12} md={6}>
                   <TextField
                     required
                     name="Pseudo du demandeur"
@@ -51,7 +58,8 @@ export default class  payDemand extends Component {
                     value={this.state.pseudo3}
                     onChange={this.handleChange('pseudo3')}
                   />
-
+</Grid>
+</Grid>
 
               </td>
           </tr>

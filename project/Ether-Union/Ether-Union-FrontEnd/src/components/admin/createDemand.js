@@ -44,10 +44,7 @@ export default class CreateDemand extends Component {
             </tr>
           </thead>
             <tbody>
-            <tr className="w3-theme-l2">
-    <td><strong>Montant demande</strong></td>
-    <td className="w3-theme-l3"><input type="number" onChange={this.handleChange('montant')} id={this.state.montant} placeholder="montant"/></td>
-  </tr>
+
             <tr>
               <td>
               <Grid container spacing={24}>
@@ -72,6 +69,18 @@ export default class CreateDemand extends Component {
                         onChange={this.handleChange('description')}
                       />
                       </Grid>
+
+                      <Grid item xs={12} md={6}>
+                          <TextField
+                            required
+                            name="Montant demande"
+                            label="Montant demande"
+                            fullWidth
+                            type="number"
+                            value={this.state.montant}
+                            onChange={this.handleChange('montant')}
+                          />
+                          </Grid>
                     </Grid>
 
                 </td>

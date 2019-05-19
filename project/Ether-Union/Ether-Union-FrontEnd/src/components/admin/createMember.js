@@ -1,12 +1,27 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
 import { TextField, Grid } from "@material-ui/core"
+import classNames from 'classnames';
+import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles } from '@material-ui/core/styles'
 
-export default class CreateMember extends Component {
+
+const styles = theme => ({
+ container: {
+   display: 'flex',
+   flexWrap: 'wrap',
+ },
+ menu: {
+   width: 200,
+ },
+});
+
+class CreateMember extends Component {
 
   constructor() {
     super();
     this.state = {
+      getAdminGroups: [],
       payable: 0,
       membre: '',
       pseudo1: '',
@@ -21,8 +36,15 @@ export default class CreateMember extends Component {
 
   async componentDidMount() {
 
+    let copy2 = []
+    let list2 = await contractInstance.getOwnedGroupe()
+    for (let j=0; j<list2.length; j++){
+      copy2.push(await contractInstance.getNomGroupe(list2[j]))
+    }
+
     this.setState({
-                    payable: parseInt(await contractInstance.getPriceMember(),10)})
+                    payable: parseInt(await contractInstance.getPriceMember(),10),
+                    getAdminGroups : copy2})
 
   }
 
@@ -47,6 +69,23 @@ export default class CreateMember extends Component {
               <td>
               <Grid container spacing={24}>
                 <Grid item xs={12} md={6}>
+            <TextField
+          id="standard-select-currency"
+          select
+          label="Choisir un groupe dont vous etes admin"
+          fullWidth
+          value={this.state.groupe}
+          onChange={this.handleChange('groupe')}
+          helperText="Please select your currency"
+        >
+          {this.state.getAdminGroups.map(option => (
+            <MenuItem value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
+              </Grid>
+                <Grid item xs={12} md={6}>
                     <TextField
                       name="Adresse du nouveau membre"
                       label="Adresse du nouveau membre"
@@ -65,16 +104,6 @@ export default class CreateMember extends Component {
                       onChange={this.handleChange('pseudo1')}
                     />
                     </Grid>
-                  <Grid item xs={12} md={6}>
-                      <TextField
-                        required
-                        name="Groupe concerné"
-                        label="Groupe concerné"
-                        fullWidth
-                        value={this.state.groupe}
-                        onChange={this.handleChange('groupe')}
-                      />
-                      </Grid>
                     </Grid>
 
                 </td>
@@ -91,3 +120,5 @@ export default class CreateMember extends Component {
     );
   }
 }
+
+export default withStyles(styles)(CreateMember)

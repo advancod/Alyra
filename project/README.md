@@ -1,4 +1,4 @@
-![Settings Window](https://github.com/advancod/Alyra/tree/master/project/Capture d’écran 2019-05-18 à 19.02.40.png)
+![Settings Window](https://github.com/advancod/Alyra/blob/master/project/Capture%20d%E2%80%99%C3%A9cran%202019-05-18%20%C3%A0%2019.02.40.png)
 
 Cette application permet la création de réseau sociaux poussant à l'entraide dans les dépenses quotidiennes tout en alimentant une cagnotte de jeux auxquels les membres peuvent participer grace a l'utilisation de tokens ERC20.
 
@@ -42,6 +42,7 @@ Vous devez posséder des token UNION pour jouer a la lotterie.
 Evolutions :
 - utilistation de bridge pour les canaux de paiement
 - Version mobile
+- déployer sur IPFS
 - Améliorer l'administration des groupes (administrateurs multiples, suppression de membres, blacklistings)
 - Améliorer les statistiques grace à fonctionnalité de vérification de paiement "contrat cible" par le rensu du hash de transaction et affiliation des entreprises beneficiaires des contrats cibles pour reconnaissance directe des versements
 - Mise en place d'une DAO pour la gestion des prix et quantité de tickets de loterie et autres paramétrages

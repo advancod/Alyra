@@ -98,10 +98,21 @@ export default class  Play extends Component {
             <td className="w3-theme-l3">{this.state.getStateGame}</td>
           </tr>
 
-          <tr className="w3-theme-l2">
-  <td><strong>votre prediction pour la cagnotte</strong></td>
-  <td className="w3-theme-l3"><input type="number" onChange={this.handleChange('prediction')} id={this.state.prediction} placeholder="montant"/></td>
-</tr>
+          <tr>
+            <td>
+
+                  <TextField
+                    required
+                    name="votre prediction pour la cagnotte"
+                    label="votre prediction pour la cagnotte"
+                    fullWidth
+                    type = "number"
+                    value={this.state.prediction}
+                    onChange={this.handleChange('prediction')}
+                  />
+
+              </td>
+          </tr>
 
           <tr>
             <td>
