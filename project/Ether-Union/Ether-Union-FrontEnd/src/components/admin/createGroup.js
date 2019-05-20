@@ -45,37 +45,36 @@ export default class CreateGroup extends Component {
           </thead>
             <tbody>
             <tr>
-              <td>
+            <td>
               <Grid container spacing={24}>
                 <Grid item xs={12} md={6}>
                     <TextField
+                      variant="outlined"
                       required
-                      name="Nom du groupe"
-                      label="Nom du groupe"
+                      label="Nom du nouveau groupe à créer"
                       fullWidth
                       value={this.state.nom}
                       onChange={this.handleChange('nom')}
+                      helperText="Ce nom doit être unique"
                     />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
+                      variant="outlined"
                       required
-                      name="pseudo"
-                      label="pseudo"
+                      label="Votre pseudonyme"
                       fullWidth
                       value={this.state.pseudo}
                       onChange={this.handleChange('pseudo')}
+                      helperText="Votre pseudonyme en tant qu'administrateur de ce groupe"
                     />
                     </Grid>
+                    <Grid item xs={12} md={12}>
+                      <button className="btn-primary btn-block" onClick={this._creerGroupe}>PAYER</button>
+                    </Grid>
                   </Grid>
-
                 </td>
             </tr>
-            <tr>
-              <td>
-              <button className="btn-primary btn-block" onClick={this._creerGroupe}>PAYER</button>
-              </td>
-              </tr>
 
   </tbody>
   </table>

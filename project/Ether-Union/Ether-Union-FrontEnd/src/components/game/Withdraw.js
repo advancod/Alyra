@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { TextField, Grid } from "@material-ui/core"
 
 export default class Withdraw extends Component {
   constructor() {
     super();
     this.state = {
-      gains: 0,
+      getGains: 0,
       getNbGagnants: 0
 		};
     this._withdrawGains = this._withdrawGains.bind(this)
@@ -16,7 +18,7 @@ export default class Withdraw extends Component {
 
     this.setState({
       getNbGagnants: parseInt(await contractInstance.getNbGagnants(),10),
-      gains: parseInt(await contractInstance.getGains(),10) })
+      getGains: parseInt(await contractInstance.getGains(),10) })
   }
 
 
@@ -38,16 +40,43 @@ export default class Withdraw extends Component {
           </tr>
         </thead>
           <tbody>
-            <tr className="w3-theme-l2">
-              <td>vos gains</td>
-              <td className="w3-theme-l3">{this.state.gains}</td>
-            </tr>
-            <tr className="w3-theme-l2">
-              <td>nombre de gagnants</td>
-              <td className="w3-theme-l3">{this.state.getNbGagnants}</td>
-            </tr>
-            <tr className="w3-theme-l2">
-              <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._withdrawGains}>RECUPERER</button></td>
+          <tr>
+          <td>
+          <Grid container spacing={24}>
+           <Grid item xs={12} md={6}>
+              <TextField
+                   disabled
+                   variant="outlined"
+                   label="Votre part de la cagnote"
+                   value={this.state.getGains}
+                   fullWidth
+                   helperText="Récupérez la vite!!"
+                   InputProps={{
+                               endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
+                               readOnly: true,
+                              }}
+              />
+             </Grid>
+             <Grid item xs={12} md={6}>
+               <TextField
+                    disabled
+                    variant="outlined"
+                    label="Nombre de gagnant"
+                    value={this.state.getNbGagnants}
+                    fullWidth
+                    helperText="Vous avez tous eu la bonne réponse"
+                    InputProps={{
+                                 endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
+                                 readOnly: true,
+                              }}
+                    />
+            </Grid>
+              <Grid item xs={12} md={12}>
+                  <button className="btn-primary btn-block" onClick={this._withdrawGains}>RECUPERER</button>
+              </Grid>
+            </Grid>
+
+            </td>
             </tr>
       </tbody>
       </table>

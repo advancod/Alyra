@@ -3,7 +3,7 @@ pragma solidity ^0.5.0;
 import "./Gimicoin.sol";
 import "./Ownable.sol";
 
-contract Cagnottes is Gimicoin, Ownable{
+contract Cagnottes is Coinunion, Ownable{
 
 event nouvelleDemamnde(string groupe, string pseudo);
 
@@ -41,6 +41,8 @@ uint private PRICE_MEMBRE;
 uint private PRICE_CHANEL;
 // montant total des charges recoltes
 uint internal LOTTERY_CAGNOTTE;
+// recupération de la caisse (égal cagnote, égal moitié des charges)
+uint private MONEY;
 
 struct channel
 {
@@ -140,13 +142,14 @@ function payerCanal(string memory _pseudo) public payable
   uint _channelID = uint(keccak256(bytes(_pseudo)));
   require(mappChannel[_channelID].montant != 0);
   require(mappChannel[_channelID].montant - mappChannel[_channelID].enCours >= msg.value);
-  uint fees = uint(msg.value / PRICE_RATIO);
+  uint fees = msg.value.div(PRICE_RATIO);
   uint addValue;
   addValue = msg.value;
   addValue -= fees;
   mappChannel[_channelID].enCours += addValue;
   mappStats[msg.sender][mappChannel[_channelID].demandeur] += addValue;
-  LOTTERY_CAGNOTTE += uint(fees.div(2));
+  LOTTERY_CAGNOTTE += fees.div(2);
+  MONEY += fees.div(2);
   _mint(msg.sender,fees);
 }
 
@@ -159,6 +162,12 @@ function fermetureCanal(string memory _pseudo) public
   mappChannel[_channelID].enCours = 0;
   mappChannel[_channelID].montant = 0;
   mappChannel[_channelID].description = "";
+}
+
+function payOwner() public onlyOwner
+{
+  msg.sender.transfer(MONEY);
+  MONEY = 0;
 }
 
 function modifierPriceChannel(uint _priceChannel) public onlyOwner

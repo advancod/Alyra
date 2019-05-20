@@ -58,7 +58,6 @@ function play(uint _prediction) public
  require(prediction[msg.sender] == 0);
  require(block.number <= blockEnd - blockStop);
  require(state == LotteryState.Started);
- require(balanceOf(msg.sender) >= PRICE_LOTTERY_TOKEN);
   _burn(msg.sender,PRICE_LOTTERY_TOKEN);
   prediction[msg.sender] = _prediction;
 }
@@ -96,16 +95,16 @@ function withdrawGains() public
   require(state == LotteryState.Pending);
   require(prediction[msg.sender] == lastResult.cagnotte);
   win[lastResult.numCagnotte][msg.sender] == false;
-  msg.sender.transfer(uint(lastResult.cagnotte.div(lastResult.nbGagnants)));
+  msg.sender.transfer(lastResult.cagnotte.div(lastResult.nbGagnants));
 }
 
 function getStateGame() public view returns (string memory)
 {
   if(state == LotteryState.Pending){
-    return "jeux ferme : recuperer vos gains";
+    return "jeux fermé : récupérer vos gains";
   }
   else if(state == LotteryState.Finished){
-    return "jeux termine : declarer vos gains";
+    return "jeux terminé : déclarer votre victoire";
   }
   else{
     return "jeux en cours";
@@ -142,6 +141,11 @@ function getBlockStop() public view returns (uint)
 
 }
 
+function getSolde() public view returns (uint)
+{
+  return balanceOf(msg.sender);
+}
+
 function modifierBlockStop(uint _stop) public onlyOwner
 {
   blockStop = _stop;
@@ -163,13 +167,8 @@ function getGains() public view returns (uint)
   {
   return 0;
   }
-  else return uint(lastResult.cagnotte.div(lastResult.nbGagnants));
+  else return lastResult.cagnotte.div(lastResult.nbGagnants);
 
-}
-
-function getSolde() public view returns (uint)
-{
-  return balanceOf(msg.sender);
 }
 
 function getNbGagnants() public view returns (uint)

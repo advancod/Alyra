@@ -1,22 +1,9 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
 import { TextField, Grid } from "@material-ui/core"
-import classNames from 'classnames';
 import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles'
 
-
-const styles = theme => ({
- container: {
-   display: 'flex',
-   flexWrap: 'wrap',
- },
- menu: {
-   width: 200,
- },
-});
-
-class CreateMember extends Component {
+export default class CreateMember extends Component {
 
   constructor() {
     super();
@@ -68,51 +55,51 @@ class CreateMember extends Component {
             <tr>
               <td>
               <Grid container spacing={24}>
-                <Grid item xs={12} md={6}>
-            <TextField
-          id="standard-select-currency"
-          select
-          label="Choisir un groupe dont vous etes admin"
-          fullWidth
-          value={this.state.groupe}
-          onChange={this.handleChange('groupe')}
-          helperText="Please select your currency"
-        >
-          {this.state.getAdminGroups.map(option => (
-            <MenuItem value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
-              </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                      name="Adresse du nouveau membre"
-                      label="Adresse du nouveau membre"
-                      fullWidth
-                      value={this.state.membre}
-                      onChange={this.handleChange('membre')}
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    select
+                    label="Choisicez un groupe"
+                    fullWidth
+                    value={this.state.groupe}
+                    onChange={this.handleChange('groupe')}
+                    helperText="Vous êtes admnistrateur de ce groupe"
+                  >
+                  {this.state.getAdminGroups.map(option => (
+                    <MenuItem value={option} key={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                  </TextField>
+                  </Grid>
+                    <Grid item xs={12} md={4}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        label="Adresse du nouveau membre"
+                        fullWidth
+                        value={this.state.membre}
+                        onChange={this.handleChange('membre')}
+                        helperText="Clé publique ethereum du membre à ajouter"
                     />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                     <TextField
+                      variant="outlined"
                       required
-                      name="Pseudo du nouveau membre"
-                      label="Pseudo du nouveau membre"
+                      label="Pseudonyme du nouveau membre"
                       fullWidth
                       value={this.state.pseudo1}
                       onChange={this.handleChange('pseudo1')}
+                      helperText="Ce pseudonyme doit être unique"
                     />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                      <button className="btn-primary btn-block" onClick={this._ajouterMembre}>AJOUTER</button>
                     </Grid>
                     </Grid>
 
                 </td>
             </tr>
-            <tr>
-              <td>
-              <button className="btn-primary btn-block" onClick={this._ajouterMembre}>AJOUTER</button>
-              </td>
-              </tr>
   </tbody>
   </table>
     </div>
@@ -120,5 +107,3 @@ class CreateMember extends Component {
     );
   }
 }
-
-export default withStyles(styles)(CreateMember)

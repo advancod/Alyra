@@ -51,12 +51,13 @@ export default class  SoldeDemand extends Component {
             <tr>
               <td>
                     <TextField
+                      variant="outlined"
                       required
-                      name="Pseudo de votre canal a solder"
-                      label="Pseudo de votre canal a solder"
+                      label="Entrez un pseudonyme"
                       fullWidth
                       value={this.state.pseudo4}
                       onChange={this.handleChange('pseudo4')}
+                      helperText="De votre demande que vous soulez solder dans un groupe"
                     />
 
                 </td>

@@ -46,8 +46,8 @@ export default class App extends Component {
               </div>
 
               <div className="commentStyle">
-                Send, receive, stay connected with yours and earn tokens,
-                enter in the new social network system of consuming and play to our super lotery
+                Send or receive ethers, stay connected with yours and earn tokens,
+                enter in a new social network system of consuming and play to our super lotery
               </div>
               <Router>
                 <Route exact path="/" component={Menu}/>
@@ -62,7 +62,7 @@ export default class App extends Component {
           <div className="main_content">
 
             <Grid container alignItems="center" justify="center">
-              <Grid item xs={8} lg={6} >
+              <Grid item xs={8} lg={8} >
                 <Router>
                   <Route exact path="/" component={game}/>
                   <Route exact path="/demand" component={demand}/>

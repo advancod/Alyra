@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
-import { TextField } from "@material-ui/core"
+import { TextField, Grid } from "@material-ui/core"
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 export default class  Play extends Component {
   constructor() {
@@ -31,6 +32,7 @@ export default class  Play extends Component {
   async componentDidMount() {
 
     this.setState({
+
                     getPrixLottery: parseInt(await contractInstance.getPrixLottery(),10),
                     getStateGame: await contractInstance.getStateGame(),
                     getSuperCagnotte: parseInt(await contractInstance.getSuperCagnotte(),10),
@@ -52,78 +54,162 @@ export default class  Play extends Component {
   render() {
 
     return (
-
       <div className="table-responsive w3-card-4">
-      <table className="table table-bordered">
-        <thead>
-          <tr className="w3-theme-d4">
-            <th>JOUEZ A NOTRE JEUX ET GAGNEZ DES ETHERS</th>
-          </tr>
-        </thead>
-          <tbody>
-            <tr className="w3-theme-l2">
-              <td>prix du ticket en token</td>
-              <td className="w3-theme-l3">{this.state.getPrixLottery}</td>
+        <table className="table table-bordered">
+          <thead>
+            <tr className="w3-theme-d4">
+              <th>JOUEZ A NOTRE JEUX ET GAGNEZ DES ETHERS</th>
             </tr>
-          <tr className="w3-theme-l2">
-            <td>bloc actuel</td>
-            <td className="w3-theme-l3">{this.state.getBlock}</td>
-          </tr>
-          <tr className="w3-theme-l2">
-            <td>bloc de prediction</td>
-            <td className="w3-theme-l3">{this.state.getBlockStop}</td>
-          </tr>
-          <tr className="w3-theme-l2">
-            <td>bloc de fin du jeu</td>
-            <td className="w3-theme-l3">{this.state.getEndGame}</td>
-          </tr>
-          <tr className="w3-theme-l2">
-            <td>bloc de fin de declaration</td>
-            <td className="w3-theme-l3">{this.state.getSaveBlock}</td>
-          </tr>
-          <tr className="w3-theme-l2">
-            <td>bloc de fin recuperation des gains</td>
-            <td className="w3-theme-l3">{this.state.getWithdrawBlock}</td>
-          </tr>
-          <tr className="w3-theme-l2">
-            <td>Etat actuel de la cagnote</td>
-            <td className="w3-theme-l3">{this.state.getSuperCagnotte}</td>
-          </tr>
-          <tr className="w3-theme-l2">
-            <td>votre solde gimicoin</td>
-            <td className="w3-theme-l3">{this.state.balanceOf}</td>
-          </tr>
-          <tr className="w3-theme-l2">
-            <td>etat du jeux</td>
-            <td className="w3-theme-l3">{this.state.getStateGame}</td>
-          </tr>
+          </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <Grid container spacing={24}>
+                    <Grid item xs={6} md={4}>
+                      <TextField
+                         disabled
+                         variant="outlined"
+                         label="Prix du ticket"
+                         value={this.state.getPrixLottery}
+                         fullWidth
+                         helperText="Ticket de participation au jeux en coinunion"
+                         InputProps={{
+                           endAdornment: <InputAdornment position="end">UNION</InputAdornment>,
+                           readOnly: true,
+                         }}
+                       />
+                    </Grid>
+                    <Grid item xs={6} md={4}>
+                       <TextField
+                            disabled
+                            variant="outlined"
+                            label="Numéro du bloc actuel"
+                            value={this.state.getBlock}
+                            fullWidth
+                            helperText="Dernier bloc validé sur la blockchain ethereum"
+                            InputProps={{
+                                          readOnly: true,
+                                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={6} md={4}>
+                      <TextField
+                           disabled
+                           variant="outlined"
+                           label="Numéro de bloc d'arrêt du jeux"
+                           value={this.state.getBlockStop}
+                           fullWidth
+                           helperText="Arrêt de vente de tickets"
+                           InputProps={{
+                                        readOnly: true,
+                                      }}
+                       />
+                     </Grid>
+                     <Grid item xs={6} md={4}>
+                       <TextField
+                            disabled
+                            variant="outlined"
+                            label="Bloc du jeux"
+                            value={this.state.getEndGame}
+                            fullWidth
+                            helperText="Bloc de prédiction"
+                            InputProps={{
+                                       readOnly: true,
+                                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={6} md={4}>
+                      <TextField
+                            disabled
+                            variant="outlined"
+                            label="Bloc maximal de déclaration de victoire"
+                            value={this.state.getSaveBlock}
+                            fullWidth
+                            helperText="Vérifiez si vote prédiction était la bonne"
+                            InputProps={{
+                                       readOnly: true,
+                                       }}
+                      />
+                    </Grid>
+                    <Grid item xs={6} md={4}>
+                      <TextField
+                            disabled
+                            variant="outlined"
+                            label="Bloc maximal de récupération de ses gains"
+                            value={this.state.getWithdrawBlock}
+                            fullWidth
+                            helperText="Gagnez en ethereum votre part de la cagnote prédite"
+                            InputProps={{
+                                       readOnly: true,
+                                       }}
+                      />
+                    </Grid>
+                    <Grid item xs={6} md={4}>
+                      <TextField
+                          disabled
+                          variant="outlined"
+                          label="SUPERCAGNOTE"
+                          value={this.state.getSuperCagnotte}
+                          fullWidth
+                          helperText="Montant total actuel de la cagnote"
+                          InputProps={{
+                                     endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
+                                     readOnly: true,
+                                     }}
+                      />
+                    </Grid>
+                    <Grid item xs={6} md={4}>
+                      <TextField
+                          disabled
+                          variant="outlined"
+                          label="Votre balance tokens"
+                          value={this.state.balanceOf}
+                          fullWidth
+                          helperText="Votre solde en coinunion"
+                          InputProps={{
+                                     endAdornment: <InputAdornment position="end">UNION</InputAdornment>,
+                                     readOnly: true,
+                                     }}
+                      />
+                    </Grid>
+                    <Grid item xs={6} md={4}>
+                      <TextField
+                          disabled
+                          variant="outlined"
+                          label="Etat du jeux"
+                          value={this.state.getStateGame}
+                          fullWidth
+                          helperText="Période actuelle du jeux"
+                          InputProps={{
+                                     readOnly: true,
+                                     }}
+                      />
+                    </Grid>
+                    <Grid item xs={6} md={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        label="Jouer au jeux actuel"
+                        fullWidth
+                        type = "number"
+                        value={this.state.prediction}
+                        onChange={this.handleChange('prediction')}
+                        helperText="Entrez votre prédiction en Wei pour la cagnote au bloc du jeux"
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                      <button className="btn-primary btn-block" onClick={this.jouerLottery}>JOUER</button>
+                    </Grid>
+                  </Grid>
 
-          <tr>
-            <td>
-
-                  <TextField
-                    required
-                    name="votre prediction pour la cagnotte"
-                    label="votre prediction pour la cagnotte"
-                    fullWidth
-                    type = "number"
-                    value={this.state.prediction}
-                    onChange={this.handleChange('prediction')}
-                  />
+              </td>
+              <td>
 
               </td>
           </tr>
-
-          <tr>
-            <td>
-            <button className="btn-primary btn-block" onClick={this.jouerLottery}>JOUER</button>
-            </td>
-            </tr>
-      </tbody>
-      </table>
-
-      </div>
-
+</tbody>
+</table>
+  </div>
 
     );
   }

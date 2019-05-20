@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
 import { TextField, Grid  } from "@material-ui/core"
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 export default class  payDemand extends Component {
 
@@ -40,27 +41,32 @@ export default class  payDemand extends Component {
             <Grid container spacing={24}>
           <Grid item xs={12} md={6}>
               <TextField
+                variant="outlined"
                 required
-                name="Montant propose"
-                label="Montant propose"
+                label="Donner et gangnez des tokens"
                 fullWidth
                 type="number"
                 value={this.state.proposition}
                 onChange={this.handleChange('proposition')}
+                helperText="Transferé des ethers"
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
+                  readOnly: true,
+                }}
               />
               </Grid>
           <Grid item xs={12} md={6}>
                   <TextField
+                    variant="outlined"
                     required
-                    name="Pseudo du demandeur"
-                    label="Pseudo du demandeur"
+                    label="Entrez un pseudonyme"
                     fullWidth
                     value={this.state.pseudo3}
                     onChange={this.handleChange('pseudo3')}
+                    helperText="Demandeur a qui vous vouez donner"
                   />
 </Grid>
 </Grid>
-
               </td>
           </tr>
           <tr>

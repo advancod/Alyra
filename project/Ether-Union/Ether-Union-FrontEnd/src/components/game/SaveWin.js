@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { TextField, Grid } from "@material-ui/core"
 
 export default class  SaveWin extends Component {
 
@@ -38,18 +40,44 @@ export default class  SaveWin extends Component {
           </tr>
         </thead>
           <tbody>
-            <tr className="w3-theme-l2">
-              <td>votre prediction</td>
-              <td className="w3-theme-l3">{this.state.getPrediction}</td>
-            </tr>
-            <tr className="w3-theme-l2">
-              <td>cagnote</td>
-              <td className="w3-theme-l3">{this.state.getCagnotte}</td>
-            </tr>
-            <tr className="w3-theme-l2">
-              <td><button className="w3-button w3-black btn btn-primary btn-sm btn btn-primary btn-block" onClick={this._saveWin}>DECLARER</button></td>
-            </tr>
+          <tr>
+            <td>
+          <Grid container spacing={24}>
+            <Grid item xs={6} md={6}>
+                  <TextField
+                           disabled
+                           variant="outlined"
+                           label="Votre prédiction"
+                           value={this.state.getPrediction}
+                           fullWidth
+                           helperText="Lors du jeux prédent"
+                           InputProps={{
+                             endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
+                             readOnly: true,
+                           }}
+                  />
+            </Grid>
+            <Grid item xs={6} md={6}>
+                  <TextField
+                          disabled
+                          variant="outlined"
+                          label="Montant de la supercagnote"
+                          value={this.state.getCagnotte}
+                          fullWidth
+                          helperText="Résultat attendu"
+                          InputProps={{
+                                      endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
+                                      readOnly: true,
+                                      }}
+                    />
+             </Grid>
+             <Grid item xs={12} md={12}>
+               <button className="btn-primary btn-block" onClick={this._saveWin}>DECLARER</button>
+             </Grid>
+             </Grid>
 
+</td>
+</tr>
       </tbody>
       </table>
       </div>

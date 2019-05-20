@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
 import { TextField, Grid } from "@material-ui/core"
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 export default class CreateDemand extends Component {
 
@@ -9,7 +10,7 @@ export default class CreateDemand extends Component {
     this.state = {
       payable: 0,
       pseudo2: '',
-      montant: 0,
+      montant: '',
       description: ''
 		};
     this._demander = this._demander.bind(this)
@@ -44,53 +45,51 @@ export default class CreateDemand extends Component {
             </tr>
           </thead>
             <tbody>
-
             <tr>
               <td>
               <Grid container spacing={24}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                     <TextField
+                      variant="outlined"
                       required
-                      name="pseudo"
-                      label="pseudo"
+                      label="Pseudonyme"
                       fullWidth
                       value={this.state.pseudo2}
                       onChange={this.handleChange('pseudo2')}
+                      helperText="Entrez votre canal de demande à ouvrir"
                     />
                 </Grid>
-
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={4}>
                       <TextField
-                        required
-                        name="description"
-                        label="description"
+                        variant="outlined"
+                        label="Description"
                         fullWidth
                         value={this.state.description}
                         onChange={this.handleChange('description')}
+                        helperText="Expliquez brievement votre besoin"
                       />
                       </Grid>
-
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={12} md={4}>
                           <TextField
+                            variant="outlined"
                             required
-                            name="Montant demande"
-                            label="Montant demande"
+                            label="Montant"
                             fullWidth
                             type="number"
                             value={this.state.montant}
                             onChange={this.handleChange('montant')}
+                            helperText="Indiquez le montant de la somme désirée"
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
+                            }}
                           />
                           </Grid>
+                          <Grid item xs={12} md={12}>
+                            <button className="btn-primary btn-block" onClick={this._demander}>EMETTRE</button>
+                          </Grid>
                     </Grid>
-
                 </td>
             </tr>
-            <tr>
-              <td>
-              <button className="btn-primary btn-block" onClick={this._demander}>EMETTRE</button>
-              </td>
-              </tr>
-
 
   </tbody>
   </table>
