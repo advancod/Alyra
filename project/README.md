@@ -42,7 +42,9 @@ Vous devez posséder des token UNION pour jouer a la lotterie.
 Evolutions :
 - utilistation de bridge pour les canaux de paiement
 - Version mobile
+- Node.js pour la synchro des données.
 - déployer sur IPFS
+- Utilisation d escrow pour les paiements
 - Améliorer l'administration des groupes (administrateurs multiples, suppression de membres, blacklistings)
 - Améliorer les statistiques grace à fonctionnalité de vérification de paiement "contrat cible" par le rensu du hash de transaction et affiliation des entreprises beneficiaires des contrats cibles pour reconnaissance directe des versements
 - Mise en place d'une DAO pour la gestion des prix et quantité de tickets de loterie et autres paramétrages
