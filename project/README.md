@@ -1,4 +1,4 @@
-![Settings Window](https://github.com/advancod/Alyra/blob/master/project/Capture%20d%E2%80%99%C3%A9cran%202019-05-18%20%C3%A0%2019.02.40.png)
+![Settings Window](https://github.com/advancod/Alyra/blob/master/project/Capture%20d%E2%80%99%C3%A9cran%202019-05-21%20%C3%A0%2002.17.49.png)
 
 Cette application permet la création de réseau sociaux poussant à l'entraide dans les dépenses quotidiennes tout en alimentant une cagnotte de jeux auxquels les membres peuvent participer grace a l'utilisation de tokens ERC20.
 
