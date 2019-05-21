@@ -62,11 +62,11 @@ export default class CreateGroup extends Component {
                     <TextField
                       variant="outlined"
                       required
-                      label="VOTRE PSEUDONYME"
+                      label="VOTRE PSEUDONYME DANS CE GROUPE"
                       fullWidth
                       value={this.state.pseudo}
                       onChange={this.handleChange('pseudo')}
-                      helperText="Votre pseudonyme en tant qu'administrateur de ce groupe"
+                      helperText="Doit être unique"
                     />
                     </Grid>
                     <Grid item xs={12} md={12}>

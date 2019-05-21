@@ -62,7 +62,7 @@ export default class App extends Component {
           <div className="main_content">
 
             <Grid container alignItems="center" justify="center">
-              <Grid item xs={8} lg={8} >
+              <Grid item xs={8} lg={10} >
                 <Router>
                   <Route exact path="/" component={game}/>
                   <Route exact path="/demand" component={demand}/>

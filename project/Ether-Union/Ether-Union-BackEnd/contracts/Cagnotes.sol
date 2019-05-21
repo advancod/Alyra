@@ -28,9 +28,9 @@ mapping (uint => mapping (address => uint)) private mappChannelInGroup;
 mapping (address => mapping (address => uint)) private mappStats;
 
 // montant maximum d'une demande
-uint private MAX_AMOUNT;
+uint public MAX_AMOUNT;
 // montant minimum d'une demande
-uint private MIN_AMOUNT;
+uint public MIN_AMOUNT;
 // charges recoltes par le contrat a chaque paiement (montant/PRICE_RATIO)
 uint private PRICE_RATIO;
 // prix de la creation d un groupe
@@ -77,6 +77,7 @@ function creerGroupe(string memory _nom, string memory _pseudo) payable public
   uint channelID = uint(keccak256(bytes(_pseudo)));
   // On verifi que l'utilisateur n'existe pas deja
   require(mappChannel[channelID].demandeur == address(0));
+  MONEY += PRICE_GROUP;
   // On ajoute le createur dans le groupe
   mappChannel[channelID].demandeur = msg.sender;
   mappIDGroupe[IDGroupe] = _nom;
@@ -101,6 +102,7 @@ function ajouterMembre(address _membre, string memory _groupe, string memory _ps
   require(mappGroupeOwner[_groupe] == msg.sender);
   // On regarde lidentifiant du groupe par rapport a son nom
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
+  MONEY += PRICE_MEMBRE;
   // On ajoute le groupe a la liste des groupes auxquel le membre est membre
   mappGroupesForAddress[_membre].push(IDGroupe);
   // On prepare l'instanciation du canal de demande
@@ -130,6 +132,7 @@ function demander(uint _montant, string memory _pseudo, string memory _descripti
   require(mappChannel[channelID].demandeur == msg.sender);
   // On verifi qu'une demande n'est pas en cours pour ce membre
   require(mappChannel[channelID].montant == 0);
+  MONEY += PRICE_CHANEL;
   // On saisi les infos de la demande
   mappChannel[channelID].montant = _montant;
   mappChannel[channelID].description = _description;

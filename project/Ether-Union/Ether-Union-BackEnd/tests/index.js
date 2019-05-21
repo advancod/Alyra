@@ -570,6 +570,20 @@ const Lotery = [
   },
   {
     "constant": true,
+    "inputs": [],
+    "name": "MAX_AMOUNT",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
         "name": "_pseudo",
@@ -622,6 +636,20 @@ const Lotery = [
       }
     ],
     "name": "allowance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "MIN_AMOUNT",
     "outputs": [
       {
         "name": "",
@@ -1089,7 +1117,7 @@ const Lotery = [
   }
 ]
 
-let contractAddress = "0xce12cf0ff1b71d1f1b88e7d7e33d61a2235328ae"
+let contractAddress = "0xf490287dc792db6a2a65b519847f7bb6173c0bed"
 let provider = new ethers.providers.Web3Provider(web3.currentProvider);
 let contractInstance = new ethers.Contract(contractAddress, Lotery, provider.getSigner())
 

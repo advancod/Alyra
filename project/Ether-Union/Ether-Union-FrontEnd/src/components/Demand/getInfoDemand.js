@@ -11,7 +11,6 @@ export default class  GetInfoDemand extends Component {
 			getGroupesPerAddress: [],
       getMembres: [],
       getMonPseudo: '',
-      getGroupe: '',
       getMembre: '',
       pseudo: '',
       getReceptions: 0,
@@ -79,7 +78,7 @@ export default class  GetInfoDemand extends Component {
                       label="1 - CHOISIR UN GROUPE"
                       fullWidth
                       value={this.state.nomGroupe}
-                      onChange={this.handleChange('groupe')}
+                      onChange={this.handleChange('nomGroupe')}
                       helperText="Selectionner un groupe dont vous êtes membre"
                     >
                     {this.state.getGroupesPerAddress.map(option => (
@@ -93,7 +92,7 @@ export default class  GetInfoDemand extends Component {
                   <TextField
                     disabled
                     variant="outlined"
-                    label="VOTRE PSEUDONYME"
+                    label="VOTRE PSEUDONYME DANS CE GROUPE"
                     value={this.state.getMonPseudo}
                     fullWidth
                     helperText="Votre identification dans ce groupe"
@@ -106,7 +105,7 @@ export default class  GetInfoDemand extends Component {
                  <Grid item xs={12} md={4}>
                   <TextField
                     select
-                    label="2 - CHOISIR MEMBRE"
+                    label="2 - CHOISIR UN MEMBRE"
                     fullWidth
                     value={this.state.pseudo}
                     onChange={this.handleChange('pseudo')}
@@ -137,7 +136,7 @@ export default class  GetInfoDemand extends Component {
                 <TextField
                     disabled
                     variant="outlined"
-                    label="ADRESSE ETHEREUM"
+                    label="SON ADRESSE ETHEREUM"
                     value={this.state.getAddresse}
                     fullWidth
                     helperText="clé publique"
@@ -151,10 +150,10 @@ export default class  GetInfoDemand extends Component {
                <TextField
                     disabled
                     variant="outlined"
-                    label="RECEPTION"
+                    label="RECEPTIONS"
                     value={this.state.getReceptions}
                     fullWidth
-                    helperText="De la part de cet utilisateur dans ce groupe"
+                    helperText="Il vous a déjà donné"
                     InputProps={{
                                 endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                                 readOnly: true,
@@ -169,7 +168,7 @@ export default class  GetInfoDemand extends Component {
                 label="DONNATIONS"
                 value={this.state.getDonnations}
                 fullWidth
-                helperText="Totalités des fonds que vous lui avez attribué"
+                helperText="Vous lui avez déjà donné"
                 InputProps={{
                            endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                            readOnly: true,
@@ -182,7 +181,7 @@ export default class  GetInfoDemand extends Component {
               <TextField
                   disabled
                   variant="outlined"
-                  label="MONTANT"
+                  label="MONTANT DE LA CAGNOTE DEMANDE"
                   value={this.state.getMontant}
                   fullWidth
                   helperText="Montant de la demande"
@@ -197,7 +196,7 @@ export default class  GetInfoDemand extends Component {
               <TextField
                   disabled
                   variant="outlined"
-                  label="EN COURS"
+                  label="ETAT DE LA CAGNOTE"
                   value={this.state.getEncours}
                   fullWidth
                   helperText="Montant actuels des fonds versés par le groupe"

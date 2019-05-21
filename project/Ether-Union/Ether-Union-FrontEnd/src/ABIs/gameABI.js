@@ -570,6 +570,20 @@ const Lotery = [
   },
   {
     "constant": true,
+    "inputs": [],
+    "name": "MAX_AMOUNT",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
         "name": "_pseudo",
@@ -622,6 +636,20 @@ const Lotery = [
       }
     ],
     "name": "allowance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "MIN_AMOUNT",
     "outputs": [
       {
         "name": "",
