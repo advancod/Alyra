@@ -43,7 +43,7 @@ export default class  payDemand extends Component {
               <TextField
                 variant="outlined"
                 required
-                label="Donner et gangnez des tokens"
+                label="DONNEZ ET GAGNEZ DES ETHERS"
                 fullWidth
                 type="number"
                 value={this.state.proposition}
@@ -51,7 +51,6 @@ export default class  payDemand extends Component {
                 helperText="Transferé des ethers"
                 InputProps={{
                   endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
-                  readOnly: true,
                 }}
               />
               </Grid>
@@ -59,7 +58,7 @@ export default class  payDemand extends Component {
                   <TextField
                     variant="outlined"
                     required
-                    label="Entrez un pseudonyme"
+                    label="ENTREZ UN PSEUDONYME"
                     fullWidth
                     value={this.state.pseudo3}
                     onChange={this.handleChange('pseudo3')}

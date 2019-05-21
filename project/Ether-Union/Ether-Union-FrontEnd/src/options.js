@@ -1,10 +1,10 @@
 import { ethers } from 'ethers';
-import Lottery from './ABIs/gameABI';
+import Lotery from './ABIs/gameABI';
 
-const contractAddress = "0xc754e24171f938ba8be3dab49bfeb48bcd4dbda8";
+const contractAddress = "0xce12cf0ff1b71d1f1b88e7d7e33d61a2235328ae";
 //var provider = new ethers.providers.Web3Provider(window.ethereum);
 let provider = new ethers.providers.Web3Provider(window.web3.currentProvider);
 let signer = provider.getSigner();
-let contractInstance = new ethers.Contract(contractAddress, Lottery, signer);
+let contractInstance = new ethers.Contract(contractAddress, Lotery, signer);
 
 export default contractInstance;

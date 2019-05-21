@@ -52,7 +52,7 @@ export default class CreateDemand extends Component {
                     <TextField
                       variant="outlined"
                       required
-                      label="Pseudonyme"
+                      label="PSEUDONYME"
                       fullWidth
                       value={this.state.pseudo2}
                       onChange={this.handleChange('pseudo2')}
@@ -62,7 +62,7 @@ export default class CreateDemand extends Component {
                   <Grid item xs={12} md={4}>
                       <TextField
                         variant="outlined"
-                        label="Description"
+                        label="DESCRIPTION"
                         fullWidth
                         value={this.state.description}
                         onChange={this.handleChange('description')}
@@ -73,7 +73,7 @@ export default class CreateDemand extends Component {
                           <TextField
                             variant="outlined"
                             required
-                            label="Montant"
+                            label="MONTANT"
                             fullWidth
                             type="number"
                             value={this.state.montant}

@@ -76,7 +76,7 @@ export default class  GetInfoDemand extends Component {
                   <Grid item xs={12} md={4}>
                     <TextField
                       select
-                      label="Choisir un groupe"
+                      label="1 - CHOISIR UN GROUPE"
                       fullWidth
                       value={this.state.nomGroupe}
                       onChange={this.handleChange('groupe')}
@@ -93,19 +93,20 @@ export default class  GetInfoDemand extends Component {
                   <TextField
                     disabled
                     variant="outlined"
-                    label="Votre pseudonyme"
+                    label="VOTRE PSEUDONYME"
                     value={this.state.getMonPseudo}
                     fullWidth
                     helperText="Votre identification dans ce groupe"
                     InputProps={{
                               readOnly: true,
+                              style: { color: 'blue'}
                  }}
                  />
                  </Grid>
                  <Grid item xs={12} md={4}>
                   <TextField
                     select
-                    label="Choisir Membre"
+                    label="2 - CHOISIR MEMBRE"
                     fullWidth
                     value={this.state.pseudo}
                     onChange={this.handleChange('pseudo')}
@@ -122,12 +123,13 @@ export default class  GetInfoDemand extends Component {
                 <TextField
                     disabled
                     variant="outlined"
-                    label="Description"
+                    label="DESCRIPTION"
                     value={this.state.getDescription}
                     fullWidth
                     helperText="Expliquation de sa demande de fonds si il y a"
                     InputProps={{
                               readOnly: true,
+                              style: { color: 'blue'}
                               }}
                 />
               </Grid>
@@ -135,12 +137,13 @@ export default class  GetInfoDemand extends Component {
                 <TextField
                     disabled
                     variant="outlined"
-                    label="Addresse ethereum"
+                    label="ADRESSE ETHEREUM"
                     value={this.state.getAddresse}
                     fullWidth
                     helperText="clé publique"
                     InputProps={{
                                 readOnly: true,
+                                style: { color: 'blue'}
                                 }}
                   />
              </Grid>
@@ -148,13 +151,14 @@ export default class  GetInfoDemand extends Component {
                <TextField
                     disabled
                     variant="outlined"
-                    label="Récéptions"
+                    label="RECEPTION"
                     value={this.state.getReceptions}
                     fullWidth
                     helperText="De la part de cet utilisateur dans ce groupe"
                     InputProps={{
                                 endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                                 readOnly: true,
+                                style: { color: 'blue'}
                                 }}
                />
              </Grid>
@@ -162,13 +166,14 @@ export default class  GetInfoDemand extends Component {
               <TextField
                 disabled
                 variant="outlined"
-                label="Donnations"
+                label="DONNATIONS"
                 value={this.state.getDonnations}
                 fullWidth
                 helperText="Totalités des fonds que vous lui avez attribué"
                 InputProps={{
                            endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                            readOnly: true,
+                           style: { color: 'blue'}
                          }}
               />
             </Grid>
@@ -177,13 +182,14 @@ export default class  GetInfoDemand extends Component {
               <TextField
                   disabled
                   variant="outlined"
-                  label="Montant"
+                  label="MONTANT"
                   value={this.state.getMontant}
                   fullWidth
                   helperText="Montant de la demande"
                   InputProps={{
                             endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                             readOnly: true,
+                            style: { color: 'blue'}
                              }}
               />
             </Grid>
@@ -191,13 +197,14 @@ export default class  GetInfoDemand extends Component {
               <TextField
                   disabled
                   variant="outlined"
-                  label="En cours"
+                  label="EN COURS"
                   value={this.state.getEncours}
                   fullWidth
                   helperText="Montant actuels des fonds versés par le groupe"
                   InputProps={{
                             endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                             readOnly: true,
+                            style: { color: 'blue'}
                             }}
               />
             </Grid>

@@ -1,4 +1,4 @@
-const Lottery = [
+const Lotery = [
   {
     "constant": true,
     "inputs": [
@@ -193,6 +193,15 @@ const Lottery = [
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "payOwner",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -784,7 +793,7 @@ const Lottery = [
   {
     "constant": false,
     "inputs": [],
-    "name": "initLottery",
+    "name": "initLotery",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -857,7 +866,7 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
-    "name": "getPrixLottery",
+    "name": "getPrixLotery",
     "outputs": [
       {
         "name": "",
@@ -885,7 +894,7 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
-    "name": "getSuperCagnotte",
+    "name": "getSuperCagnote",
     "outputs": [
       {
         "name": "",
@@ -925,6 +934,20 @@ const Lottery = [
     "type": "function"
   },
   {
+    "constant": true,
+    "inputs": [],
+    "name": "getSolde",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "constant": false,
     "inputs": [
       {
@@ -941,7 +964,7 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
-    "name": "getCagnotte",
+    "name": "getCagnote",
     "outputs": [
       {
         "name": "",
@@ -970,20 +993,6 @@ const Lottery = [
     "constant": true,
     "inputs": [],
     "name": "getGains",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getSolde",
     "outputs": [
       {
         "name": "",
@@ -1080,4 +1089,4 @@ const Lottery = [
   }
 ]
 
-export default Lottery;
+export default Lotery;

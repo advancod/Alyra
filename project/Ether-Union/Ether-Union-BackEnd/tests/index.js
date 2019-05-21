@@ -1,4 +1,4 @@
-const Lottery = [
+const Lotery = [
   {
     "constant": true,
     "inputs": [
@@ -193,6 +193,15 @@ const Lottery = [
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "payOwner",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -784,7 +793,7 @@ const Lottery = [
   {
     "constant": false,
     "inputs": [],
-    "name": "initLottery",
+    "name": "initLotery",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -857,7 +866,7 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
-    "name": "getPrixLottery",
+    "name": "getPrixLotery",
     "outputs": [
       {
         "name": "",
@@ -885,7 +894,7 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
-    "name": "getSuperCagnotte",
+    "name": "getSuperCagnote",
     "outputs": [
       {
         "name": "",
@@ -925,6 +934,20 @@ const Lottery = [
     "type": "function"
   },
   {
+    "constant": true,
+    "inputs": [],
+    "name": "getSolde",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "constant": false,
     "inputs": [
       {
@@ -941,7 +964,7 @@ const Lottery = [
   {
     "constant": true,
     "inputs": [],
-    "name": "getCagnotte",
+    "name": "getCagnote",
     "outputs": [
       {
         "name": "",
@@ -970,20 +993,6 @@ const Lottery = [
     "constant": true,
     "inputs": [],
     "name": "getGains",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getSolde",
     "outputs": [
       {
         "name": "",
@@ -1080,24 +1089,24 @@ const Lottery = [
   }
 ]
 
-let contractAddress = "0xc754e24171f938ba8be3dab49bfeb48bcd4dbda8"
+let contractAddress = "0xce12cf0ff1b71d1f1b88e7d7e33d61a2235328ae"
 let provider = new ethers.providers.Web3Provider(web3.currentProvider);
-let contractInstance = new ethers.Contract(contractAddress, Lottery, provider.getSigner())
+let contractInstance = new ethers.Contract(contractAddress, Lotery, provider.getSigner())
 
 
 async function demarrage() {
   _getGroupesPerAddress()
   _getOwnedGroupesPerAddress()
-  _lotteryInfo()
+  _loteryInfo()
 }
 
-async function _lotteryInfo() {
-  document.getElementById('getPrixLottery').innerHTML = await contractInstance.getPrixLottery()
-  document.getElementById('getSuperCagnotte').innerHTML = await contractInstance.getSuperCagnotte()
+async function _loteryInfo() {
+  document.getElementById('getPrixLotery').innerHTML = await contractInstance.getPrixLotery()
+  document.getElementById('getSuperCagnote').innerHTML = await contractInstance.getSuperCagnote()
   document.getElementById('getEndGame').innerHTML = await contractInstance.getEndGame()
   document.getElementById('getBlockStop').innerHTML = await contractInstance.getBlockStop()
   document.getElementById('balanceOf').innerHTML = await contractInstance.getSolde()
-  document.getElementById('getCagnotte').innerHTML = await contractInstance.getCagnotte()
+  document.getElementById('getCagnote').innerHTML = await contractInstance.getCagnote()
   document.getElementById('getNbGagnants').innerHTML = await contractInstance.getNbGagnants()
   document.getElementById('getBlock').innerHTML = await contractInstance.getBlock()
   document.getElementById('getGains').innerHTML = await contractInstance.getGains()

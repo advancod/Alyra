@@ -9,7 +9,7 @@ export default class  SaveWin extends Component {
     super();
     this.state = {
 
-      getCagnotte: 0,
+      getCagnote: 0,
       getPrediction: 0
 		};
 
@@ -19,7 +19,7 @@ export default class  SaveWin extends Component {
   async componentDidMount() {
 
     this.setState({
-                    getCagnotte: parseInt(await contractInstance.getCagnotte(),10),
+                    getCagnotte: parseInt(await contractInstance.getCagnote(),10),
                     getPrediction: parseInt(await contractInstance.getPrediction(),10) })
   }
 
@@ -47,13 +47,14 @@ export default class  SaveWin extends Component {
                   <TextField
                            disabled
                            variant="outlined"
-                           label="Votre prédiction"
+                           label="VOTRE PREDICTION"
                            value={this.state.getPrediction}
                            fullWidth
                            helperText="Lors du jeux prédent"
                            InputProps={{
                              endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                              readOnly: true,
+                             style: { color: 'blue'}
                            }}
                   />
             </Grid>
@@ -61,13 +62,14 @@ export default class  SaveWin extends Component {
                   <TextField
                           disabled
                           variant="outlined"
-                          label="Montant de la supercagnote"
-                          value={this.state.getCagnotte}
+                          label="MONTANT DE LA SUPERCAGNOTE"
+                          value={this.state.getCagnote}
                           fullWidth
                           helperText="Résultat attendu"
                           InputProps={{
                                       endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                                       readOnly: true,
+                                      style: { color: 'blue'}
                                       }}
                     />
              </Grid>

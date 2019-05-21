@@ -53,7 +53,7 @@ export default class  SoldeDemand extends Component {
                     <TextField
                       variant="outlined"
                       required
-                      label="Entrez un pseudonyme"
+                      label="ENTREZ UN PSEUDONYME"
                       fullWidth
                       value={this.state.pseudo4}
                       onChange={this.handleChange('pseudo4')}

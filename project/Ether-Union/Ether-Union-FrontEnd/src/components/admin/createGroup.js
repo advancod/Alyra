@@ -51,7 +51,7 @@ export default class CreateGroup extends Component {
                     <TextField
                       variant="outlined"
                       required
-                      label="Nom du nouveau groupe à créer"
+                      label="NOM DU NOUVEAU GROUPE A CREER"
                       fullWidth
                       value={this.state.nom}
                       onChange={this.handleChange('nom')}
@@ -62,7 +62,7 @@ export default class CreateGroup extends Component {
                     <TextField
                       variant="outlined"
                       required
-                      label="Votre pseudonyme"
+                      label="VOTRE PSEUDONYME"
                       fullWidth
                       value={this.state.pseudo}
                       onChange={this.handleChange('pseudo')}

@@ -1,9 +1,9 @@
 pragma solidity ^0.5.0;
 
-import "./Gimicoin.sol";
+import "./Coinunion.sol";
 import "./Ownable.sol";
 
-contract Cagnottes is Coinunion, Ownable{
+contract Cagnotes is Coinunion, Ownable{
 
 event nouvelleDemamnde(string groupe, string pseudo);
 
@@ -40,7 +40,7 @@ uint private PRICE_MEMBRE;
 // prix de l'ouverture d'une demande
 uint private PRICE_CHANEL;
 // montant total des charges recoltes
-uint internal LOTTERY_CAGNOTTE;
+uint internal LOTERY_CAGNOTE;
 // recupération de la caisse (égal cagnote, égal moitié des charges)
 uint private MONEY;
 
@@ -148,7 +148,7 @@ function payerCanal(string memory _pseudo) public payable
   addValue -= fees;
   mappChannel[_channelID].enCours += addValue;
   mappStats[msg.sender][mappChannel[_channelID].demandeur] += addValue;
-  LOTTERY_CAGNOTTE += fees.div(2);
+  LOTERY_CAGNOTE += fees.div(2);
   MONEY += fees.div(2);
   _mint(msg.sender,fees);
 }

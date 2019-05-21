@@ -58,7 +58,7 @@ export default class CreateMember extends Component {
                 <Grid item xs={12} md={4}>
                   <TextField
                     select
-                    label="Choisicez un groupe"
+                    label="CHOISISSEZ UN GROUPE"
                     fullWidth
                     value={this.state.groupe}
                     onChange={this.handleChange('groupe')}
@@ -75,7 +75,7 @@ export default class CreateMember extends Component {
                       <TextField
                         variant="outlined"
                         required
-                        label="Adresse du nouveau membre"
+                        label="ADRESSE DU NOUVEAU MEMBRE"
                         fullWidth
                         value={this.state.membre}
                         onChange={this.handleChange('membre')}
@@ -86,7 +86,7 @@ export default class CreateMember extends Component {
                     <TextField
                       variant="outlined"
                       required
-                      label="Pseudonyme du nouveau membre"
+                      label="PSEUDONYME DU NOUVEAU MEMBRE"
                       fullWidth
                       value={this.state.pseudo1}
                       onChange={this.handleChange('pseudo1')}

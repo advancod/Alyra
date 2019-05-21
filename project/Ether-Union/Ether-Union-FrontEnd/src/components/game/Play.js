@@ -7,22 +7,22 @@ export default class  Play extends Component {
   constructor() {
     super();
     this.state = {
-			getPrixLottery: 0,
-      getSuperCagnotte: 0,
+			getPrixLotery: 0,
+      getSuperCagnote: 0,
       getTicketsLeft: 0,
       getEndGame: 0,
       getBlockStop: 0,
-      getNumCagnotte: 0,
-      getCagnotte: 0,
+      getNumCagnote: 0,
+      getCagnote: 0,
       getNbGagnants: 0,
       balanceOf: 0,
       getWithdrawBlock: 0,
       getSaveBlock: 0,
       getStateGame : '',
-      prediction: 0,
+      prediction: '',
       getBlock: 0
 		};
-    this.jouerLottery = this.jouerLottery.bind(this)
+    this.jouerLotery = this.jouerLotery.bind(this)
   }
 
   handleChange = name => event => {
@@ -33,20 +33,20 @@ export default class  Play extends Component {
 
     this.setState({
 
-                    getPrixLottery: parseInt(await contractInstance.getPrixLottery(),10),
+                    getPrixLotery: parseInt(await contractInstance.getPrixLotery(),10),
                     getStateGame: await contractInstance.getStateGame(),
-                    getSuperCagnotte: parseInt(await contractInstance.getSuperCagnotte(),10),
+                    getSuperCagnote: parseInt(await contractInstance.getSuperCagnote(),10),
                     getSaveBlock: parseInt(await contractInstance.getSaveBlock(),10),
                     getWithdrawBlock: parseInt(await contractInstance.getWithdrawBlock(),10),
                     getEndGame: parseInt(await contractInstance.getEndGame(),10),
                     getBlockStop: parseInt(await contractInstance.getBlockStop(),10),
-                    getCagnotte: parseInt(await contractInstance.getCagnotte(),10),
+                    getCagnote: parseInt(await contractInstance.getCagnote(),10),
                     getNbGagnants: parseInt(await contractInstance.getNbGagnants(),10),
                     balanceOf: parseInt(await contractInstance.getSolde(),10),
                     getBlock: parseInt(await contractInstance.getBlock(),10)})
   }
 
-  async jouerLottery() {
+  async jouerLotery() {
     await window.ethereum.enable()
     await contractInstance.play(this.state.prediction)
   }
@@ -69,13 +69,14 @@ export default class  Play extends Component {
                       <TextField
                          disabled
                          variant="outlined"
-                         label="Prix du ticket"
-                         value={this.state.getPrixLottery}
+                         label="PRIX DU TICKET"
+                         value={this.state.getPrixLotery}
                          fullWidth
                          helperText="Ticket de participation au jeux en coinunion"
                          InputProps={{
                            endAdornment: <InputAdornment position="end">UNION</InputAdornment>,
                            readOnly: true,
+                           style: { color: 'blue'}
                          }}
                        />
                     </Grid>
@@ -83,12 +84,13 @@ export default class  Play extends Component {
                        <TextField
                             disabled
                             variant="outlined"
-                            label="Numéro du bloc actuel"
+                            label="NUMERO DU BLOC ACTUEL"
                             value={this.state.getBlock}
                             fullWidth
                             helperText="Dernier bloc validé sur la blockchain ethereum"
                             InputProps={{
                                           readOnly: true,
+                                          style: { color: 'blue'}
                                         }}
                       />
                     </Grid>
@@ -96,12 +98,13 @@ export default class  Play extends Component {
                       <TextField
                            disabled
                            variant="outlined"
-                           label="Numéro de bloc d'arrêt du jeux"
+                           label="NUMERO DU BLOC DE FIN DU JEUX"
                            value={this.state.getBlockStop}
                            fullWidth
                            helperText="Arrêt de vente de tickets"
                            InputProps={{
                                         readOnly: true,
+                                        style: { color: 'blue'}
                                       }}
                        />
                      </Grid>
@@ -109,12 +112,13 @@ export default class  Play extends Component {
                        <TextField
                             disabled
                             variant="outlined"
-                            label="Bloc du jeux"
+                            label="BLOC DU JEUX DE PREDICTION"
                             value={this.state.getEndGame}
                             fullWidth
                             helperText="Bloc de prédiction"
                             InputProps={{
                                        readOnly: true,
+                                       style: { color: 'blue'}
                                         }}
                       />
                     </Grid>
@@ -122,12 +126,13 @@ export default class  Play extends Component {
                       <TextField
                             disabled
                             variant="outlined"
-                            label="Bloc maximal de déclaration de victoire"
+                            label="DERNIER BLOC POUR DECLARATION DE VICTOIRE"
                             value={this.state.getSaveBlock}
                             fullWidth
                             helperText="Vérifiez si vote prédiction était la bonne"
                             InputProps={{
                                        readOnly: true,
+                                       style: { color: 'blue'}
                                        }}
                       />
                     </Grid>
@@ -135,12 +140,13 @@ export default class  Play extends Component {
                       <TextField
                             disabled
                             variant="outlined"
-                            label="Bloc maximal de récupération de ses gains"
+                            label="DERNIER BLOC POUR RECUPERATION DE GAINS"
                             value={this.state.getWithdrawBlock}
                             fullWidth
-                            helperText="Gagnez en ethereum votre part de la cagnote prédite"
+                            helperText="Et gagnez vos ethers"
                             InputProps={{
                                        readOnly: true,
+                                       style: { color: 'blue'}
                                        }}
                       />
                     </Grid>
@@ -149,12 +155,13 @@ export default class  Play extends Component {
                           disabled
                           variant="outlined"
                           label="SUPERCAGNOTE"
-                          value={this.state.getSuperCagnotte}
+                          value={this.state.getSuperCagnote}
                           fullWidth
                           helperText="Montant total actuel de la cagnote"
                           InputProps={{
                                      endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                                      readOnly: true,
+                                     style: { color: 'blue'}
                                      }}
                       />
                     </Grid>
@@ -162,13 +169,14 @@ export default class  Play extends Component {
                       <TextField
                           disabled
                           variant="outlined"
-                          label="Votre balance tokens"
+                          label="VOTRE BALANCE EN TOKEN"
                           value={this.state.balanceOf}
                           fullWidth
                           helperText="Votre solde en coinunion"
                           InputProps={{
                                      endAdornment: <InputAdornment position="end">UNION</InputAdornment>,
                                      readOnly: true,
+                                     style: { color: 'blue'}
                                      }}
                       />
                     </Grid>
@@ -176,12 +184,13 @@ export default class  Play extends Component {
                       <TextField
                           disabled
                           variant="outlined"
-                          label="Etat du jeux"
+                          label="ETAT DU JEUX"
                           value={this.state.getStateGame}
                           fullWidth
                           helperText="Période actuelle du jeux"
                           InputProps={{
                                      readOnly: true,
+                                     style: { color: 'blue'}
                                      }}
                       />
                     </Grid>
@@ -189,16 +198,19 @@ export default class  Play extends Component {
                       <TextField
                         variant="outlined"
                         required
-                        label="Jouer au jeux actuel"
+                        label="JOUER AU JEUX"
                         fullWidth
                         type = "number"
                         value={this.state.prediction}
                         onChange={this.handleChange('prediction')}
                         helperText="Entrez votre prédiction en Wei pour la cagnote au bloc du jeux"
+                        InputProps={{
+                                   endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
+                                   }}
                       />
                     </Grid>
                     <Grid item xs={12} md={12}>
-                      <button className="btn-primary btn-block" onClick={this.jouerLottery}>JOUER</button>
+                      <button className="btn-primary btn-block" onClick={this.jouerLotery}>JOUER</button>
                     </Grid>
                   </Grid>
 

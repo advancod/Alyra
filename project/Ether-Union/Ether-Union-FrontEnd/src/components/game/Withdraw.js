@@ -47,13 +47,14 @@ export default class Withdraw extends Component {
               <TextField
                    disabled
                    variant="outlined"
-                   label="Votre part de la cagnote"
+                   label="VOTRE PART DE LA CAGNOTE"
                    value={this.state.getGains}
                    fullWidth
                    helperText="Récupérez la vite!!"
                    InputProps={{
                                endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                                readOnly: true,
+                               style: { color: 'blue'}
                               }}
               />
              </Grid>
@@ -61,13 +62,13 @@ export default class Withdraw extends Component {
                <TextField
                     disabled
                     variant="outlined"
-                    label="Nombre de gagnant"
+                    label="NOMBRE DE GAGNANTS"
                     value={this.state.getNbGagnants}
                     fullWidth
                     helperText="Vous avez tous eu la bonne réponse"
                     InputProps={{
-                                 endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
                                  readOnly: true,
+                                 style: { color: 'blue'}
                               }}
                     />
             </Grid>

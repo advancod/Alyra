@@ -42,7 +42,7 @@ export default class App extends Component {
               </div>
 
               <div className="UNION">
-                <h1><a href="/">ETHER UNION</a></h1>
+                <h1>ETHER UNION</h1>
               </div>
 
               <div className="commentStyle">
