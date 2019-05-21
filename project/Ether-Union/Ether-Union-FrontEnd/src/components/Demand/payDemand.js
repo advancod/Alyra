@@ -62,7 +62,7 @@ export default class  payDemand extends Component {
                     fullWidth
                     value={this.state.pseudo3}
                     onChange={this.handleChange('pseudo3')}
-                    helperText="Demandeur a qui vous vouez donner"
+                    helperText="Demandeur a qui vous voulez donner"
                   />
 </Grid>
 </Grid>
