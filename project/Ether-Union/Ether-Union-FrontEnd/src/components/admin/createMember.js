@@ -9,7 +9,6 @@ export default class CreateMember extends Component {
     super();
     this.state = {
       getAdminGroups: [],
-      payable: 0,
       membre: '',
       pseudo1: '',
       groupe: ''
@@ -30,14 +29,13 @@ export default class CreateMember extends Component {
     }
 
     this.setState({
-                    payable: parseInt(await contractInstance.getPriceMember(),10),
-                    getAdminGroups : copy2})
+                  getAdminGroups : copy2})
 
   }
 
   async _ajouterMembre() {
       await window.ethereum.enable()
-     	await contractInstance.ajouterMembre(this.state.membre,this.state.groupe,this.state.pseudo1, {value : this.state.payable})
+     	await contractInstance.ajouterMembre(this.state.membre,this.state.groupe,this.state.pseudo1)
   }
 
   render() {

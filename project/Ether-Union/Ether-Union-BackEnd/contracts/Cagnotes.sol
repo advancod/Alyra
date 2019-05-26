@@ -27,18 +27,8 @@ mapping (uint => mapping (address => uint)) private mappChannelInGroup;
 // 9 Ici on mappe les statististiques 2 a 2
 mapping (address => mapping (address => uint)) private mappStats;
 
-// montant maximum d'une demande
-uint public MAX_AMOUNT;
-// montant minimum d'une demande
-uint public MIN_AMOUNT;
 // charges recoltes par le contrat a chaque paiement (montant/PRICE_RATIO)
 uint private PRICE_RATIO;
-// prix de la creation d un groupe
-uint private PRICE_GROUP;
-// prix de l ajout d'un membre a un groupe
-uint private PRICE_MEMBRE;
-// prix de l'ouverture d'une demande
-uint private PRICE_CHANEL;
 // montant total des charges recoltes
 uint internal LOTERY_CAGNOTE;
 // recupération de la caisse (égal cagnote, égal moitié des charges)
@@ -57,18 +47,11 @@ struct channel
 
 constructor() public
 {
-  MAX_AMOUNT = 100000000000000000000;
-  MIN_AMOUNT = 100000;
   PRICE_RATIO = 200;
-  PRICE_GROUP = 1000;
-  PRICE_MEMBRE = 100;
-  PRICE_CHANEL = 10;
 }
 
-function creerGroupe(string memory _nom, string memory _pseudo) payable public
+function creerGroupe(string memory _nom, string memory _pseudo) public
 {
-  // On verifie que la creation de groupe est bien payee
-  require(PRICE_GROUP == msg.value);
   // On cree un identifiant du groupe
   uint IDGroupe = uint(keccak256(bytes(_nom)));
   // Que le nom du groupe n'existe pas deja
@@ -77,7 +60,6 @@ function creerGroupe(string memory _nom, string memory _pseudo) payable public
   uint channelID = uint(keccak256(bytes(_pseudo)));
   // On verifi que l'utilisateur n'existe pas deja
   require(mappChannel[channelID].demandeur == address(0));
-  MONEY += PRICE_GROUP;
   // On ajoute le createur dans le groupe
   mappChannel[channelID].demandeur = msg.sender;
   mappIDGroupe[IDGroupe] = _nom;
@@ -90,10 +72,8 @@ function creerGroupe(string memory _nom, string memory _pseudo) payable public
   creerCanal(_pseudo, _nom, IDGroupe, channelID);
 }
 
-function ajouterMembre(address _membre, string memory _groupe, string memory _pseudo) payable public
+function ajouterMembre(address _membre, string memory _groupe, string memory _pseudo) public
 {
-  // On verifi que l ajout d'un membre a groupe est paye
-  require(PRICE_MEMBRE == msg.value);
   // On cree un identifiant du nouveau membre
   uint channelID = uint(keccak256(bytes(_pseudo)));
   // On verifi que ce membre n'existe pas deja
@@ -102,7 +82,6 @@ function ajouterMembre(address _membre, string memory _groupe, string memory _ps
   require(mappGroupeOwner[_groupe] == msg.sender);
   // On regarde lidentifiant du groupe par rapport a son nom
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
-  MONEY += PRICE_MEMBRE;
   // On ajoute le groupe a la liste des groupes auxquel le membre est membre
   mappGroupesForAddress[_membre].push(IDGroupe);
   // On prepare l'instanciation du canal de demande
@@ -120,23 +99,16 @@ function creerCanal(string memory _pseudo, string memory _groupe, uint groupeID,
   mappChannelInGroup[groupeID][msg.sender] = channelID;
 }
 
-function demander(uint _montant, string memory _pseudo, string memory _description) payable public
+function demander(uint _montant, string memory _pseudo, string memory _description) public
 {
-  //On verifi que l'ouverture d'une demande est bien payee
-  require(msg.value == PRICE_CHANEL);
-  // On verifi que la montant repond au regles
-  require(_montant > MIN_AMOUNT);
-  require(_montant < MAX_AMOUNT);
   // On verifi que l'appelant est bien le membre
   uint channelID = uint(keccak256(bytes(_pseudo)));
   require(mappChannel[channelID].demandeur == msg.sender);
   // On verifi qu'une demande n'est pas en cours pour ce membre
   require(mappChannel[channelID].montant == 0);
-  MONEY += PRICE_CHANEL;
   // On saisi les infos de la demande
   mappChannel[channelID].montant = _montant;
   mappChannel[channelID].description = _description;
-
   emit nouvelleDemamnde(mappChannel[channelID].groupe, _pseudo);
 }
 
@@ -173,50 +145,11 @@ function payOwner() public onlyOwner
   MONEY = 0;
 }
 
-function modifierPriceChannel(uint _priceChannel) public onlyOwner
-{
-  PRICE_CHANEL = _priceChannel;
-}
-
-function modifierMaxAmount(uint _maxAmount) public onlyOwner
-{
-  MAX_AMOUNT = _maxAmount;
-}
-
-function modifierMinAmount(uint _minAmount) public onlyOwner
-{
-  MIN_AMOUNT = _minAmount;
-}
-
 function modifierCharges(uint _priceRatio) public onlyOwner
 {
   PRICE_RATIO = _priceRatio;
 }
 
-function modifierPriceGroup(uint _priceGroup) public onlyOwner
-{
-  PRICE_GROUP = _priceGroup;
-}
-
-function modifierPriceMember(uint _priceMember) public onlyOwner
-{
-  PRICE_MEMBRE = _priceMember;
-}
-
-function getPriceGroup() public view returns (uint)
-{
-  return PRICE_GROUP;
-}
-
-function getPriceMember() public view returns (uint)
-{
-  return PRICE_MEMBRE;
-}
-
-function getPriceChannel() public view returns (uint)
-{
-  return PRICE_CHANEL;
-}
 
 function getGroupesPerAddress() public view returns (uint[] memory)
 {

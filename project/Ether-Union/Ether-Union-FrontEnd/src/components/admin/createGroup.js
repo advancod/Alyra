@@ -7,7 +7,6 @@ export default class CreateGroup extends Component {
   constructor() {
     super();
     this.state = {
-      payable: 0,
       nom: '',
       pseudo: ''
 		};
@@ -18,17 +17,10 @@ export default class CreateGroup extends Component {
    this.setState({ [name]: event.target.value });
  };
 
-  async componentDidMount() {
-
-    this.setState({
-                    payable: parseInt(await contractInstance.getPriceGroup(),10)})
-
-  }
-
   async _creerGroupe() {
 
       await window.ethereum.enable()
-    	await contractInstance.creerGroupe(this.state.nom,this.state.pseudo, {value : this.state.payable})
+    	await contractInstance.creerGroupe(this.state.nom,this.state.pseudo)
   }
 
   render() {

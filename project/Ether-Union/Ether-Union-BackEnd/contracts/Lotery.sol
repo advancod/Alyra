@@ -47,6 +47,10 @@ function initLotery() public onlyOwner
 {
   require(block.number > lastResult.blockFin + blockSave + blockWithdraw);
   require(state == LoteryState.Pending);
+  if(lastResult.nbGagnants == 0){
+    LOTERY_CAGNOTE.add(lastResult.cagnote);
+  }
+  lastResult.cagnote = 0;
   lastResult.nbGagnants = 0;
   lastResult.numCagnote += 1;
   blockEnd = block.number + blockStop;

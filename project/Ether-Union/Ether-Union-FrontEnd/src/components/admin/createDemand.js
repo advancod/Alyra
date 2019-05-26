@@ -8,9 +8,6 @@ export default class CreateDemand extends Component {
   constructor() {
     super();
     this.state = {
-      payable: 0,
-      MIN: 0,
-      MAX: 0,
       pseudo2: '',
       montant: '',
       description: ''
@@ -22,18 +19,9 @@ export default class CreateDemand extends Component {
    this.setState({ [name]: event.target.value });
  };
 
-  async componentDidMount() {
-
-    this.setState({
-                    MIN: parseInt(await contractInstance.MIN_AMOUNT(),10),
-                    MAX: parseInt(await contractInstance.MAX_AMOUNT(),10),
-                    payable: parseInt(await contractInstance.getPriceChannel(),10)})
-
-  }
-
   async _demander() {
       await window.ethereum.enable()
-    	await contractInstance.demander(this.state.montant,this.state.pseudo2,this.state.description, {value : this.state.payable})
+    	await contractInstance.demander(this.state.montant,this.state.pseudo2,this.state.description)
   }
 
   render() {
@@ -94,8 +82,7 @@ export default class CreateDemand extends Component {
                             <button className="btn-primary btn-block" onClick={this._demander}>EMETTRE</button>
                           </Grid>
                     </Grid>
-                    MIN_AMOUNT = {this.state.MIN} Wei    -&-    MAX_AMOUNT = {this.state.MAX} Wei
-                </td>
+              </td>
             </tr>
 
 
