@@ -51,7 +51,7 @@ export default class App extends Component {
               </div>
               <Router>
                 <Route exact path="/" component={Menu}/>
-                <Route exact path="/demand" component={Menu}/>
+                <Route exact path="/game" component={Menu}/>
                 <Route exact path="/admin" component={Menu}/>
               </Router>
 
@@ -64,8 +64,8 @@ export default class App extends Component {
             <Grid container alignItems="center" justify="center">
               <Grid item xs={8} lg={10} >
                 <Router>
-                  <Route exact path="/" component={game}/>
-                  <Route exact path="/demand" component={demand}/>
+                  <Route exact path="/" component={demand}/>
+                  <Route exact path="/game" component={game}/>
                   <Route exact path="/admin" component={admin}/>
                 </Router>
               </Grid>

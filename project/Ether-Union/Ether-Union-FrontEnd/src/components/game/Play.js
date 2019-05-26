@@ -65,7 +65,7 @@ export default class  Play extends Component {
               <tr>
                 <td>
                   <Grid container spacing={24}>
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={2} md={2}>
                       <TextField
                          disabled
                          variant="outlined"
@@ -80,7 +80,7 @@ export default class  Play extends Component {
                          }}
                        />
                     </Grid>
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={12} md={2}>
                        <TextField
                             disabled
                             variant="outlined"
@@ -94,7 +94,7 @@ export default class  Play extends Component {
                                         }}
                       />
                     </Grid>
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={12} md={2}>
                       <TextField
                            disabled
                            variant="outlined"
@@ -108,7 +108,7 @@ export default class  Play extends Component {
                                       }}
                        />
                      </Grid>
-                     <Grid item xs={6} md={4}>
+                     <Grid item xs={12} md={2}>
                        <TextField
                             disabled
                             variant="outlined"
@@ -122,7 +122,7 @@ export default class  Play extends Component {
                                         }}
                       />
                     </Grid>
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={12} md={2}>
                       <TextField
                             disabled
                             variant="outlined"
@@ -136,7 +136,7 @@ export default class  Play extends Component {
                                        }}
                       />
                     </Grid>
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={12} md={2}>
                       <TextField
                             disabled
                             variant="outlined"
@@ -150,7 +150,7 @@ export default class  Play extends Component {
                                        }}
                       />
                     </Grid>
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={12} md={4}>
                       <TextField
                           disabled
                           variant="outlined"
@@ -165,7 +165,7 @@ export default class  Play extends Component {
                                      }}
                       />
                     </Grid>
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={12} md={4}>
                       <TextField
                           disabled
                           variant="outlined"
@@ -180,7 +180,7 @@ export default class  Play extends Component {
                                      }}
                       />
                     </Grid>
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={12} md={4}>
                       <TextField
                           disabled
                           variant="outlined"
@@ -194,7 +194,7 @@ export default class  Play extends Component {
                                      }}
                       />
                     </Grid>
-                    <Grid item xs={6} md={12}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         variant="outlined"
                         required
@@ -209,7 +209,8 @@ export default class  Play extends Component {
                                    }}
                       />
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
+                      <br/>
                       <button className="btn-primary btn-block" onClick={this.jouerLotery}>JOUER</button>
                     </Grid>
                   </Grid>

@@ -21,12 +21,38 @@ export default class  GetInfoDemand extends Component {
       nomGroupe: '',
       getAddresse: ''
 		};
-
+this.choixGroupe = this.choixGroupe.bind(this)
+this.choixMembre = this.choixMembre.bind(this)
   }
 
   handleChange = name => event => {
    this.setState({ [name]: event.target.value });
  };
+
+ async choixGroupe() {
+   let copy2 = []
+   let list2 = await contractInstance.getMembres(this.state.nomGroupe)
+   for (let j=0; j<list2.length; j++){
+     copy2.push(await contractInstance.getNomMembre(list2[j]))
+   }
+
+   this.setState({
+                   getMembres : copy2,
+                 getMonPseudo : await contractInstance.getPseudoInGroup(this.state.nomGroupe)})
+
+   }
+
+ async choixMembre() {
+
+   this.setState({
+                   getReceptions : parseInt(await contractInstance.getReceptions(this.state.pseudo),10),
+                   getDonnations : parseInt(await contractInstance.getDonnations(this.state.pseudo),10),
+                   getMontant : parseInt(await contractInstance.getMontant(this.state.pseudo),10),
+                   getEncours : parseInt(await contractInstance.getEncours(this.state.pseudo),10),
+                   getAddresse : await contractInstance.getAddresse(this.state.pseudo),
+                   getDescription : await contractInstance.getDescription(this.state.pseudo)
+                  })
+ }
 
  async componentDidMount() {
 
@@ -36,22 +62,8 @@ export default class  GetInfoDemand extends Component {
      copy.push(await contractInstance.getNomGroupe(list[i]))
    }
 
-   let copy2 = []
-   let list2 = await contractInstance.getMembres(this.state.nomGroupe)
-   for (let j=0; j<list2.length; j++){
-     copy2.push(await contractInstance.getNomMembre(list2[j]))
-   }
-
    this.setState({
-                   payable: parseInt(await contractInstance.getPriceMember(),10),
-                   getMembres : copy,
-                   getReceptions : parseInt(await contractInstance.getReceptions(this.state.pseudo),10),
-                   getDonnations : parseInt(await contractInstance.getDonnations(this.state.pseudo),10),
-                   getMontant : parseInt(await contractInstance.getMontant(this.state.pseudo),10),
-                   getEncours : parseInt(await contractInstance.getEncours(this.state.pseudo),10),
-                   getAddresse : await contractInstance.getAddresse(this.state.pseudo),
-                   getDescription : await contractInstance.getDescription(this.state.pseudo),
-                   getMonPseudo : await contractInstance.getPseudoInGroup(this.state.nomGroupe),
+
                    getGroupesPerAddress : copy})
 
  }
@@ -72,7 +84,7 @@ export default class  GetInfoDemand extends Component {
             <tr>
               <td>
                 <Grid container spacing={24}>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={3}>
                     <TextField
                       select
                       label="1 - CHOISIR UN GROUPE"
@@ -88,21 +100,12 @@ export default class  GetInfoDemand extends Component {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item xs={12} md={8}>
-                  <TextField
-                    disabled
-                    variant="outlined"
-                    label="VOTRE PSEUDONYME DANS CE GROUPE"
-                    value={this.state.getMonPseudo}
-                    fullWidth
-                    helperText="Votre identification dans ce groupe"
-                    InputProps={{
-                              readOnly: true,
-                              style: { color: 'blue'}
-                 }}
-                 />
-                 </Grid>
-                 <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={3}>
+                  <br/>
+                  <button className="btn-primary btn-block" onClick={this.choixGroupe}>CHOISIR</button>
+                </Grid>
+
+                 <Grid item xs={12} md={3}>
                   <TextField
                     select
                     label="2 - CHOISIR UN MEMBRE"
@@ -118,34 +121,25 @@ export default class  GetInfoDemand extends Component {
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={12} md={8}>
-                <TextField
-                    disabled
-                    variant="outlined"
-                    label="DESCRIPTION"
-                    value={this.state.getDescription}
-                    fullWidth
-                    helperText="Expliquation de sa demande de fonds si il y a"
-                    InputProps={{
-                              readOnly: true,
-                              style: { color: 'blue'}
-                              }}
-                />
+              <Grid item xs={12} md={3}>
+                <br/>
+                <button className="btn-primary btn-block" onClick={this.choixMembre}>CHOISIR</button>
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField
-                    disabled
-                    variant="outlined"
-                    label="SON ADRESSE ETHEREUM"
-                    value={this.state.getAddresse}
-                    fullWidth
-                    helperText="clé publique"
-                    InputProps={{
-                                readOnly: true,
-                                style: { color: 'blue'}
-                                }}
-                  />
-             </Grid>
+                  disabled
+                  label="VOTRE PSEUDONYME DANS CE GROUPE"
+                  value={this.state.getMonPseudo}
+                  fullWidth
+                  helperText="Votre identification dans ce groupe"
+                  InputProps={{
+                            readOnly: true,
+                            style: { color: 'blue'}
+               }}
+               />
+               </Grid>
+
+
              <Grid item xs={12} md={4}>
                <TextField
                     disabled
@@ -177,7 +171,7 @@ export default class  GetInfoDemand extends Component {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                   disabled
                   variant="outlined"
@@ -192,7 +186,7 @@ export default class  GetInfoDemand extends Component {
                              }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                   disabled
                   variant="outlined"
@@ -202,6 +196,34 @@ export default class  GetInfoDemand extends Component {
                   helperText="Montant actuels des fonds versés par le groupe"
                   InputProps={{
                             endAdornment: <InputAdornment position="end">Wei</InputAdornment>,
+                            readOnly: true,
+                            style: { color: 'blue'}
+                            }}
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField
+                  disabled
+                  variant="outlined"
+                  label="SON ADRESSE ETHEREUM"
+                  value={this.state.getAddresse}
+                  fullWidth
+                  helperText="clé publique"
+                  InputProps={{
+                              readOnly: true,
+                              style: { color: 'blue'}
+                              }}
+                />
+           </Grid>
+            <Grid item xs={12} md={12}>
+              <TextField
+                  disabled
+                  variant="outlined"
+                  label="DESCRIPTION"
+                  value={this.state.getDescription}
+                  fullWidth
+                  helperText="Expliquation de sa demande de fonds si il y a"
+                  InputProps={{
                             readOnly: true,
                             style: { color: 'blue'}
                             }}

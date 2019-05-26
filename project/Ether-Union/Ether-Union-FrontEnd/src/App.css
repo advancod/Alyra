@@ -2,6 +2,7 @@
   background-image: url("./index.jpg");
   background-size: 100% 100%;
   display: flex;
+  object-fit: cover;
 }
 
 .noteuse_wrapper{
