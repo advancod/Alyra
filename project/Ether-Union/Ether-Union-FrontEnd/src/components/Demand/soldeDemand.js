@@ -8,7 +8,7 @@ export default class  SoldeDemand extends Component {
   constructor() {
     super();
     this.state = {
-      getMembres : [],
+      getPseudos : [],
       pseudo : ''
 		};
 
@@ -30,7 +30,7 @@ export default class  SoldeDemand extends Component {
      }
 
      this.setState({
-                     getMembres : copy })
+                     getPseudos : copy })
    }
 
   async _solderCanal() {
@@ -62,7 +62,7 @@ export default class  SoldeDemand extends Component {
                     onChange={this.handleChange('pseudo')}
                     helperText="Selectionner un de vos identifiants"
                   >
-                  {this.state.getMembres.map(option => (
+                  {this.state.getPseudos.map(option => (
                     <MenuItem value={option} key={option}>
                       {option}
                     </MenuItem>

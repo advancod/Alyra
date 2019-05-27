@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
 import { TextField, Grid } from "@material-ui/core"
+import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 export default class CreateDemand extends Component {
@@ -9,6 +10,7 @@ export default class CreateDemand extends Component {
     super();
     this.state = {
       pseudo2: '',
+      getPseudos : [],
       montant: '',
       description: ''
 		};
@@ -23,6 +25,18 @@ export default class CreateDemand extends Component {
       await window.ethereum.enable()
     	await contractInstance.demander(this.state.montant,this.state.pseudo2,this.state.description)
   }
+
+  async componentDidMount() {
+
+     let copy = []
+     let list = await contractInstance.getAllPseudos()
+     for (let j=0; j<list.length; j++){
+       copy.push(await contractInstance.getNomMembre(list[j]))
+     }
+
+     this.setState({
+                     getPseudos : copy })
+   }
 
   render() {
 
@@ -41,16 +55,22 @@ export default class CreateDemand extends Component {
               <td>
               <Grid container spacing={24}>
                 <Grid item xs={12} md={4}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      label="PSEUDONYME"
-                      fullWidth
-                      value={this.state.pseudo2}
-                      onChange={this.handleChange('pseudo2')}
-                      helperText="Entrez votre canal de demande à ouvrir"
-                    />
-                </Grid>
+                  <TextField
+                    select
+                    label="CHOISIR UN PSEUDONYME"
+                    fullWidth
+                    value={this.state.pseudo}
+                    onChange={this.handleChange('pseudo')}
+                    helperText="Selectionner un de vos identifiants"
+                  >
+                  {this.state.getPseudos.map(option => (
+                    <MenuItem value={option} key={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+
                   <Grid item xs={12} md={4}>
                       <TextField
                         variant="outlined"
