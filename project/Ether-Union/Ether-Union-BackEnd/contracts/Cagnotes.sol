@@ -118,7 +118,8 @@ function demander(uint _montant, string memory _pseudo, string memory _descripti
 function payerCanal(string memory _pseudo) public payable
 {
   uint _channelID = uint(keccak256(bytes(_pseudo)));
-  require(mappChannel[_channelID].montant.sub(mappChannel[_channelID].enCours) >= msg.value);
+  require(mappChannel[_channelID].montant != 0);
+  require(mappChannel[_channelID].montant - mappChannel[_channelID].enCours >= msg.value);
   uint fees = msg.value.div(PRICE_RATIO);
   uint addValue;
   addValue = msg.value;
