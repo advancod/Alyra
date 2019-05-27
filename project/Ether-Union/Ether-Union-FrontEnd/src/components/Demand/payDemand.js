@@ -43,7 +43,7 @@ export default class  payDemand extends Component {
               <TextField
                 variant="outlined"
                 required
-                label="DONNEZ ET GAGNEZ DES ETHERS"
+                label="DONNEZ ET GAGNEZ DES COINUNIONS"
                 fullWidth
                 type="number"
                 value={this.state.proposition}
@@ -54,7 +54,7 @@ export default class  payDemand extends Component {
                 }}
               />
               </Grid>
-          <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                   <TextField
                     variant="outlined"
                     required
@@ -64,8 +64,8 @@ export default class  payDemand extends Component {
                     onChange={this.handleChange('pseudo3')}
                     helperText="Demandeur a qui vous voulez donner"
                   />
-</Grid>
-</Grid>
+                  </Grid>
+                </Grid>
               </td>
           </tr>
           <tr>

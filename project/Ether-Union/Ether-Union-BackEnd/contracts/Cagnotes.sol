@@ -5,7 +5,7 @@ import "./Ownable.sol";
 
 contract Cagnotes is Coinunion, Ownable{
 
-event nouvelleDemamnde(string groupe, string pseudo);
+event nouvelleDemande(string groupe, string pseudo);
 
 // 1 chaque compte est représenté par un canal, ici on mapp
 // chaque ID cannal sur ces informations structurelles
@@ -26,6 +26,8 @@ mapping (string => uint) private mappPseudoToID;
 mapping (uint => mapping (address => uint)) private mappChannelInGroup;
 // 9 Ici on mappe les statististiques 2 a 2
 mapping (address => mapping (address => uint)) private mappStats;
+// 10 Tous les pseudos d'une addresse
+mapping (address => uint[]) private mappPseudosForAddress;
 
 // charges recoltes par le contrat a chaque paiement (montant/PRICE_RATIO)
 uint private PRICE_RATIO;
@@ -42,11 +44,11 @@ struct channel
   uint montant;
   uint enCours;
   string description;
-  uint prediction;
 }
 
 constructor() public
 {
+  //charges
   PRICE_RATIO = 200;
 }
 
@@ -69,7 +71,7 @@ function creerGroupe(string memory _nom, string memory _pseudo) public
   mappOwnedGroup[msg.sender].push(IDGroupe);
   mappGroupesForAddress[msg.sender].push(IDGroupe);
   // On instancie le canal de demande du createur dans le groupe
-  creerCanal(_pseudo, _nom, IDGroupe, channelID);
+  creerCanal(_pseudo, _nom, IDGroupe, channelID, msg.sender);
 }
 
 function ajouterMembre(address _membre, string memory _groupe, string memory _pseudo) public
@@ -85,18 +87,19 @@ function ajouterMembre(address _membre, string memory _groupe, string memory _ps
   // On ajoute le groupe a la liste des groupes auxquel le membre est membre
   mappGroupesForAddress[_membre].push(IDGroupe);
   // On prepare l'instanciation du canal de demande
-  mappChannel[channelID].demandeur = msg.sender;
-  creerCanal(_pseudo, _groupe, IDGroupe, channelID);
+  mappChannel[channelID].demandeur = _membre;
+  creerCanal(_pseudo, _groupe, IDGroupe, channelID, _membre);
 }
 
-function creerCanal(string memory _pseudo, string memory _groupe, uint groupeID, uint channelID) private
+function creerCanal(string memory _pseudo, string memory _groupe, uint groupeID, uint channelID, address _addresse) private
 {
   // on saisi les constantes du canal de demande propre au nouveau membre
   mappChannel[channelID].pseudo = _pseudo;
   mappChannel[channelID].groupe = _groupe;
   mappGroupeAndChannels[_groupe].push(channelID);
   mappPseudoToID[_pseudo] = channelID;
-  mappChannelInGroup[groupeID][msg.sender] = channelID;
+  mappPseudosForAddress[_addresse].push(channelID);
+  mappChannelInGroup[groupeID][_addresse] = channelID;
 }
 
 function demander(uint _montant, string memory _pseudo, string memory _description) public
@@ -109,7 +112,7 @@ function demander(uint _montant, string memory _pseudo, string memory _descripti
   // On saisi les infos de la demande
   mappChannel[channelID].montant = _montant;
   mappChannel[channelID].description = _description;
-  emit nouvelleDemamnde(mappChannel[channelID].groupe, _pseudo);
+  emit nouvelleDemande(mappChannel[channelID].groupe, _pseudo);
 }
 
 function payerCanal(string memory _pseudo) public payable
@@ -128,10 +131,9 @@ function payerCanal(string memory _pseudo) public payable
   _mint(msg.sender,fees);
 }
 
-function fermetureCanal(string memory _pseudo) public
+function solderCanal(string memory _pseudo) public
 {
   uint _channelID = uint(keccak256(bytes(_pseudo)));
-  require(mappChannel[_channelID].montant != 0);
   require(mappChannel[_channelID].demandeur == msg.sender);
   msg.sender.transfer(mappChannel[_channelID].enCours);
   mappChannel[_channelID].enCours = 0;
@@ -209,6 +211,11 @@ function getNomGroupe(uint _ID) public view returns (string memory)
 function getOwnedGroupe() public view returns (uint[] memory)
 {
   return mappOwnedGroup[msg.sender];
+}
+
+function getAllPseudos() public view returns (uint[] memory)
+{
+  return mappPseudosForAddress[msg.sender];
 }
 
 function getPseudoInGroup(string memory _groupe) public view returns (string memory)

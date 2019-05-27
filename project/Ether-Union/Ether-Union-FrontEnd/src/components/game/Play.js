@@ -84,7 +84,7 @@ export default class  Play extends Component {
                        <TextField
                             disabled
                             variant="outlined"
-                            label="NUMERO DU BLOC ACTUEL"
+                            label="BLOC ACTUEL"
                             value={this.state.getBlock}
                             fullWidth
                             helperText="Dernier bloc validé sur la blockchain ethereum"
@@ -98,7 +98,7 @@ export default class  Play extends Component {
                       <TextField
                            disabled
                            variant="outlined"
-                           label="NUMERO DU BLOC DE FIN DU JEUX"
+                           label="BLOC DE FIN DU JEUX"
                            value={this.state.getBlockStop}
                            fullWidth
                            helperText="Arrêt de vente de tickets"
@@ -126,7 +126,7 @@ export default class  Play extends Component {
                       <TextField
                             disabled
                             variant="outlined"
-                            label="DERNIER BLOC POUR DECLARATION DE VICTOIRE"
+                            label="BLOC POUR DECLARATION"
                             value={this.state.getSaveBlock}
                             fullWidth
                             helperText="Vérifiez si vote prédiction était la bonne"
@@ -140,7 +140,7 @@ export default class  Play extends Component {
                       <TextField
                             disabled
                             variant="outlined"
-                            label="DERNIER BLOC POUR RECUPERATION DE GAINS"
+                            label="BLOC DE RECUPERATION"
                             value={this.state.getWithdrawBlock}
                             fullWidth
                             helperText="Et gagnez vos ethers"
@@ -154,7 +154,7 @@ export default class  Play extends Component {
                       <TextField
                           disabled
                           variant="outlined"
-                          label="SUPERCAGNOTE"
+                          label="SUPERCAGNOTTE"
                           value={this.state.getSuperCagnote}
                           fullWidth
                           helperText="Montant total actuel de la cagnote"

@@ -1,39 +1,41 @@
 import React, { Component } from 'react'
 import contractInstance from '../../options'
-import { TextField } from "@material-ui/core"
+import { TextField, Grid } from "@material-ui/core"
+import MenuItem from '@material-ui/core/MenuItem';
 
 export default class  SoldeDemand extends Component {
 
   constructor() {
     super();
     this.state = {
-			getPrixLottery: 0,
-      getSuperCagnotte: 0,
-      getTicketsLeft: 0,
-      getEndGame: 0,
-      getBlockStop: 0,
-      getNumCagnotte: 0,
-      getCagnotte: 0,
-      getNbGagnants: 0,
-      balanceOf: 0,
-      getWithdrawBlock: 0,
-      getSaveBlock: 0,
-      getStateGame : '',
-      prediction: 0,
-      getBlock: 0,
-      pseudo4: ''
+      getMembres : [],
+      pseudo : ''
 		};
 
-    this._fermetureCanal = this._fermetureCanal.bind(this)
+    this._solderCanal = this._solderCanal.bind(this)
   }
+
 
   handleChange = name => event => {
    this.setState({ [name]: event.target.value });
  };
 
-  async _fermetureCanal() {
+
+  async componentDidMount() {
+
+     let copy = []
+     let list = await contractInstance.getAllPseudos()
+     for (let j=0; j<list.length; j++){
+       copy.push(await contractInstance.getNomMembre(list[j]))
+     }
+
+     this.setState({
+                     getMembres : copy })
+   }
+
+  async _solderCanal() {
       await window.ethereum.enable()
-    	await contractInstance.fermetureCanal(this.state.pseudo4)
+    	await contractInstance.solderCanal(this.state.pseudo)
   }
 
   render() {
@@ -50,21 +52,30 @@ export default class  SoldeDemand extends Component {
             <tbody>
             <tr>
               <td>
-                    <TextField
-                      variant="outlined"
-                      required
-                      label="ENTREZ UN PSEUDONYME"
-                      fullWidth
-                      value={this.state.pseudo4}
-                      onChange={this.handleChange('pseudo4')}
-                      helperText="De votre demande que vous soulez solder dans un groupe"
-                    />
+              <Grid container spacing={24}>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    select
+                    label="CHOISIR UN PSEUDONYME"
+                    fullWidth
+                    value={this.state.pseudo}
+                    onChange={this.handleChange('pseudo')}
+                    helperText="Selectionner un de vos identifiants"
+                  >
+                  {this.state.getMembres.map(option => (
+                    <MenuItem value={option} key={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <br/>
+                <button className="btn-primary btn-block" onClick={this._solderCanal}>SOLDER</button>
+              </Grid>
+                </Grid>
 
-                </td>
-            </tr>
-            <tr>
-              <td>
-              <button className="btn-primary btn-block" onClick={this._fermetureCanal}>SOLDER</button>
+
               </td>
               </tr>
 

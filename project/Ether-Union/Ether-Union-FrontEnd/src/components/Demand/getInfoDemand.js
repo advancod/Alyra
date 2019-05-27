@@ -30,14 +30,14 @@ this.choixMembre = this.choixMembre.bind(this)
  };
 
  async choixGroupe() {
-   let copy2 = []
-   let list2 = await contractInstance.getMembres(this.state.nomGroupe)
-   for (let j=0; j<list2.length; j++){
-     copy2.push(await contractInstance.getNomMembre(list2[j]))
+   let copy = []
+   let list = await contractInstance.getMembres(this.state.nomGroupe)
+   for (let j=0; j<list.length; j++){
+     copy.push(await contractInstance.getNomMembre(list[j]))
    }
 
    this.setState({
-                   getMembres : copy2,
+                   getMembres : copy,
                  getMonPseudo : await contractInstance.getPseudoInGroup(this.state.nomGroupe)})
 
    }
@@ -102,7 +102,7 @@ this.choixMembre = this.choixMembre.bind(this)
                 </Grid>
                 <Grid item xs={12} md={3}>
                   <br/>
-                  <button className="btn-primary btn-block" onClick={this.choixGroupe}>CHOISIR</button>
+                  <button className="btn-primary btn-block" onClick={this.choixGroupe}>SELECTIONNER</button>
                 </Grid>
 
                  <Grid item xs={12} md={3}>
@@ -123,7 +123,7 @@ this.choixMembre = this.choixMembre.bind(this)
               </Grid>
               <Grid item xs={12} md={3}>
                 <br/>
-                <button className="btn-primary btn-block" onClick={this.choixMembre}>CHOISIR</button>
+                <button className="btn-primary btn-block" onClick={this.choixMembre}>SELECTIONNER</button>
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField
@@ -175,7 +175,7 @@ this.choixMembre = this.choixMembre.bind(this)
               <TextField
                   disabled
                   variant="outlined"
-                  label="MONTANT DE LA CAGNOTE DEMANDE"
+                  label="MONTANT DE LA CAGNOTTE DEMANDEE"
                   value={this.state.getMontant}
                   fullWidth
                   helperText="Montant de la demande"

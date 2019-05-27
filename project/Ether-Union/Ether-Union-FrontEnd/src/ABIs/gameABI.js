@@ -56,20 +56,6 @@ const Lotery = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_priceGroup",
-        "type": "uint256"
-      }
-    ],
-    "name": "modifierPriceGroup",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [],
     "name": "totalSupply",
@@ -208,20 +194,6 @@ const Lotery = [
     "constant": false,
     "inputs": [
       {
-        "name": "_priceChannel",
-        "type": "uint256"
-      }
-    ],
-    "name": "modifierPriceChannel",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "spender",
         "type": "address"
       },
@@ -299,34 +271,6 @@ const Lotery = [
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "getPriceChannel",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_pseudo",
-        "type": "string"
-      }
-    ],
-    "name": "fermetureCanal",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": false,
     "inputs": [
       {
@@ -363,20 +307,6 @@ const Lotery = [
     "constant": false,
     "inputs": [
       {
-        "name": "_priceMember",
-        "type": "uint256"
-      }
-    ],
-    "name": "modifierPriceMember",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "_pseudo",
         "type": "string"
       }
@@ -385,20 +315,6 @@ const Lotery = [
     "outputs": [],
     "payable": true,
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getPriceMember",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -418,6 +334,20 @@ const Lotery = [
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_pseudo",
+        "type": "string"
+      }
+    ],
+    "name": "solderCanal",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -471,8 +401,8 @@ const Lotery = [
     ],
     "name": "ajouterMembre",
     "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -555,27 +485,13 @@ const Lotery = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_maxAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "modifierMaxAmount",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [],
-    "name": "MAX_AMOUNT",
+    "name": "getAllPseudos",
     "outputs": [
       {
         "name": "",
-        "type": "uint256"
+        "type": "uint256[]"
       }
     ],
     "payable": false,
@@ -619,8 +535,8 @@ const Lotery = [
     ],
     "name": "demander",
     "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -649,39 +565,11 @@ const Lotery = [
   {
     "constant": true,
     "inputs": [],
-    "name": "MIN_AMOUNT",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
     "name": "getOwnedGroupe",
     "outputs": [
       {
         "name": "",
         "type": "uint256[]"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getPriceGroup",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
       }
     ],
     "payable": false,
@@ -716,20 +604,6 @@ const Lotery = [
     ],
     "name": "creerGroupe",
     "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_minAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "modifierMinAmount",
-    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -754,7 +628,7 @@ const Lotery = [
         "type": "string"
       }
     ],
-    "name": "nouvelleDemamnde",
+    "name": "nouvelleDemande",
     "type": "event"
   },
   {
