@@ -9,7 +9,7 @@ export default class CreateDemand extends Component {
   constructor() {
     super();
     this.state = {
-      pseudo2: '',
+      pseudo: '',
       getPseudos : [],
       montant: '',
       description: ''
@@ -23,7 +23,7 @@ export default class CreateDemand extends Component {
 
   async _demander() {
       await window.ethereum.enable()
-    	await contractInstance.demander(this.state.montant,this.state.pseudo2,this.state.description)
+    	await contractInstance.demander(this.state.montant,this.state.pseudo,this.state.description)
   }
 
   async componentDidMount() {
