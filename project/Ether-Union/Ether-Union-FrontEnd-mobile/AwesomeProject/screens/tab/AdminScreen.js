@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import AdminComponent from '../../components/tab/AdminComponent';
 
-class DummyScreen extends React.Component {
+class AdminScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -12,8 +12,8 @@ class DummyScreen extends React.Component {
   }
 }
 
-DummyScreen.navigationOptions = {
-  tabBarLabel: 'Tab2',
+AdminScreen.navigationOptions = {
+  tabBarLabel: 'admin',
   tabBarIcon: () => (
     <Image source={require('../../assets/images/icon.png')} />
   ),
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DummyScreen;
+export default AdminScreen;

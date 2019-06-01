@@ -5,18 +5,18 @@ import GameScreen from '../screens/tab/GameScreen';
 
 const Tab = createBottomTabNavigator(
   {
-    Tab1: {
+    demand: {
       screen: DemandScreen,
     },
-    Tab2: {
+    admin: {
       screen: AdminScreen,
     },
-    Tab3: {
+    game: {
       screen: GameScreen,
     },
   },
   {
-    initialRouteName: 'Tab1',
+    initialRouteName: 'demand',
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {

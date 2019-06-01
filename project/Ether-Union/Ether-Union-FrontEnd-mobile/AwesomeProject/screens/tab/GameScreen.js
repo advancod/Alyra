@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import GameComponent from '../../components/tab/GameComponent';
 
-class DummyScreen extends React.Component {
+class GameScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -12,8 +12,8 @@ class DummyScreen extends React.Component {
   }
 }
 
-DummyScreen.navigationOptions = {
-  tabBarLabel: 'Tab2',
+GameScreen.navigationOptions = {
+  tabBarLabel: 'game',
   tabBarIcon: () => (
     <Image source={require('../../assets/images/icon.png')} />
   ),
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DummyScreen;
+export default GameScreen;

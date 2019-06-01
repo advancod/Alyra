@@ -69,7 +69,7 @@ function play(uint _prediction) public
 function endGame() public onlyOwner
 {
   require(state == LoteryState.Started);
-  require(block.number >= blockEnd);
+  require(block.number > blockEnd);
   lastResult.cagnote = LOTERY_CAGNOTE;
   state = LoteryState.Finished;
   LOTERY_CAGNOTE = 0;
@@ -86,19 +86,19 @@ function closeGame() public onlyOwner
 
 function saveWin() public
 {
+  require(win[lastResult.numCagnote][msg.sender] == false);
   require(state == LoteryState.Finished);
   require(prediction[msg.sender] == lastResult.cagnote);
   win[lastResult.numCagnote][msg.sender] = true;
   lastResult.nbGagnants += 1;
-  prediction[msg.sender] = 0;
 }
 
 function withdrawGains() public
 {
   require(win[lastResult.numCagnote][msg.sender] == true);
   require(state == LoteryState.Pending);
-  require(prediction[msg.sender] == lastResult.cagnote);
-  win[lastResult.numCagnote][msg.sender] == false;
+  prediction[msg.sender] = 0;
+  win[lastResult.numCagnote][msg.sender] = false;
   msg.sender.transfer(lastResult.cagnote.div(lastResult.nbGagnants));
 }
 
@@ -212,6 +212,5 @@ function modifierPriceTicket(uint _price) public onlyOwner
 {
   PRICE_LOTERY_TOKEN = _price;
 }
-
 
 }

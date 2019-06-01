@@ -28,6 +28,10 @@ mapping (uint => mapping (address => uint)) private mappChannelInGroup;
 mapping (address => mapping (address => uint)) private mappStats;
 // 10 Tous les pseudos d'une addresse
 mapping (address => uint[]) private mappPseudosForAddress;
+// 11 nombre de groupes par addresse
+mapping (address => uint) private mappNbGroupe;
+// 12 nombre de membres par groupe
+mapping (uint => uint) private mappNbMembre;
 
 // charges recoltes par le contrat a chaque paiement (montant/PRICE_RATIO)
 uint private PRICE_RATIO;
@@ -50,6 +54,8 @@ constructor() public
 {
   //charges
   PRICE_RATIO = 200;
+  MAX_GROUP = 1000;
+  MAX_MEMBRE = 1000;
 }
 
 function creerGroupe(string memory _nom, string memory _pseudo) public
@@ -58,6 +64,7 @@ function creerGroupe(string memory _nom, string memory _pseudo) public
   uint IDGroupe = uint(keccak256(bytes(_nom)));
   // Que le nom du groupe n'existe pas deja
   require(mappGroupeOwner[_nom] == address(0));
+  require(mappNbGroupe[msg.sender] <= MAX_GROUP);
   // On cree un identifiant de l'utilisateur
   uint channelID = uint(keccak256(bytes(_pseudo)));
   // On verifi que l'utilisateur n'existe pas deja
@@ -70,6 +77,7 @@ function creerGroupe(string memory _nom, string memory _pseudo) public
   // On ajoute le groupe a la liste des de groupe crees par le createur (administrateur)
   mappOwnedGroup[msg.sender].push(IDGroupe);
   mappGroupesForAddress[msg.sender].push(IDGroupe);
+  mappNbGroupe[msg.sender] += 1;
   // On instancie le canal de demande du createur dans le groupe
   creerCanal(_pseudo, _nom, IDGroupe, channelID, msg.sender);
 }
@@ -84,10 +92,12 @@ function ajouterMembre(address _membre, string memory _groupe, string memory _ps
   require(mappGroupeOwner[_groupe] == msg.sender);
   // On regarde lidentifiant du groupe par rapport a son nom
   uint IDGroupe = uint(keccak256(bytes(_groupe)));
+  require(mappNbMembre[IDGroupe] <= MAX_MEMBRE);
   // On ajoute le groupe a la liste des groupes auxquel le membre est membre
   mappGroupesForAddress[_membre].push(IDGroupe);
   // On prepare l'instanciation du canal de demande
   mappChannel[channelID].demandeur = _membre;
+  mappNbMembre[IDGroupe] += 1;
   creerCanal(_pseudo, _groupe, IDGroupe, channelID, _membre);
 }
 
@@ -119,11 +129,11 @@ function payerCanal(string memory _pseudo) public payable
 {
   uint _channelID = uint(keccak256(bytes(_pseudo)));
   require(mappChannel[_channelID].montant != 0);
-  require(mappChannel[_channelID].montant - mappChannel[_channelID].enCours >= msg.value);
+  require(mappChannel[_channelID].montant.sub(mappChannel[_channelID].enCours) >= msg.value);
   uint fees = msg.value.div(PRICE_RATIO);
   uint addValue;
   addValue = msg.value;
-  addValue -= fees;
+  addValue.sub(fees);
   mappChannel[_channelID].enCours += addValue;
   mappStats[msg.sender][mappChannel[_channelID].demandeur] += addValue;
   LOTERY_CAGNOTE += fees.div(2);
@@ -150,6 +160,16 @@ function payOwner() public onlyOwner
 function modifierCharges(uint _priceRatio) public onlyOwner
 {
   PRICE_RATIO = _priceRatio;
+}
+
+function modifierMaxGroupe(uint _max) public onlyOwner
+{
+  MAX_GROUP = _max;
+}
+
+function modifierMaxMembres(uint _max) public onlyOwner
+{
+  MAX_MEMBRE = _max;
 }
 
 

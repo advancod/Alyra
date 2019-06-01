@@ -1,45 +1,33 @@
 import React from 'react';
-import { View, Text, Button, Image, StyleSheet } from 'react-native';
-import { withNavigation } from 'react-navigation';
-
+import { ScrollView } from 'react-native';
 import GetInfoDemand from '../Demand/getInfoDemand';
 import PayDemand from '../Demand/payDemand';
 import SoldeDemand from '../Demand/soldeDemand';
+import { withNavigation } from 'react-navigation';
 
-class DummyComponent extends React.Component {
+class DemandComponent extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-      <GetInfoDemand/>
-      <PayDemand/>
-      <SoldeDemand/>
-      </View>
+      <ScrollView>
+      <GetInfoDemand  text1={'RECHERCHER UNE DEMANDE'}
+                      text2={'1 - CHOISIR UN GROUPE'}
+                      text3={'2 - CHOISIR UN MEMBRE'}
+                      text4={'VOTRE PSEUDONYME DANS CE GROUPE'}
+                      text5={'RECEPTIONS'}
+                      text6={'DONNATIONS'}
+                      text7={'MONTANT DE LA CAGNOTTE DEMANDEE'}
+                      text8={'ETAT DE LA CAGNOTE'}
+                      text9={'SON ADRESSE ETHEREUM'}
+                      text10={'DESCRIPTION'} />
+      <PayDemand      text1={'PAYER UNE DEMANDE - Gagnez des tokens'}
+                      text2={'DONNEZ ET GAGNEZ DES COINUNIONS'}
+                      text3={'ENTREZ UN PSEUDONYME'} />
+      <SoldeDemand    text1={'SOLDER UNE DEMANDE'}
+                      text2={'CHOISIR UN PSEUDONYME'}  />
+      </ScrollView>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  image: {
-    width: 80,
-    height: 80,
-  },
-
-  text: {
-    color: '#242134',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-
-  buttonContainer: {
-    padding: 15,
-  },
-});
-
-export default withNavigation(DummyComponent);
+export default withNavigation(DemandComponent);
