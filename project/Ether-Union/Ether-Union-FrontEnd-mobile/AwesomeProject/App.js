@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Tab from './navigators/Tab';
 
-import Navigation from './navigation/navigation';
-
-type Props = {};
-export default class App extends Component<Props> {
-	render() {
-		return <Navigation />;
-	}
+class App extends React.Component {
+  render() {
+    return (
+      <Tab/>
+    );
+  }
 }
+
+export default App;
